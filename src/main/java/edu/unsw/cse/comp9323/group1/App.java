@@ -1,0 +1,13 @@
+package edu.unsw.cse.comp9323.group1;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+        System.out.println( "Hello World!" );
+    }
+}
