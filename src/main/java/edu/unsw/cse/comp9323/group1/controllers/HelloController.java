@@ -18,7 +18,15 @@ public class HelloController implements Controller {
         
         String now = (new Date()).toString();
         logger.info("Returning hello view with " + now);
+<<<<<<< HEAD
         //I am sadasdsad
+=======
+<<<<<<< HEAD
+        //I am Joe Farid
+=======
+        //I am Farid
+>>>>>>> 51ed3d4dfae92a18a6adee48d52bf041a43225c4
+>>>>>>> ea183333eeb60c5864c89a5a0ca74aafcb7b8e22
         return new ModelAndView("hello", "now", now);
     } 
 }
