@@ -18,7 +18,7 @@ public class HelloController implements Controller {
         
         String now = (new Date()).toString();
         logger.info("Returning hello view with " + now);
-        //I am
+        //I am Joe Farid
         return new ModelAndView("hello", "now", now);
     } 
 }
