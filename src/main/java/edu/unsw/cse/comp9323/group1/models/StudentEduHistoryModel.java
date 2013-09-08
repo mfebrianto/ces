@@ -17,12 +17,41 @@ public class StudentEduHistoryModel {
 	private String type;
 	private String year;
 	
-	
-	
+	public String getDegree() {
+		return degree;
+	}
+	public void setDegree(String degree) {
+		this.degree = degree;
+	}
 
-	public void test(){
-		
-		
+	public String getSchool() {
+		return school;
+	}
+
+	public void setSchool(String school) {
+		this.school = school;
+	}
+
+	public List<StudentConcentrationModel> getLstConcentration() {
+		return lstConcentration;
+	}
+	public void setLstConcentration(List<StudentConcentrationModel> lstConcentration) {
+		this.lstConcentration = lstConcentration;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
 	}
 
 }
