@@ -22,6 +22,7 @@ import com.restfb.types.User.Education;
 import edu.unsw.cse.comp9323.group1.models.StudentConcentrationModel;
 import edu.unsw.cse.comp9323.group1.models.StudentEduHistoryModel;
 import edu.unsw.cse.comp9323.group1.models.StudentModel;
+import edu.unsw.cse.comp9323.group1.models.fqlUser;
 
 @Controller
 @RequestMapping("/FBLogin")
@@ -36,14 +37,19 @@ public class FBLoginController {
 		FacebookClient facebookClient = new DefaultFacebookClient(accesstoken);
 		
 		User user = facebookClient.fetchObject("me", User.class);
-		//Connection<User> myFriends = facebookClient.fetchConnection("me/friends", User.class);
-		//String query = "SELECT * FROM user WHERE uid = "+user.getId();
 		
-		//user = facebookClient.executeFqlQuery(query, User.class);
-		//System.out.println(query);
-		//Page page = facebookClient.fetchObject("cocacola", Page.class);
-
-		System.out.println("User name: " + user.getName());
+		//Alternative by using Facebook Query Language (FQL)
+		
+		/*String query = "SELECT uid,username,first_name,middle_name,last_name,sex,interests FROM user WHERE uid = me()";
+		System.out.println(query);
+		List<fqlUser> users = facebookClient.executeFqlQuery(query, fqlUser.class);
+		fqlUser user = users.get(0);*/
+		
+		//Another alternative is using fetchConnection
+		/* Connection<Education> myEducations = facebookClient.fetchConnection("me?fields=education", Education.class); 
+		List<Education> lstEdux = myEducations.getData();*/
+		
+		System.out.println("User name: " + user.getFirstName());
 		model.addAttribute("Uname", user.getName());
 		
 		StudentModel student = new StudentModel();
@@ -57,12 +63,11 @@ public class FBLoginController {
 		student.setInterests(user.getInterestedIn());
 		
 		
-		List<Education> lstEdu = user.getEducation();//facebookClient.executeFqlQuery(query, FqlUser.class);
+		List<Education> lstEdu = user.getEducation();
 		
 		System.out.println("Number Of Education : " + lstEdu.get(0).getType());
 		
-		//Connection<Education> myEducations = facebookClient.fetchConnection("me?fields=education", Education.class); 
-		//List<Education> lstEdux = myEducations.getData();
+		
 		
 		List<StudentEduHistoryModel> lstStuHistory = new ArrayList<StudentEduHistoryModel>();
 		
@@ -99,18 +104,7 @@ public class FBLoginController {
  
 	}
 	
-	/*public class FqlUser {
-		  @Facebook
-		  String uid;
-		  
-		  @Facebook
-		  String name;
-
-		  @Override
-		  public String toString() {
-		    return String.format("%s (%s)", name, uid);
-		  }
-		}*/
-
+	
 }
+
 
