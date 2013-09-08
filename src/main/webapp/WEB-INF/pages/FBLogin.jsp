@@ -29,6 +29,7 @@
       // login status of the person. In this case, we're handling the situation where they 
       // have logged in to the app.
       testAPI();
+    	
     } else if (response.status === 'not_authorized') {
       // In this case, the person is logged into Facebook, but not into the app, so we call
       // FB.login() to prompt them to do so. 
@@ -37,14 +38,22 @@
       // (1) JavaScript created popup windows are blocked by most browsers unless they 
       // result from direct interaction from people using the app (such as a mouse click)
       // (2) it is a bad experience to be continually prompted to login upon page load.
-      FB.login();
+      FB.login(function(response) {
+   // handle the response
+ }, {scope: 'email,education,publish_actions'});
+      
+      //FB.login();
     } else {
       // In this case, the person is not logged into Facebook, so we call the login() 
       // function to prompt them to do so. Note that at this stage there is no indication
       // of whether they are logged into the app. If they aren't then they'll see the Login
       // dialog right after they log in to Facebook. 
       // The same caveats as above apply to the FB.login() call here.
-      FB.login();
+      // (2) it is a bad experience to be continually prompted to login upon page load.
+      FB.login(function(response) {
+   // handle the response
+ }, {scope: 'email,education,publish_actions'});	
+      //FB.login();
     }
   });
   };
@@ -62,11 +71,31 @@
   // This testAPI() function is only called in those cases. 
   function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
-    //window.location.href = "/ces-1.0-SNAPSHOT/welcome";
+    
     FB.api('/me', function(response) {
     	var elem = document.getElementById("userName");
     	elem.value = response.name;
+    	
       console.log('Good to see you, ' + response.name + '.');
+    });
+   	
+    FB.getLoginStatus(function(response) {
+    	if (response.status === 'connected') {
+    	    
+    	    var uid = response.authResponse.userID;
+    	    var accessToken = response.authResponse.accessToken;
+    	    console.log("Your Access Token : " + accessToken);
+    	    
+    	    window.location.href = accessToken;
+    	    
+    	  } else if (response.status === 'not_authorized') {
+    	    // the user is logged in to Facebook, 
+    	    // but has not authenticated your app
+    	    
+    	  } else {
+    	    // the user isn't logged in to Facebook.
+    	  }
+    
     });
   }
 </script>
@@ -78,7 +107,7 @@
   Learn more about options for the login button plugin:
   /docs/reference/plugins/login/ -->
 
-<fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
+<fb:login-button show-faces="true" width="200" max-rows="1" scope="email,user_education_history,publish_actions"></fb:login-button>
  <input type="text" name="userName" id="userName" readOnly=true>
 </body>
 </html>

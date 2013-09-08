@@ -30,12 +30,17 @@ public class FBLoginController {
 	@RequestMapping(value = "/{accesstoken}", method = RequestMethod.GET)
 	public String getMovie(@PathVariable String accesstoken, ModelMap model) {
  
+		
 		model.addAttribute("accesstoken", accesstoken);
 		System.out.println(accesstoken);
 		FacebookClient facebookClient = new DefaultFacebookClient(accesstoken);
 		
 		User user = facebookClient.fetchObject("me", User.class);
+		//Connection<User> myFriends = facebookClient.fetchConnection("me/friends", User.class);
+		//String query = "SELECT * FROM user WHERE uid = "+user.getId();
 		
+		//user = facebookClient.executeFqlQuery(query, User.class);
+		//System.out.println(query);
 		//Page page = facebookClient.fetchObject("cocacola", Page.class);
 
 		System.out.println("User name: " + user.getName());
@@ -51,14 +56,13 @@ public class FBLoginController {
 		student.setId(user.getId());
 		student.setInterests(user.getInterestedIn());
 		
-		//Connection<User> myFriends = facebookClient.fetchConnection("me/friends", User.class);
-		//String query = "SELECT uid FROM user WHERE uid = "+user.getId();
-		//System.out.println(query);
+		
 		List<Education> lstEdu = user.getEducation();//facebookClient.executeFqlQuery(query, FqlUser.class);
 		
 		System.out.println("Number Of Education : " + lstEdu.get(0).getType());
+		
 		//Connection<Education> myEducations = facebookClient.fetchConnection("me?fields=education", Education.class); 
-		//List<Education> lstEdu = myEducations.getData();
+		//List<Education> lstEdux = myEducations.getData();
 		
 		List<StudentEduHistoryModel> lstStuHistory = new ArrayList<StudentEduHistoryModel>();
 		
@@ -71,7 +75,7 @@ public class FBLoginController {
 			if(edu.getYear()!=null){
 			StuHistory.setYear(edu.getYear().getName());
 				}
-			/*List<StudentConcentrationModel> lstConcentration = new ArrayList<StudentConcentrationModel>();
+			List<StudentConcentrationModel> lstConcentration = new ArrayList<StudentConcentrationModel>();
 			for(NamedFacebookType x : edu.getConcentration()){
 				StudentConcentrationModel concentration = new StudentConcentrationModel();
 				concentration.setId(x.getId());
@@ -80,24 +84,22 @@ public class FBLoginController {
 			}
 			
 			StuHistory.setLstConcentration(lstConcentration);
-			lstStuHistory.add(StuHistory);*/
+			lstStuHistory.add(StuHistory);
 			
 		}
 		student.setEducations(lstStuHistory);
-		//model.addAttribute("student", student);
+		model.addAttribute("student", student);
 		return "FBUserDetail";
  
 	}
  
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getDefaultMovie(ModelMap model) {
- 
-		model.addAttribute("movie", "this is default movie");
 		return "FBLogin";
  
 	}
 	
-	public class FqlUser {
+	/*public class FqlUser {
 		  @Facebook
 		  String uid;
 		  
@@ -108,7 +110,7 @@ public class FBLoginController {
 		  public String toString() {
 		    return String.format("%s (%s)", name, uid);
 		  }
-		}
+		}*/
 
 }
 
