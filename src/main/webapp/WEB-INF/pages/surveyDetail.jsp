@@ -29,7 +29,15 @@
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
-      	
+      	<table border="1">
+	       <c:forEach items="${allQuestions}" var="element"> 
+			  <tr>
+			    <td><c:out value="${element.id}"/></td>
+			    <td><c:out value="${element.subtype}"/></a></td>
+			    <td><c:out value="${element.title}"/></td>
+			  </tr>
+			</c:forEach>
+		</table>
       </div>
 
     </div> <!-- /container -->

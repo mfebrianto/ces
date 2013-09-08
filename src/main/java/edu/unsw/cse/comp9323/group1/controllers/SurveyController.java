@@ -89,12 +89,7 @@ public class SurveyController {
 		    	  Survey survey = new Survey((String)jsonObject2.get("id"),
 		    			  (String)jsonObject2.get("title"),
 		    			  (String)jsonObject2.get("created_on"));
-		    	  allSurveys.add(survey); 
-		    	  
-//		    	  System.out.println((String)jsonObject2.get("id"));
-//		    	  System.out.println((String)jsonObject2.get("title"));
-//		    	  System.out.println((String)jsonObject2.get("created_on"));
-		    	  
+		    	  allSurveys.add(survey); 		    	  
 				}
 		 
 		      

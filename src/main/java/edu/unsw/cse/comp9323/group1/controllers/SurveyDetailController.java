@@ -18,12 +18,11 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import edu.unsw.cse.comp9323.group1.models.Survey;
+import edu.unsw.cse.comp9323.group1.models.Question;
 
 
 @Controller
@@ -36,7 +35,7 @@ public class SurveyDetailController {
 	@RequestMapping(value="/detail", method = RequestMethod.GET)
 	public String getAllAvailableSurvey(@RequestParam("surveyId") int surveyId, Model model) {
 		
-		List<Survey> allSurveys = new ArrayList<Survey>();
+		List<Question> allQuestions = new ArrayList<Question>();
 		
 		/*
 		 *oauth, doesn't need it, because need to fill in pop-uppages. 
@@ -72,10 +71,39 @@ public class SurveyDetailController {
 		      String responseBodyStr = new String(responseBody);
 		      
 		      
-		      System.out.println(responseBodyStr);
+//		      System.out.println(responseBodyStr);
 		      
+
+		      JSONParser parser = new JSONParser();
+		      Object obj = parser.parse(responseBodyStr);
+		      JSONObject jsonObject = (JSONObject) obj;
 		      
+		      JSONObject jsonObjectData = (JSONObject) jsonObject.get("data");
+		      JSONArray listOfPages = (JSONArray) jsonObjectData.get("pages");
 		      
+		      @SuppressWarnings("unchecked")
+		      Iterator<JSONObject> iteratorPages = listOfPages.iterator();
+		      while(iteratorPages.hasNext()){
+		    	  JSONObject jsonPage = (JSONObject) iteratorPages.next();
+		    	  JSONArray listOfQuestions = (JSONArray) jsonPage.get("questions");
+		    	  
+		    	  @SuppressWarnings("unchecked")
+		    	  Iterator<JSONObject> iteratorQuestions = listOfQuestions.iterator();
+		    	  while (iteratorQuestions.hasNext()) {
+		    		  JSONObject jsonQuestion = (JSONObject) iteratorQuestions.next();
+		    		  
+		    		  JSONObject jsonQuestionEnglish = (JSONObject)jsonQuestion.get("title");
+		    		  
+		    		  
+		    		  Question question = new Question((Long)jsonQuestion.get("id"),
+		    				  (String)jsonQuestion.get("_subtype"),
+		    				  (String)jsonQuestionEnglish.get("English"));
+		    		  
+		    
+		    		  
+			    	  allQuestions.add(question);
+		    	  }
+		      }
 
 		    } catch (HttpException e) {
 		      System.err.println("Fatal protocol violation: " + e.getMessage());
@@ -83,14 +111,17 @@ public class SurveyDetailController {
 		    } catch (IOException e) {
 		      System.err.println("Fatal transport error: " + e.getMessage());
 		      e.printStackTrace();
-		    } finally {
+		    } catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
 		      // Release the connection.
 		      method.releaseConnection();
 		    }  
 		
 		
 		
-		model.addAttribute("allSurveys", allSurveys);
+		model.addAttribute("allQuestions", allQuestions);
 		
 		return "surveyDetail";
  
