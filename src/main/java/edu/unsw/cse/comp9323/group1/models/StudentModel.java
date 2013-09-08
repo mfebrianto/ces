@@ -15,6 +15,8 @@ public class StudentModel {
 	//The genders the user is interested in.
 	private List<String> Interests;
 	
+	private List<StudentEduHistoryModel> Educations;
+	
 	public String getId() {
 		return id;
 	}
@@ -55,6 +57,13 @@ public class StudentModel {
 	public void setInterests(List<String> interests) {
 		Interests = interests;
 	}
+	public List<StudentEduHistoryModel> getEducations() {
+		return Educations;
+	}
+	public void setEducations(List<StudentEduHistoryModel> lstStuHistory) {
+		this.Educations = lstStuHistory;
+	}
+	
 	
 
 }
