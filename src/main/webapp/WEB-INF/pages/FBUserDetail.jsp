@@ -8,6 +8,7 @@
 </head>
 <body>
 Your Access Token is : ${accesstoken}<br></br>
+Your Name is : ${student.getFirstName()} ${student.getMiddleName()} ${student.getLastName()}<br></br>
 
 </body>
 </html>
