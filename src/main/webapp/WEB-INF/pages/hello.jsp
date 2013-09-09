@@ -35,9 +35,12 @@
       </div>
 
       <div class="jumbotron">
-        <h1>${message}</h1>
+        <h1>Course Evaluation</h1>
         <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-lg btn-success" href="<c:url value="/uni"/>">Sign up today</a></p>
+        <div>
+	        <a class="btn btn-lg btn-success" href="<c:url value="/uni"/>">University</a>
+	        <a class="btn btn-lg btn-success" href="<c:url value="/student"/>">Student</a>
+        </div>
       </div>
 
       <div class="row marketing">
