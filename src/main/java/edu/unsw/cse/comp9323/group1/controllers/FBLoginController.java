@@ -1,6 +1,7 @@
 package edu.unsw.cse.comp9323.group1.controllers;
 
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,7 +104,10 @@ public class FBLoginController {
 		try {
 			initREST.Init();
 			String tableName = "course_detail__c";
-			String newRestUri = initREST.getRestUri() + "/sobjects/"+tableName+"/describe/";
+			//space character translated into %20
+			String newRestUri = initREST.getRestUri() + "/query/?q=SELECT%20id__c%20FROM%20course_detail__c";//"/sobjects/"+tableName+"/describe/";
+			//String x = URLEncoder.encode("SELECT FROM","UTF-8");
+			
 			RestGet restGet = new RestGet();
 			String result = restGet.getUsingQuery(newRestUri, initREST.getOauthHeader(), "");
 			System.out.println(result);
