@@ -108,6 +108,6 @@
   /docs/reference/plugins/login/ -->
 
 <fb:login-button show-faces="true" width="200" max-rows="1" scope="email,user_education_history,publish_actions"></fb:login-button>
- <input type="text" name="userName" id="userName" readOnly=true>
+<a id="hlFacebook" class="TextBtn" onclick="var gw=window.open('','_facebook','width=400,height=300,scrollbars=yes');gw.focus();" href="https://graph.facebook.com/oauth/authorize?client_id=575842165811798&amp;redirect_uri=http://localhost:8080/ces-1.0-SNAPSHOT/FBLogin/test&amp;scope=email,user_education_history,publish_actions&amp;display=popup&amp;response_type=code%20token" target="_facebook">
 </body>
 </html>

@@ -1,5 +1,6 @@
 package edu.unsw.cse.comp9323.group1.controllers;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.restfb.Connection;
@@ -104,9 +106,9 @@ public class FBLoginController {
 		try {
 			initREST.Init();
 			String tableName = "course_detail__c";
+			
 			//space character translated into %20
-			String newRestUri = initREST.getRestUri() + "/query/?q=SELECT%20id__c%20FROM%20course_detail__c";//"/sobjects/"+tableName+"/describe/";
-			//String x = URLEncoder.encode("SELECT FROM","UTF-8");
+			String newRestUri = initREST.getRestUri() + "/query/?q=" + URLEncoder.encode("SELECT id__c FROM course_detail__c WHERE id__c =","UTF-8");//"/sobjects/"+tableName+"/describe/";
 			
 			RestGet restGet = new RestGet();
 			String result = restGet.getUsingQuery(newRestUri, initREST.getOauthHeader(), "");
@@ -115,6 +117,9 @@ public class FBLoginController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (HttpException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -127,6 +132,13 @@ public class FBLoginController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getDefaultMovie(ModelMap model) {
 		return "FBLogin";
+ 
+	}
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test(ModelMap model) {
+		//System.out.println(surveyId);
+		return "test";
  
 	}
 	
