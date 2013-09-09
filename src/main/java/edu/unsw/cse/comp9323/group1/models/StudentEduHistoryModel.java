@@ -10,13 +10,19 @@ public class StudentEduHistoryModel {
 	//only postgraduate level has a degree
 	//Both have : Concentrations (Can be more than one), 
 	//            Classes (Can be more than one) (Not Needed), Year
-	
+	private Integer eduID;
 	private String degree;
 	private String school;
 	private List<StudentConcentrationModel> lstConcentration;
 	private String type;
 	private String year;
 	
+	public Integer getEduID() {
+		return eduID;
+	}
+	public void setEduID(Integer eduID) {
+		this.eduID = eduID;
+	}
 	public String getDegree() {
 		return degree;
 	}

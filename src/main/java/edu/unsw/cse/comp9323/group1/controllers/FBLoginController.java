@@ -65,7 +65,7 @@ public class FBLoginController {
 		
 		List<Education> lstEdu = user.getEducation();
 		
-		System.out.println("Number Of Education : " + lstEdu.get(0).getType());
+		System.out.println("Type Of Education : " + lstEdu.get(0).getType());
 		
 		
 		
