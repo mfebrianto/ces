@@ -1,8 +1,10 @@
 package edu.unsw.cse.comp9323.group1.controllers;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.HttpException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +21,8 @@ import com.restfb.types.Page;
 import com.restfb.types.User;
 import com.restfb.types.User.Education;
 
+import edu.unsw.cse.comp9323.group1.Tools.InitializeREST;
+import edu.unsw.cse.comp9323.group1.Tools.RestGet;
 import edu.unsw.cse.comp9323.group1.models.StudentConcentrationModel;
 import edu.unsw.cse.comp9323.group1.models.StudentEduHistoryModel;
 import edu.unsw.cse.comp9323.group1.models.StudentModel;
@@ -94,6 +98,24 @@ public class FBLoginController {
 		}
 		student.setEducations(lstStuHistory);
 		model.addAttribute("student", student);
+		
+		InitializeREST initREST = new InitializeREST();
+		try {
+			initREST.Init();
+			String tableName = "course_detail__c";
+			String newRestUri = initREST.getRestUri() + "/sobjects/"+tableName+"/describe/";
+			RestGet restGet = new RestGet();
+			String result = restGet.getUsingQuery(newRestUri, initREST.getOauthHeader(), "");
+			System.out.println(result);
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HttpException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		return "FBUserDetail";
  
 	}
