@@ -135,10 +135,10 @@ public class FBLoginController {
  
 	}
 	
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	@RequestMapping(value = "/FBLoginTest", method = RequestMethod.GET)
 	public String test(ModelMap model) {
 		//System.out.println(surveyId);
-		return "test";
+		return "FBLoginTest";
  
 	}
 	
