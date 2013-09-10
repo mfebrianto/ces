@@ -70,7 +70,7 @@ public class HomeController {
 	  
 
     
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		/*logger.info("Welcome home! The client locale is {}.", locale);
 		
@@ -175,11 +175,11 @@ public class HomeController {
 		
 	}
 	
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	@ResponseBody
-	public String testRest() {
-		return GSON.toJson("ok");
-	}
+//	@RequestMapping(value = "/test", method = RequestMethod.GET)
+//	@ResponseBody
+//	public String testRest() {
+//		return GSON.toJson("ok");
+//	}
 	
 	
 	
