@@ -7,13 +7,13 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.png">
 
-    <title>Admin Access</title>
+    <title>Group1 Course Evaluation</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="<c:url value="/resources/css/signin.css"/>" rel="stylesheet">
+    <link href="navbar.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -22,20 +22,20 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body style="">
 
     <div class="container">
 
-      <form class="form-signin">
-        <h2 class="form-signin-heading">Admin Sign in here</h2>
-        <input type="text" class="form-control" placeholder="Email address" autofocus="">
-        <input type="password" class="form-control" placeholder="Password">
-        <label class="checkbox">
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-        <!-- <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="location.href = 'http://example.com'">Sign in</button> -->
-        <a class="btn btn-lg btn-primary btn-block" href="<c:url value="/admin"/>">Sign in</a>
-      </form>
+     <%@include file="layouts/adminHeader.jsp" %>
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Welcome Admin</h1>
+        <p>This example is a quick exercise to illustrate how the default, static navbar and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
+        <p>
+          <a class="btn btn-lg btn-primary" href="#">View navbar docs »</a>
+        </p>
+      </div>
 
     </div> <!-- /container -->
 
@@ -43,7 +43,8 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script src="<c:url value="/resources/js/jquery-2.0.3.min.js"/>"></script>
+    <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
   
 
-</body>
-</html>
+</body></html>

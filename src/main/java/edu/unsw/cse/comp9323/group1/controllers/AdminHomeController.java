@@ -6,15 +6,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
  
 @Controller
-@RequestMapping("/console")
-public class AdminController {
+@RequestMapping("/admin")
+public class AdminHomeController {
  
 	@RequestMapping(method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
  
 //		model.addAttribute("message", "Spring 3 MVC Hello World");
 		
-		return "adminLogin";
+		return "adminHome";
  
 	}
  
