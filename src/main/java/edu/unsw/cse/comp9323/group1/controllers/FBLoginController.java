@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Facebook;
@@ -26,6 +30,7 @@ import com.restfb.types.User.Education;
 
 import edu.unsw.cse.comp9323.group1.Tools.InitializeREST;
 import edu.unsw.cse.comp9323.group1.Tools.RestGet;
+import edu.unsw.cse.comp9323.group1.Tools.RestPost;
 import edu.unsw.cse.comp9323.group1.models.StudentConcentrationModel;
 import edu.unsw.cse.comp9323.group1.models.StudentEduHistoryModel;
 import edu.unsw.cse.comp9323.group1.models.StudentModel;
@@ -59,48 +64,7 @@ public class FBLoginController {
 		System.out.println("User name: " + user.getFirstName());
 		model.addAttribute("Uname", user.getName());
 		
-		StudentModel student = new StudentModel();
 		
-		student.setFirstName(user.getFirstName());
-		student.setMiddleName(user.getMiddleName());
-		student.setLastName(user.getLastName());
-		
-		student.setGender(user.getGender());
-		student.setId(user.getId());
-		student.setInterests(user.getInterestedIn());
-		
-		
-		List<Education> lstEdu = user.getEducation();
-		
-		System.out.println("Type Of Education : " + lstEdu.get(0).getType());
-		
-		
-		
-		List<StudentEduHistoryModel> lstStuHistory = new ArrayList<StudentEduHistoryModel>();
-		
-		for(Education edu : lstEdu){
-			StudentEduHistoryModel StuHistory = new StudentEduHistoryModel();
-			if(edu.getDegree()!=null){
-			StuHistory.setDegree(edu.getDegree().getName());}
-			StuHistory.setSchool(edu.getSchool().getName());
-			StuHistory.setType(edu.getType());
-			if(edu.getYear()!=null){
-			StuHistory.setYear(edu.getYear().getName());
-				}
-			List<StudentConcentrationModel> lstConcentration = new ArrayList<StudentConcentrationModel>();
-			for(NamedFacebookType x : edu.getConcentration()){
-				StudentConcentrationModel concentration = new StudentConcentrationModel();
-				concentration.setId(x.getId());
-				concentration.setName(x.getName());
-				lstConcentration.add(concentration);
-			}
-			
-			StuHistory.setLstConcentration(lstConcentration);
-			lstStuHistory.add(StuHistory);
-			
-		}
-		student.setEducations(lstStuHistory);
-		model.addAttribute("student", student);
 		
 		InitializeREST initREST = new InitializeREST();
 		try {
@@ -108,11 +72,110 @@ public class FBLoginController {
 			String tableName = "course_detail__c";
 			
 			//space character translated into %20
-			String newRestUri = initREST.getRestUri() + "/query/?q=" + URLEncoder.encode("SELECT id__c FROM course_detail__c WHERE id__c =","UTF-8");//"/sobjects/"+tableName+"/describe/";
+			String newRestUri = initREST.getRestUri() + "/query/?q=" + URLEncoder.encode("SELECT ID__c, FIrstName__c, MiddleName__c, LastName__c, Gender__c FROM StudentAccount__c WHERE ID__c = ","UTF-8") + "\'"+user.getId()+"\'";//"/sobjects/"+tableName+"/describe/";
+			System.out.println(newRestUri);
 			
-			RestGet restGet = new RestGet();
+			
+    	    
+    	    RestGet restGet = new RestGet();
 			String result = restGet.getUsingQuery(newRestUri, initREST.getOauthHeader(), "");
-			System.out.println(result);
+			JsonParser parser = new JsonParser();
+			JsonElement jsonElement = parser.parse(result);
+			JsonObject  jobject = jsonElement.getAsJsonObject();
+			int total = jobject.get("totalSize").getAsInt();
+    	    System.out.println("number of records Found :" + total);
+    	    
+    	    //if no records found then insert new record
+    	   
+    	    StudentModel student = new StudentModel();
+    	    
+    	    if(total == 0){
+    	    	
+    	    	
+    	    	//load to studentModel
+    	    	student.setFirstName(user.getFirstName());
+    	    	student.setMiddleName(user.getMiddleName());
+    	    	student.setLastName(user.getLastName());
+    		
+    	    	student.setGender(user.getGender());
+    	    	student.setId(user.getId());
+    	    	student.setInterests(user.getInterestedIn());
+    		
+    		
+    	    	List<Education> lstEdu = user.getEducation();
+    		
+    	    	System.out.println("Type Of Education : " + lstEdu.get(0).getType());
+    	
+    		
+    	    	List<StudentEduHistoryModel> lstStuHistory = new ArrayList<StudentEduHistoryModel>();
+    		
+    	    	for(Education edu : lstEdu){
+    	    		StudentEduHistoryModel StuHistory = new StudentEduHistoryModel();
+    	    		
+    	    		if(edu.getDegree()!=null){
+    	    			StuHistory.setDegree(edu.getDegree().getName());}
+    	    			StuHistory.setSchool(edu.getSchool().getName());
+    	    			StuHistory.setType(edu.getType());
+    	    		
+    	    		if(edu.getYear()!=null){
+    	    			StuHistory.setYear(edu.getYear().getName());
+    				}
+    	    		
+    	    		List<StudentConcentrationModel> lstConcentration = new ArrayList<StudentConcentrationModel>();
+    	    		
+    	    		for(NamedFacebookType x : edu.getConcentration()){
+    	    			StudentConcentrationModel concentration = new StudentConcentrationModel();
+    	    			concentration.setId(x.getId());
+    	    			concentration.setName(x.getName());
+    	    			lstConcentration.add(concentration);
+    	    		}
+    			
+    	    		StuHistory.setLstConcentration(lstConcentration);
+    	    		lstStuHistory.add(StuHistory);
+    			
+    	    	}
+    	    	
+    	    	student.setEducations(lstStuHistory);
+    	    	model.addAttribute("student", student);
+    	    	
+    	    	//insert to database.com
+    	    	JsonObject newStudentJSONObj = new JsonObject();
+    	    	newStudentJSONObj.addProperty("ID__c", student.getId());
+    	    	newStudentJSONObj.addProperty("FIrstName__c", student.getFirstName());
+    	    	newStudentJSONObj.addProperty("Gender__c", student.getGender());
+    	    	newStudentJSONObj.addProperty("LastName__c", student.getLastName());
+    	    	newStudentJSONObj.addProperty("MiddleName__c", student.getMiddleName());
+    	    	//student.getInterests();
+    	    	//student.getEducations();
+    	    	
+    	    	newRestUri = initREST.getRestUri() +"/sobjects/StudentAccount__c/";
+    	    	RestPost restPost = new RestPost();
+    	    	result = restPost.post(newRestUri,initREST.getOauthHeader(), newStudentJSONObj.toString());//  restPost(restUri + "/sobjects/course_detail__c/", newCourse.toString());
+    	    	System.out.println("Insert Result : \n" + result);
+    	    	
+    		
+    	    }
+    	    else if(total > 0){
+    	    	//load data from Database.com to studentModel
+    	    	
+    	    	JsonArray jarray = jobject.getAsJsonArray("records");
+    	    	System.out.println("size of Array :" + jarray.size());
+    	    	System.out.println(jarray.get(0).toString());
+        	    JsonObject jobjectFirstRecord = jarray.get(0).getAsJsonObject();
+        	    
+        	    student.setId(jobjectFirstRecord.get("ID__c").toString());
+        	    System.out.println(jobjectFirstRecord.get("ID__c").toString());
+        	  
+        	    student.setFirstName(jobjectFirstRecord.get("FIrstName__c").toString());
+        	    student.setMiddleName(jobjectFirstRecord.get("MiddleName__c").toString());
+    	    	student.setLastName(jobjectFirstRecord.get("LastName__c").toString());
+    	    	student.setGender(jobjectFirstRecord.get("Gender__c").toString());
+    	    	//student.setInterests(user.getInterestedIn());
+    	    	System.out.println("Data Load Success !!");
+    	    	model.addAttribute("student", student);
+    	    }
+    	    
+			//System.out.println(result);
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -123,9 +186,9 @@ public class FBLoginController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 		return "FBUserDetail";
+		
+		
  
 	}
  
