@@ -168,11 +168,11 @@ public class FBLoginController {
     	    	JsonObject jobjectFirstRecord = jarray.get(0).getAsJsonObject();
     	    	String url = jobjectFirstRecord.getAsJsonObject("attributes").get("url").getAsString();
          	    System.out.println("url : " + url);
-         	    
          	    String[] urlArr = url.split("/");
+         	    
          	   String id = Arrays.asList(urlArr).get(urlArr.length-1);
          	   System.out.println("id : " + id); 		
-         	   
+         	   System.out.println("rest url:" + initREST.getRestUri());
     	    	
          	   newRestUri = initREST.getRestUri() +"/sobjects/StudentAccount__c/" +id;
          	   System.out.println(newRestUri);
@@ -214,7 +214,7 @@ public class FBLoginController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "studentHome";
+		return "FBUserDetail";
 		
 		
  
