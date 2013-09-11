@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Map;
- 
+
 import org.apache.http.HttpException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -17,6 +17,8 @@ import org.jsoup.select.Elements;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import edu.unsw.cse.comp9323.group1.DAOs.RestClient;
 
 
 public class CourseExtraction {
@@ -75,7 +77,7 @@ public class CourseExtraction {
 	    courseName = courseName.replaceAll("\"", "");
 	    courseName = courseName.replaceAll("\'", "");
 	    courseName = courseName.replace(' ', '+');
-	    String response = client.restGet(client.restUri + "/query/?q=SELECT+name__c+FROM+course_detail__c+WHERE+name__c+=+\'"+ courseName + "\'");
+	    String response = client.restGet("/query/?q=SELECT+name__c+FROM+course_detail__c+WHERE+name__c+=+\'"+ courseName + "\'");
 	    if (response.contains("errorCode")) {
 	    	System.out.println(courseName + " has errors: " + response);
 	    	return;
@@ -85,7 +87,7 @@ public class CourseExtraction {
     
 	    String total = jsonElement.getAsJsonObject().get("totalSize").getAsString();
 	    if (total.compareTo("0") == 0) {
-	    	response = client.restPost(client.restUri + "/sobjects/course_detail__c/", newCourse.toString());
+	    	response = client.restPost("/sobjects/course_detail__c/", newCourse.toString());
 //	    	jsonElement = jsonParser.parse(response);
 //	    	String success = jsonElement.getAsJsonObject().get("success").getAsString();
 //	    	String errors = jsonElement.getAsJsonObject().get("errors").getAsString();

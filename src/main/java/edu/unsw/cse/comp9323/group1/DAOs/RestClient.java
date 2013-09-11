@@ -1,38 +1,42 @@
-package edu.unsw.cse.comp9323.group1.controllers;
+package edu.unsw.cse.comp9323.group1.DAOs;
 
-import java.awt.Desktop;
+//import java.awt.Desktop;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+//import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
+//import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
+//import java.net.URLEncoder;
+//import java.util.ArrayList;
+
 
 import org.apache.http.Header;
-import org.apache.http.HttpEntity;
+//import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
+//import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.util.EntityUtils;
+//import org.apache.http.params.BasicHttpParams;
+//import org.apache.http.params.HttpParams;
+//import org.apache.http.util.EntityUtils;
+
 
 import com.google.gson.Gson;
-import org.json.*;
+//import org.json.*;
 //import com.google.gson.JsonElement;
 //import com.google.gson.JsonObject;
 //import com.google.gson.JsonParser;
-import org.json.simple.JSONObject;
+//import org.json.simple.JSONObject;
+
+import edu.unsw.cse.comp9323.group1.controllers.CourseExtraction;
 
 public class RestClient extends Object {
   private static BufferedReader reader = 
@@ -40,7 +44,7 @@ public class RestClient extends Object {
   private static String OAUTH_ENDPOINT = "/services/oauth2/token";
   private static String REST_ENDPOINT = "/services/data";
   UserCredentials userCredentials;
-  String restUri;
+  private String restUri;
   Header oauthHeader;
   Header prettyPrintHeader = new BasicHeader("X-PrettyPrint", "1");
   Gson gson;
@@ -157,6 +161,7 @@ public class RestClient extends Object {
 
   public String restGet(String uri) throws URISyntaxException, HttpException {
     String result = "";
+    uri = restUri+uri;
 //    printBanner("GET", uri);
     try {
       HttpClient httpClient = new DefaultHttpClient();
