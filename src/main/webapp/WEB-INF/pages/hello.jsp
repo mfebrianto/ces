@@ -39,7 +39,7 @@
         <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
         <div>
 	        <a class="btn btn-lg btn-success" href="<c:url value="/uni"/>">University</a>
-	        <a class="btn btn-lg btn-success" onclick="var gw=window.open('','_facebook','width=400,height=300,scrollbars=yes');gw.focus();" href="https://graph.facebook.com/oauth/authorize?client_id=575842165811798&amp;redirect_uri=http://localhost:8080/ces-1.0-SNAPSHOT/FBLogin/FBLoginTest&amp;scope=email,user_education_history,publish_actions&amp;display=popup&amp;response_type=token" target="_facebook">Student</a>
+	        <a class="btn btn-lg btn-success" onclick="var gw=window.open('','_facebook','width=400,height=300,scrollbars=yes');gw.focus();" href="https://graph.facebook.com/oauth/authorize?client_id=575842165811798&amp;redirect_uri=http://localhost:8080/ces-1.0-SNAPSHOT/FBLogin/FBLoginTest&amp;scope=email,user_education_history,publish_actions,user_interests&amp;display=popup&amp;response_type=token" target="_facebook">Student</a>
         </div>
       </div>
 

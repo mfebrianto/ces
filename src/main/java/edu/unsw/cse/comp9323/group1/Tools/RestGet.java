@@ -14,7 +14,7 @@ import org.apache.http.message.BasicHeader;
 
 public class RestGet {
 	
-	public String getUsingQuery(String restUri, Header oauthHeader, String query){
+	public String getUsingQuery(String restUri, Header oauthHeader){
 		String Result = "";
 		try {
 		      HttpClient httpClient = new DefaultHttpClient();

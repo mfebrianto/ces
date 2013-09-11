@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.http.HttpException;
@@ -29,6 +30,7 @@ import com.restfb.types.User;
 import com.restfb.types.User.Education;
 
 import edu.unsw.cse.comp9323.group1.Tools.InitializeREST;
+import edu.unsw.cse.comp9323.group1.Tools.RestDelete;
 import edu.unsw.cse.comp9323.group1.Tools.RestGet;
 import edu.unsw.cse.comp9323.group1.Tools.RestPost;
 import edu.unsw.cse.comp9323.group1.models.StudentConcentrationModel;
@@ -44,10 +46,10 @@ public class FBLoginController {
 	public String getMovie(@PathVariable String accesstoken, ModelMap model) {
  
 		
-		model.addAttribute("accesstoken", accesstoken);
-		System.out.println(accesstoken);
-		FacebookClient facebookClient = new DefaultFacebookClient(accesstoken);
+		//model.addAttribute("accesstoken", accesstoken);
 		
+		FacebookClient facebookClient = new DefaultFacebookClient(accesstoken);
+		System.out.println(accesstoken);
 		User user = facebookClient.fetchObject("me", User.class);
 		
 		//Alternative by using Facebook Query Language (FQL)
@@ -61,15 +63,15 @@ public class FBLoginController {
 		/* Connection<Education> myEducations = facebookClient.fetchConnection("me?fields=education", Education.class); 
 		List<Education> lstEdux = myEducations.getData();*/
 		
-		System.out.println("User name: " + user.getFirstName());
-		model.addAttribute("Uname", user.getName());
+		//System.out.println("User name: " + user.getFirstName());
+		//model.addAttribute("Uname", user.getName());
 		
 		
 		
 		InitializeREST initREST = new InitializeREST();
 		try {
 			initREST.Init();
-			String tableName = "course_detail__c";
+			
 			
 			//space character translated into %20
 			String newRestUri = initREST.getRestUri() + "/query/?q=" + URLEncoder.encode("SELECT ID__c, FIrstName__c, MiddleName__c, LastName__c, Gender__c FROM StudentAccount__c WHERE ID__c = ","UTF-8") + "\'"+user.getId()+"\'";//"/sobjects/"+tableName+"/describe/";
@@ -78,7 +80,8 @@ public class FBLoginController {
 			
     	    
     	    RestGet restGet = new RestGet();
-			String result = restGet.getUsingQuery(newRestUri, initREST.getOauthHeader(), "");
+			String result = restGet.getUsingQuery(newRestUri, initREST.getOauthHeader());
+			System.out.println(result);
 			JsonParser parser = new JsonParser();
 			JsonElement jsonElement = parser.parse(result);
 			JsonObject  jobject = jsonElement.getAsJsonObject();
@@ -89,6 +92,9 @@ public class FBLoginController {
     	   
     	    StudentModel student = new StudentModel();
     	    
+    	    //for(String X : user.getInterestedIn()){
+	    		//System.out.println("interest : "+X);
+	    	//}
     	    if(total == 0){
     	    	
     	    	
@@ -101,6 +107,7 @@ public class FBLoginController {
     	    	student.setId(user.getId());
     	    	student.setInterests(user.getInterestedIn());
     		
+    	    	
     		
     	    	List<Education> lstEdu = user.getEducation();
     		
@@ -156,11 +163,32 @@ public class FBLoginController {
     		
     	    }
     	    else if(total > 0){
+    	    	System.out.println("Number of record before deletion : " + total);
+    	    	JsonArray jarray = jobject.getAsJsonArray("records");
+    	    	JsonObject jobjectFirstRecord = jarray.get(0).getAsJsonObject();
+    	    	String url = jobjectFirstRecord.getAsJsonObject("attributes").get("url").getAsString();
+         	    System.out.println("url : " + url);
+         	    
+         	    String[] urlArr = url.split("/");
+         	   String id = Arrays.asList(urlArr).get(urlArr.length-1);
+         	   System.out.println("id : " + id); 		
+         	   
+    	    	
+         	   newRestUri = initREST.getRestUri() +"/sobjects/StudentAccount__c/" +id;
+         	   System.out.println(newRestUri);
+    	    	
+         	   RestDelete restDelete = new RestDelete();
+    	    	
+         	   restDelete.delete(newRestUri,initREST.getOauthHeader());
+    	    	
+         	   System.out.println("Delete Success !!");
+    	    	
+    	    	/*
     	    	//load data from Database.com to studentModel
     	    	
     	    	JsonArray jarray = jobject.getAsJsonArray("records");
     	    	System.out.println("size of Array :" + jarray.size());
-    	    	System.out.println(jarray.get(0).toString());
+    	    	//System.out.println(jarray.get(0).toString());
         	    JsonObject jobjectFirstRecord = jarray.get(0).getAsJsonObject();
         	    
         	    student.setId(jobjectFirstRecord.get("ID__c").toString());
@@ -172,7 +200,7 @@ public class FBLoginController {
     	    	student.setGender(jobjectFirstRecord.get("Gender__c").toString());
     	    	//student.setInterests(user.getInterestedIn());
     	    	System.out.println("Data Load Success !!");
-    	    	model.addAttribute("student", student);
+    	    	model.addAttribute("student", student);*/
     	    }
     	    
 			//System.out.println(result);
