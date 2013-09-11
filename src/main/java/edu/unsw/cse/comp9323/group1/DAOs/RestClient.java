@@ -38,7 +38,7 @@ import com.google.gson.Gson;
 
 import edu.unsw.cse.comp9323.group1.controllers.CourseExtraction;
 
-//Vu Quang Hoa
+//Vu Quang Hoa - Matilda
 
 public class RestClient extends Object {
   private static BufferedReader reader = 
