@@ -28,9 +28,11 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import org.json.*;
+//import com.google.gson.JsonElement;
+//import com.google.gson.JsonObject;
+//import com.google.gson.JsonParser;
+import org.json.simple.JSONObject;
 
 public class RestClient extends Object {
   private static BufferedReader reader = 
@@ -44,11 +46,11 @@ public class RestClient extends Object {
   Gson gson;
   OAuth2Response oauth2Response;
 
-  public static void main(String[] args) throws URISyntaxException, HttpException {
-    RestClient client = new RestClient();
-    client.oauth2Login( client.getUserCredentials() );
-    client.testRestData();
-  }
+//  public static void main(String[] args) throws URISyntaxException, HttpException {
+//    RestClient client = new RestClient();
+//    client.oauth2Login( client.getUserCredentials());
+//    client.testRestData();
+//  }
 
   public RestClient() {
     gson = new Gson();
@@ -113,22 +115,26 @@ public class RestClient extends Object {
   public void testRestData() throws URISyntaxException, HttpException {
     String responseBody = restGet(restUri);
     //System.out.println(responseBody);
-//    responseBody = restGet(restUri + "/query/?q=SELECT+name__c+FROM+course_detail__c+WHERE+name__c+=+\'2D+Design+(WEU)\'");
-    responseBody = restGet(restUri + "/sobjects/course_detail__c/describe/");
+//    List<course_detail__c> objs = new List<course_detail__c>();
+//    objs = [Select o.name__c From course_detail__c o];
+//    for (course_detail__c obj : objs){
+//    delete obj;
+//    }
+//    responseBody = restGet(restUri + "/sobjects/course_detail__c/describe/");
     CourseExtraction list = new CourseExtraction();
-    ArrayList<JsonObject> allCourses = list.getAllCourses();
-    if (allCourses.size() != 0) {
-    	for (JsonObject newCourse: allCourses) {
-//    		responseBody = restGet(restUri + "/query/?q=SELECT+name__c+FROM+course_detail__c+WHERE+name__c+=+\'2D+Design+(WEU)\'");
-//    		JsonParser parser = new JsonParser();
-//    	    JsonElement jsonElement = parser.parse(responseBody);
-//    	    int total = jsonElement.getAsJsonObject().get("totalSize").getAsInt();
-//    	    if (total == 0) {
-    	    	responseBody = restPost(restUri + "/sobjects/course_detail__c/", newCourse.toString());
-    	    	System.out.println(responseBody);
-//    	    }
-    	}
-    }    
+//    ArrayList<JSONObject> allCourses = list.getAllCourses();
+//    if (allCourses.size() != 0) {
+//    	for (JSONObject newCourse: allCourses) {
+////    		responseBody = restGet(restUri + "/query/?q=SELECT+name__c+FROM+course_detail__c+WHERE+name__c+=+\'2D+Design+(WEU)\'");
+////    		JsonParser parser = new JsonParser();
+////    	    JsonElement jsonElement = parser.parse(responseBody);
+////    	    int total = jsonElement.getAsJsonObject().get("totalSize").getAsInt();
+////    	    if (total == 0) {
+//    	    	responseBody = restPost(restUri + "/sobjects/course_detail__c/", newCourse.toString());
+//    	    	System.out.println(responseBody);
+////    	    }
+//    	}
+//    }    
 //    JsonParser jsonParser = new JsonParser();
 //    JsonElement jsonElement = jsonParser.parse(responseBody);
 //    String id = jsonElement.getAsJsonObject().get("id").getAsString();
@@ -151,7 +157,7 @@ public class RestClient extends Object {
 
   public String restGet(String uri) throws URISyntaxException, HttpException {
     String result = "";
-    printBanner("GET", uri);
+//    printBanner("GET", uri);
     try {
       HttpClient httpClient = new DefaultHttpClient();
       HttpGet httpGet = new HttpGet(uri);
@@ -214,7 +220,7 @@ public class RestClient extends Object {
 
   public String restPost(String uri, String requestBody) throws HttpException, URISyntaxException {
     String result = null;
-    printBanner("POST", uri);
+//    printBanner("POST", uri);
     try {
       HttpClient httpClient = new DefaultHttpClient();
       HttpPost httpPost = new HttpPost(uri);
@@ -267,7 +273,7 @@ public class RestClient extends Object {
   }
 
   // private methods  
-  private String getUserInput(String prompt) {
+  public String getUserInput(String prompt) {
     String result = "";
     try {
       System.out.print(prompt);
@@ -278,14 +284,14 @@ public class RestClient extends Object {
     return result;
   }
 
-  private void printBanner(String method, String uri) {
+  public void printBanner(String method, String uri) {
     System.out.println("\n--------------------------------------------------------------------\n");
     System.out.println("HTTP Method: " + method);
     System.out.println("REST URI: " + uri);
     System.out.println("\n--------------------------------------------------------------------\n");
   }
 
-  private String getBody(InputStream inputStream) {
+  public String getBody(InputStream inputStream) {
     String result = "";
     try {
         BufferedReader in = new BufferedReader(
@@ -303,7 +309,7 @@ public class RestClient extends Object {
     return result;
   }
 
-  private UserCredentials getUserCredentials() {
+  public UserCredentials getUserCredentials() {
     UserCredentials userCredentials = new UserCredentials();
     userCredentials.loginInstanceDomain = "login.salesforce.com";
     userCredentials.apiVersion = "28";
