@@ -34,7 +34,7 @@ if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document)
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
         <h1>Hi University</h1>
-        	<button id="logout" >Disconnect your Google account from this app</button>
+        	<button id="logout" >Logout</button>
         		 
           <a class="btn btn-lg btn-primary" href="<c:url value="/uni/survey"/>">View surveys »</a>
         </p>
