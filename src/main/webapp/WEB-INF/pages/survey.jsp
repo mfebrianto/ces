@@ -40,6 +40,8 @@
 		</table>
       </div>
 
+	<a class="btn btn-lg btn-primary" href="<c:url value="/uni/survey/create"/>">Create Survey</a>
+
     </div> <!-- /container -->
 
 
