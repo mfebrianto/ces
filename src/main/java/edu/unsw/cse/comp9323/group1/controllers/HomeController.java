@@ -132,13 +132,13 @@ public class HomeController {
 	          rdb.oauth2Login(rdb.userCredentials);
 	          String result = rdb.postUniLoginData(university);
 	          System.out.println(result);
-	          return "redirect:" + redirectUrl;
+	          return name+" Successfully Login";
 		
 	}
 	
-	@RequestMapping(value = "/googleLogout", method = RequestMethod.GET)
+	@RequestMapping(value = "/googleLogout", method = RequestMethod.POST)
 	@ResponseBody
-	public String googleLogout(@RequestBody String code){
+	public String googleLogout(){
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session = attr.getRequest().getSession(true);
 //		if (session.getAttribute("token") == null) {
@@ -165,7 +165,7 @@ public class HomeController {
 	          session.removeAttribute("token");
 
 	          
-	          return name+" Successfully disconnected.";
+	          return name+" Successfully logout.";
 	        } catch (IOException e) {
 	          // For whatever reason, the given token was invalid.
 	          
