@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -34,7 +35,7 @@ public class ProfanityController {
 	@RequestMapping(value = "/containProfanity", method = RequestMethod.POST)
 	@ResponseBody
 	public String containProfanity(@RequestBody String data) throws IOException {
-		URL url = new URL(endpoint+"?q="+data);
+		URL url = new URL(endpoint+"?q="+ URLEncoder.encode(data));
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("Accept", "application/json");

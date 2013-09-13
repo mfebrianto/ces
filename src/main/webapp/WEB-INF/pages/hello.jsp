@@ -6,9 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.png">
-    <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
-		{"parsetags": "explicit"}
-	</script>
+
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" ></script>
 	
     <title></title>
@@ -45,25 +43,38 @@
 
 	       <!--  <a class="btn btn-lg btn-success" href="<c:url value="/uni"/>">University</a>-->
     		<script type="text/javascript">
-  			(function() {
-    			var po = document.createElement('script');
-    			po.type = 'text/javascript'; po.async = true;
-    			po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
-    			var s = document.getElementsByTagName('script')[0];
-    			s.parentNode.insertBefore(po, s);
-  			})();
-
-  			function myRender() {
-    			gapi.signin.render('customBtn', {
-      				'callback': onSignInCallback,
-      				'clientid': '913622401500-odpadjc4kekc6ugqvtohv2ia3budo8bh.apps.googleusercontent.com',
-      				'cookiepolicy': 'single_host_origin',
-      				'scope': 'https://www.googleapis.com/auth/plus.login'
-    			});
-  			}
-  
+    		 <!-- Place this asynchronous JavaScript just before your </body> tag -->
+    		      (function() {
+    		       var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    		       po.src = 'https://apis.google.com/js/client:plusone.js';
+    		       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    		     })();
+    		    
+  		
+  		/*	function myRender() {
+  			    gapi.signin.render('customBtn', {
+  			      'callback': onSignInCallback,
+  			      'clientid': '913622401500-odpadjc4kekc6ugqvtohv2ia3budo8bh.apps.googleusercontent.com',
+  			      'cookiepolicy': 'single_host_origin',
+  			      'requestvisibleactions': 'http://schemas.google.com/AddActivity',
+  			      'scope': 'https://www.googleapis.com/auth/plus.login'
+  			    });
+  			  }*/
+  			  $(document).ready(function(){
+  			  $('#customBtn').click(function (event){
+  				 event.preventDefault();
+  				gapi.auth.authorize({
+  					'client_id':'913622401500-odpadjc4kekc6ugqvtohv2ia3budo8bh.apps.googleusercontent.com',
+  					'immediate' : 'false',
+  					'response_type' : 'code',
+  					'scope':'https://www.googleapis.com/auth/plus.login' 					
+  				}, onSignInCallback);
+  			  });
+  			});
   </script>
-    <button id="customBtn" class="btn btn-lg btn-success" onclick="myRender()">University</button>
+
+ 
+    <button id="customBtn"  class="btn btn-lg btn-success customGPlusSignIn" >University</button>
   
   		
   		<script type="text/javascript">
@@ -79,8 +90,8 @@ var helper = (function() {
      *   other authentication information.
      */
     onSignInCallback: function(authResult) {
-      $('#authResult').html('Auth Result:<br/>');
    		this.authResult = authResult;
+   		//  		alert(JSON.stringify(this.authResult));
         helper.connectServer();
         window.location.href = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '')+"/ces-1.0-SNAPSHOT/uni";
         

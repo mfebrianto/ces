@@ -108,7 +108,7 @@ public class HomeController {
 	          // Store the token in the session for later use.
 	        
 	          session.setAttribute("token", tokenResponse.toString());
-	          
+	          System.out.println(tokenResponse.toString());
 	          
 	          GoogleCredential credential = new GoogleCredential.Builder()
               .setJsonFactory(JSON_FACTORY)
@@ -145,6 +145,9 @@ public class HomeController {
 //			return "already logout!!";
 //		}
 		String tokenData = (String) session.getAttribute("token");
+		if (tokenData == null) {
+			return "user have not login!";
+		}
 		try {
 	          // Build credential from stored token data.
 	          GoogleCredential credential = new GoogleCredential.Builder()
