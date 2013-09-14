@@ -6,6 +6,10 @@ public class Survey {
 	private String title;
 	private String created_on;
 	
+	public Survey(){
+		
+	}
+	
 	public Survey(String id, 
 				  String title,
 				  String created_on){

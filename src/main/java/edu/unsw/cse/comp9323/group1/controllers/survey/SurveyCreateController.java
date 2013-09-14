@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import edu.unsw.cse.comp9323.group1.forms.Survey;
+import edu.unsw.cse.comp9323.group1.DAOs.SurveyDAO;
+import edu.unsw.cse.comp9323.group1.forms.SurveyForm;
+import edu.unsw.cse.comp9323.group1.models.Survey;
 
 @Controller
 @RequestMapping(value="/uni/survey/create")
@@ -15,17 +17,26 @@ public class SurveyCreateController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String showForm(ModelMap model){
-		Survey survey = new Survey();
+		SurveyForm survey = new SurveyForm();
 		model.addAttribute("SURVEY", survey);
 		return "surveyCreate";
 	}
 
 	@RequestMapping(method=RequestMethod.POST)
-	public String processForm(@ModelAttribute(value="SURVEY") Survey survey,BindingResult result){
+	public String processForm(@ModelAttribute(value="SURVEY") SurveyForm surveyForm,BindingResult result){
 		if(result.hasErrors()){
 			return "surveyCreate";
 		}else{
-			System.out.println("User values is : " + survey.getTitle());
+			
+			System.out.println("Controller - title of the survey :"+surveyForm.getTitle());
+			
+			SurveyDAO surveyDAO = new SurveyDAO();
+			
+			Survey survey = new Survey();
+			survey.setTitle(surveyForm.getTitle());
+			
+			surveyDAO.createSurvey(survey);
+			
 			return "surveyCreate";
 		}		
 	}
