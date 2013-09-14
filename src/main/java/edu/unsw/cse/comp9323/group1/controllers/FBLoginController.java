@@ -214,7 +214,7 @@ public class FBLoginController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "FBUserDetail";
+		return "studentHome";
 		
 		
  
