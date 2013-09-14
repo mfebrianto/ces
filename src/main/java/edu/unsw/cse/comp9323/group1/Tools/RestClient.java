@@ -42,7 +42,7 @@ public class RestClient extends Object {
   private static String REST_ENDPOINT = "/services/data";
   
   UserCredentials userCredentials;
-  String restUri;
+  private String restUri;
   Header oauthHeader;
   Header prettyPrintHeader = new BasicHeader("X-PrettyPrint", "1");
   Gson gson;
@@ -94,10 +94,10 @@ public class RestClient extends Object {
         );
         oauth2Response = gson.fromJson( inputStream, 
             OAuth2Response.class );
-        restUri = oauth2Response.instance_url + REST_ENDPOINT + 
-            "/v" + this.userCredentials.apiVersion +".0";
+        setRestUri(oauth2Response.instance_url + REST_ENDPOINT + 
+            "/v" + this.userCredentials.apiVersion +".0");
         System.out.println("\nSuccessfully logged in to instance: " + 
-            restUri);
+            getRestUri());
         oauthHeader = new BasicHeader("Authorization", "OAuth " + 
             oauth2Response.access_token);
       } else {
@@ -115,10 +115,10 @@ public class RestClient extends Object {
   }
 
   public void testRestData() throws URISyntaxException, HttpException {
-    String responseBody = restGet(restUri);
+    String responseBody = restGet(getRestUri());
     //System.out.println(responseBody);
 //    responseBody = restGet(restUri + "/query/?q=SELECT+name__c+FROM+course_detail__c+WHERE+name__c+=+\'2D+Design+(WEU)\'");
-    responseBody = restGet(restUri + "/sobjects/course_detail__c/describe/");
+    responseBody = restGet(getRestUri() + "/sobjects/course_detail__c/describe/");
     
     /*CourseExtraction list = new CourseExtraction();
     ArrayList<JsonObject> allCourses = list.getAllCourses();
@@ -309,7 +309,7 @@ public class RestClient extends Object {
     return result;
   }
 
-  private UserCredentials getUserCredentials() {
+  public UserCredentials getUserCredentials() {
     UserCredentials userCredentials = new UserCredentials();
     userCredentials.loginInstanceDomain = "login.salesforce.com";
     userCredentials.apiVersion = "28";
@@ -320,6 +320,14 @@ public class RestClient extends Object {
     userCredentials.grantType = "password";
     return userCredentials;
   }
+
+public String getRestUri() {
+	return restUri;
+}
+
+public void setRestUri(String restUri) {
+	this.restUri = restUri;
+}
 }
 
 
