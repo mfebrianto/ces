@@ -26,15 +26,4 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-
-	<filter>
-		<filter-name>hiddenHttpMethodFilter</filter-name>
-		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>hiddenHttpMethodFilter</filter-name>
-		<servlet-name>mvc-dispatcher</servlet-name>
-	</filter-mapping>
-
 </web-app>

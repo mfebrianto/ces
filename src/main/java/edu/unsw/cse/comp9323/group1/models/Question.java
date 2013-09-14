@@ -3,9 +3,13 @@ package edu.unsw.cse.comp9323.group1.models;
 public class Question {
 	
 	private Long id;
+	private String surveyId;
 	private String subtype;
 	private String title;
-	
+
+	public Question(){
+		
+	}
 	
 	public Question(Long id,
 			String subtype,
@@ -34,6 +38,12 @@ public class Question {
 		this.title = title;
 	}
 	
-	
+	public String getSurveyId() {
+		return surveyId;
+	}
+
+	public void setSurveyId(String surveyId) {
+		this.surveyId = surveyId;
+	}
 
 }
