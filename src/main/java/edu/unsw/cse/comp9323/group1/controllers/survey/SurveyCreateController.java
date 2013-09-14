@@ -37,7 +37,7 @@ public class SurveyCreateController {
 			
 			surveyDAO.createSurvey(survey);
 			
-			return "surveyCreate";
+			return "redirect:/uni/survey";
 		}		
 	}
 }
