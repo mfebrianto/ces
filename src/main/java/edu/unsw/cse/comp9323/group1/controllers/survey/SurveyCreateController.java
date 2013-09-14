@@ -10,26 +10,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import edu.unsw.cse.comp9323.group1.forms.Survey;
 
 @Controller
-@RequestMapping("/uni/survey/create")
+@RequestMapping(value="/uni/survey/create")
 public class SurveyCreateController {
-
-	@RequestMapping(method = RequestMethod.GET)
-	public String printWelcome(ModelMap model) {
-
-		// model.addAttribute("message", "Spring 3 MVC Hello World");
-
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public String showForm(ModelMap model){
+		Survey survey = new Survey();
+		model.addAttribute("SURVEY", survey);
 		return "surveyCreate";
-
 	}
 
-	
-	@RequestMapping(value = "/addSurvey", method = RequestMethod.POST)
-    public String addContact(@ModelAttribute("survey")
-                            Survey survey, BindingResult result) {
-         
-        System.out.println("Survey Title:" + survey.getTitle());
-         
-        //return "redirect:contacts.html";
-        return "survey";
-    }
+	@RequestMapping(method=RequestMethod.POST)
+	public String processForm(@ModelAttribute(value="SURVEY") Survey survey,BindingResult result){
+		if(result.hasErrors()){
+			return "surveyCreate";
+		}else{
+			System.out.println("User values is : " + survey.getTitle());
+			return "surveyCreate";
+		}		
+	}
 }

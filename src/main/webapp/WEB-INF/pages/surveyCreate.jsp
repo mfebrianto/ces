@@ -1,5 +1,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@page session="true"%>
 
 <html lang="en">
 <script id="tinyhippos-injected">
@@ -38,19 +39,18 @@
 		<!-- Main component for a primary marketing message or call to action -->
 		<div class="jumbotron">
 
-			<%-- <form:form method="post" action="/uni/survey/create/addSurvey"> --%>
+			<form:form commandName="SURVEY">
 
 				<table>
 					<tr>
-						<%-- <td><form:label path="title">Title</form:label></td>
-						<td><form:input path="title" /></td> --%>
+						<td>Title : </td><td><form:input path="title" /></td>
 					</tr>
 					<tr>
 						<td colspan="2"><input type="submit" value="Add Survey" /></td>
 					</tr>
 				</table>
 
-			<%-- </form:form> --%>
+			</form:form>
 
 		</div>
 

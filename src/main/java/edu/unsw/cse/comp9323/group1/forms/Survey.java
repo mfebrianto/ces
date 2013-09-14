@@ -2,14 +2,14 @@ package edu.unsw.cse.comp9323.group1.forms;
 
 public class Survey {
 
-	private String title;
+	private String name;
 
 	public String getTitle() {
-		return title;
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setTitle(String name) {
+		this.name = name;
 	}
 	
 	
