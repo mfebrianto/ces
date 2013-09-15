@@ -112,12 +112,10 @@
       <!-- Main component for a primary marketing message or call to action -->
       <div data-action="share" class="g-plus" id="plusOne"></div>
   <button onClick="gapi.plus.render('plusOne', getParamBag('http://localhost:8080/ces-1.0-SNAPSHOT/'))"></button>
-  </p>
+  
       <div class="jumbotron">
         <h1>Welcome Student</h1>
-        <p>This example is a quick exercise to illustrate how the default, static navbar and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
-        <p>
-          <a class="btn btn-lg btn-primary" href="#">View navbar docs »</a>
+        
           <a href="#" 
   			 onclick="
   				 FB.ui({
@@ -146,19 +144,18 @@
 		
 		<div class="fb-comments" data-href="http://localhost:8080/ces-1.0-SNAPSHOT/student" data-width="470"></div>
         
-        </p>
-      </div>
-      
-       <table border="1">
+        <table border="1">
 	       <c:forEach items="${courses}" var="element"> 
 			  <tr>
 			  <td><c:out value="${element.name}"/></td>
 			    <td><c:out value="${element.getId()}"/></td>
-			    <td><button onClick="window.location.href ='/ces-1.0-SNAPSHOT/courseDetail/' + ${element.getId()}"></button></td>
+			    <td><a class="btn btn-primary" href="<c:url value="/courseDetail?courseId=${element.id}"/>">Check Detail And Feedback »</a></td>
 			  </tr>
 			</c:forEach>
 		</table>
-
+		
+      </div>
+      
 
     </div> <!-- /container -->
 
