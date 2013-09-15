@@ -29,7 +29,7 @@ public class CourseDAO {
 			
 			//TODO: need to put in DAO
 			client.oauth2Login( client.getUserCredentials());
-			String response = client.restGet("/query/?q=SELECT+id__c+,+name__c+FROM+course_detail__c");
+			String response = client.restGet("/query/?q=SELECT+id__c+,+name__c+,+uni__c+FROM+course_detail__c");
 			
 			JSONParser parser = new JSONParser();
 		    Object obj = parser.parse(response);
@@ -43,6 +43,7 @@ public class CourseDAO {
 		    	JSONObject jsonAttribute = (JSONObject)iteratorRecords.next();
 		    	Course course = new Course();
 		    	course.setName((String)jsonAttribute.get("name__c"));
+		    	course.setUni((String)jsonAttribute.get("uni__c"));
 		    	listOfCourses.add(course);
 		    }
 		    
