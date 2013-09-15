@@ -1,7 +1,9 @@
 package edu.unsw.cse.comp9323.group1.DAOs;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -26,6 +28,7 @@ import edu.unsw.cse.comp9323.group1.models.Survey;
 public class SurveyDAO {
 
 	private String userPass = "michaelfebrianto@gmail.com:C0urs3Evalu@t10n!";
+	private RestClient client = new RestClient();
 
 	public String createSurvey(Survey survey) {
 
@@ -132,8 +135,6 @@ public class SurveyDAO {
 	
 	public void saveSurvey(Survey survey){
 		
-		RestClient client = new RestClient();
-		
 		try {
 			
 			//TODO: need to put in DAO
@@ -156,6 +157,54 @@ public class SurveyDAO {
 		} catch (HttpException e) {
 			e.printStackTrace();
 		}
+	
+	}
+	
+	
+	public List<Survey> getSurveyWithCourseId(String courseId){
+		
+		List<Survey> listOfSurveys = new ArrayList<Survey>();
+		
+		try {
+			
+			//TODO: need to put in DAO
+			client.oauth2Login( client.getUserCredentials());
+			String response = client.restGet("/query/?q="+ URLEncoder.encode("select id__c, courseId__c from Review__c where courseId__c='"+courseId+"'","UTF-8"));
+			
+			
+			JSONParser parser = new JSONParser();
+		    Object obj = parser.parse(response);
+		    JSONObject jsonObject = (JSONObject) obj;
+		      
+		    JSONArray listOfRecords = (JSONArray) jsonObject.get("records");
+		    
+		    @SuppressWarnings("unchecked")
+		    Iterator<JSONObject> iteratorRecords = listOfRecords.iterator();
+		    while(iteratorRecords.hasNext()){
+		    	JSONObject jsonAttribute = (JSONObject)iteratorRecords.next();
+		    	Survey survey = new Survey();
+		    	survey.setId((String)jsonAttribute.get("id__c"));
+		    	listOfSurveys.add(survey);
+		    }
+		    
+		    
+			
+			
+			
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} catch (HttpException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return listOfSurveys;
+		
 	
 	}
 }

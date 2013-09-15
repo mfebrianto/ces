@@ -114,9 +114,30 @@ public class SurveyController {
 		      method.releaseConnection();
 		    }  
 		
+		 /*
+		  * get spesifically for the current courseID
+		  */
+		 SurveyDAO surveyDAO = new SurveyDAO();
+		 List<Survey> listOfSurveys = surveyDAO.getSurveyWithCourseId(courseId);
+		 
+		 /*
+		  * filter the result before show it to view
+		  */
+		 List<Survey> returnSurveys = new ArrayList<Survey>();
+		 Iterator<Survey> listOfSurveysItr = listOfSurveys.iterator();
+		 while(listOfSurveysItr.hasNext()){
+			 String surveyIdRslt = (String)listOfSurveysItr.next().getId();
+			 Iterator<Survey> allSurveysItr = allSurveys.iterator();
+			 while(allSurveysItr.hasNext()){
+				 Survey surveyTemp = allSurveysItr.next();
+				 if(surveyIdRslt.equals(surveyTemp.getId())){
+					 returnSurveys.add(surveyTemp);
+				 }
+			 }
+		 }
 		
 		
-		model.addAttribute("allSurveys", allSurveys);
+		model.addAttribute("allSurveys", returnSurveys);
 		model.addAttribute("courseId",courseId);
 		
 		return "survey";
