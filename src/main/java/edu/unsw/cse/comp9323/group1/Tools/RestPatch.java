@@ -17,8 +17,8 @@ import edu.unsw.cse.comp9323.group1.Tools.HttpPatch;
 
 public class RestPatch {
 	
-	public String update(String restUri, Header oauthHeader, String requestBody) throws URISyntaxException{
-		String result = "";
+	public void update(String restUri, Header oauthHeader, String requestBody) throws URISyntaxException{
+		//String result = "";
 	   
 	    try {
 	      
@@ -35,10 +35,10 @@ public class RestPatch {
 	    	body.setContentType("application/json");	      
 	    	httpPatch.setEntity(body);
 	      
-	    	HttpResponse response = httpClient.execute(httpPatch);
+	    	httpClient.execute(httpPatch);
 	      
-	    	result = response.getEntity() != null ? 
-	          getBody( response.getEntity().getContent() ) : "";
+	    	/*result = response.getEntity() != null ? 
+	          getBody( response.getEntity().getContent() ) : "";*/
 	          
 	    } catch (IOException ioe) {
 	      
@@ -50,7 +50,7 @@ public class RestPatch {
 	    
 	    }
 	    
-	    return result;
+	    //return result;
 		
 	}
 	
