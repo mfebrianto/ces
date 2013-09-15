@@ -24,7 +24,7 @@ import edu.unsw.cse.comp9323.group1.models.Question;
 public class SurveyStartController {
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String getSurvey(@RequestParam("surveyId") int surveyId,@RequestParam("studentId") int studentId, Model model) {
+	public String getSurvey(@RequestParam("surveyId") int surveyId,@RequestParam("studentId") int studentId,@RequestParam("courseName") String courseName, Model model) {
 	
 		List<Question> allQuestions = new ArrayList<Question>();
 		
@@ -46,6 +46,8 @@ public class SurveyStartController {
 		
 		
 		responseListForm.setQuestionForm(questionListTmp);
+		responseListForm.setCourseName(courseName);
+		responseListForm.setStudentId(studentId);
 		
 		model.addAttribute("responseListForm", responseListForm);
 		model.addAttribute("surveyId", surveyId);
@@ -60,9 +62,10 @@ public class SurveyStartController {
 			return "surveyCreate";
 		}else{
 			
-			System.out.println(">>>>>SIZE>>>>"+questionListForm.getQuestionForm().size());
 			
-			return "redirect:/courseDetail?courseName=Category Theory for Scientists (MIT)&studentId=594128691";
+			
+			
+			return "redirect:/courseDetail?courseName="+questionListForm.getCourseName()+"&studentId="+questionListForm.getStudentId();
 		}		
 	}
 

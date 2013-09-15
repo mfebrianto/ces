@@ -40,6 +40,12 @@
 
 			<form id="SHORT_Q_RESPONSE" action="/ces-1.0-SNAPSHOT/survey/start"
 				method="post">
+				
+				<input type="hidden" id="courseName" name="courseName"
+							value="${responseListForm.courseName}" />
+				<input type="hidden" id="studentId" name="studentId"
+							value="${responseListForm.studentId}" />
+							
 
 				<table border="1">
 					<c:forEach items="${responseListForm.questionForm}" var="contact"

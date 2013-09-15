@@ -5,6 +5,8 @@ import java.util.List;
 public class QuestionListForm {
 	
 	private List<QuestionForm> questionForm;
+	private String courseName;
+	private int studentId;
 
 	public List<QuestionForm> getQuestionForm() {
 		return questionForm;
@@ -13,5 +15,24 @@ public class QuestionListForm {
 	public void setQuestionForm(List<QuestionForm> questionForm) {
 		this.questionForm = questionForm;
 	}
+
+	public String getCourseName() {
+		return courseName;
+	}
+
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+	
+	
+	
 
 }
