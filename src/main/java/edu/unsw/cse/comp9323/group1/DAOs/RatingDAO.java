@@ -3,6 +3,7 @@ package edu.unsw.cse.comp9323.group1.DAOs;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.util.Arrays;
 
 import org.apache.http.HttpException;
 import org.json.simple.parser.ParseException;
@@ -11,6 +12,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import edu.unsw.cse.comp9323.group1.Tools.InitializeREST;
+import edu.unsw.cse.comp9323.group1.Tools.RestPatch;
 
 
 public class RatingDAO {
@@ -57,19 +61,29 @@ public class RatingDAO {
     	    	
         	    JsonObject jobjectFirstRecord = jarray.get(0).getAsJsonObject();
         	    
-        	    String id = jobjectFirstRecord.get("ID__c").toString().replaceAll("\"", "");
-        	    
+    	    	String url = jobjectFirstRecord.getAsJsonObject("attributes").get("url").getAsString();
+         	    System.out.println("url : " + url);
+         	    String[] urlArr = url.split("/");
+         	    
+         	   String id = Arrays.asList(urlArr).get(urlArr.length-1);
+         	   System.out.println("ID : " + id);
+         	   
 				//do update
+         	  //InitializeREST initREST = new InitializeREST();
+         	 
+         	  //newRestUri = initREST.getRestUri() +"/sobjects/StudentUniRating__c/" +id;
+         	    //System.out.println("newRestUri : " + newRestUri);
 				JsonObject newRatingJSONObj = new JsonObject();
-    	    	//newRatingJSONObj.addProperty("studentID__c", studentID);
-    	    	//newRatingJSONObj.addProperty("courseName__c", courseName);
+    	    	newRatingJSONObj.addProperty("studentID__c", studentID);
+    	    	newRatingJSONObj.addProperty("courseName__c", courseName);
     	    	newRatingJSONObj.addProperty("courseRating__c", rating);
     	    	
     	    	
     	    	
     	    	client.oauth2Login( client.getUserCredentials());
+    	    	System.out.println("/sobjects/StudentUniRating__c/"+id);
     	    	response = client.restPatch("/sobjects/StudentUniRating__c/"+id, newRatingJSONObj.toString());
-    	    	System.out.println(response);
+    	    	
 			}
 		    
 		    
