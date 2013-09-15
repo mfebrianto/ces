@@ -36,9 +36,7 @@ if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document)
         <h1>Hi University</h1>
         	<button id="logout" >Logout</button>
         		 
-          <a class="btn btn-lg btn-primary" href="<c:url value="/uni/survey"/>">View surveys »</a>
-        </p>
-        
+              
         <p>Please check all available courses below</p>
         <p>
         
@@ -46,6 +44,7 @@ if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document)
 	       <c:forEach items="${courses}" var="element"> 
 			  <tr>
 			    <td><c:out value="${element.name}"/></td>
+			    <td><a class="btn btn-primary" href="<c:url value="/uni/survey"/>">View surveys »</a></td>
 			  </tr>
 			</c:forEach>
 		</table>

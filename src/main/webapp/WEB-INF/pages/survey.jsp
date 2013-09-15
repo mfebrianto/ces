@@ -38,6 +38,22 @@
 		<!-- Main component for a primary marketing message or call to action -->
 		<div class="jumbotron">
 
+			<form id="SURVEY" action="/ces-1.0-SNAPSHOT/uni/survey/create"
+				method="post">
+
+				<table>
+					<tr>
+						<td>Title :</td>
+						<td><input id="title" name="title" type="text" value=""></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit" class="btn btn-primary"
+							value="Add Survey" /></td>
+					</tr>
+				</table>
+
+			</form>
+
 			<table border="1">
 				<c:forEach items="${allSurveys}" var="element">
 					<tr>
@@ -56,8 +72,6 @@
 
 		</div>
 
-		<a class="btn btn-lg btn-primary"
-			href="<c:url value="/uni/survey/create"/>">Create Survey</a>
 
 	</div>
 	<!-- /container -->
