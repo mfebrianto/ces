@@ -111,7 +111,7 @@
 	}
 	
 	$(function() {
-		$('#star').raty({ path: '../resources/imgs/', size: 24,
+		$('#star').raty({ path: 'resources/imgs/', size: 24,
 			click: function(score, evt) {
 				$.ajax({
 			        type: 'GET',
