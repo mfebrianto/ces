@@ -162,6 +162,7 @@ public class HomeController {
               .build();
 	          String name = service.people().get("me").execute().getDisplayName();
 
+	          
 	          System.out.println("session token    "+session.getAttribute("token"));
 	          System.out.println(name + "  out");
 

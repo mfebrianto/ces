@@ -29,10 +29,12 @@ import com.restfb.types.Page;
 import com.restfb.types.User;
 import com.restfb.types.User.Education;
 
+import edu.unsw.cse.comp9323.group1.DAOs.CourseDAO;
 import edu.unsw.cse.comp9323.group1.Tools.InitializeREST;
 import edu.unsw.cse.comp9323.group1.Tools.RestDelete;
 import edu.unsw.cse.comp9323.group1.Tools.RestGet;
 import edu.unsw.cse.comp9323.group1.Tools.RestPost;
+import edu.unsw.cse.comp9323.group1.models.Course;
 import edu.unsw.cse.comp9323.group1.models.StudentConcentrationModel;
 import edu.unsw.cse.comp9323.group1.models.StudentEduHistoryModel;
 import edu.unsw.cse.comp9323.group1.models.StudentModel;
@@ -43,7 +45,7 @@ import edu.unsw.cse.comp9323.group1.models.fqlUser;
 @SessionAttributes({"review", "externalReview"})
 public class FBLoginController {
 	@RequestMapping(value = "/{accesstoken}", method = RequestMethod.GET)
-	public String getMovie(@PathVariable String accesstoken, ModelMap model) {
+	public String getStudentDetail(@PathVariable String accesstoken, ModelMap model) {
  
 		
 		//model.addAttribute("accesstoken", accesstoken);
@@ -163,7 +165,7 @@ public class FBLoginController {
     		
     	    }
     	    else if(total > 0){
-    	    	System.out.println("Number of record before deletion : " + total);
+    	    	/*System.out.println("Number of record before deletion : " + total);
     	    	JsonArray jarray = jobject.getAsJsonArray("records");
     	    	JsonObject jobjectFirstRecord = jarray.get(0).getAsJsonObject();
     	    	String url = jobjectFirstRecord.getAsJsonObject("attributes").get("url").getAsString();
@@ -181,9 +183,9 @@ public class FBLoginController {
     	    	
          	   restDelete.delete(newRestUri,initREST.getOauthHeader());
     	    	
-         	   System.out.println("Delete Success !!");
+         	   System.out.println("Delete Success !!");*/
     	    	
-    	    	/*
+    	    	
     	    	//load data from Database.com to studentModel
     	    	
     	    	JsonArray jarray = jobject.getAsJsonArray("records");
@@ -200,7 +202,12 @@ public class FBLoginController {
     	    	student.setGender(jobjectFirstRecord.get("Gender__c").toString());
     	    	//student.setInterests(user.getInterestedIn());
     	    	System.out.println("Data Load Success !!");
-    	    	model.addAttribute("student", student);*/
+    	    	model.addAttribute("student", student);
+    	    	
+    	    	CourseDAO crsDAO = new CourseDAO();
+    	    	ArrayList<Course>  x = new ArrayList<Course>(crsDAO.getAllIDNameCourses());
+    	    	model.addAttribute("courses", crsDAO.getAllIDNameCourses());
+    	    	
     	    }
     	    
 			//System.out.println(result);
@@ -221,13 +228,13 @@ public class FBLoginController {
 	}
  
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String getDefaultMovie(ModelMap model) {
+	public String getDefaultLoginPage(ModelMap model) {
 		return "FBLogin";
  
 	}
 	
 	@RequestMapping(value = "/FBLoginTest", method = RequestMethod.GET)
-	public String test(ModelMap model) {
+	public String FBtest(ModelMap model) {
 		//System.out.println(surveyId);
 		return "FBLoginTest";
  
