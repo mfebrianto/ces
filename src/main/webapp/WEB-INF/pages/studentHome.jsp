@@ -149,7 +149,7 @@
 			  <tr>
 			  <td><c:out value="${element.name}"/></td>
 			    <td><c:out value="${element.getId()}"/></td>
-			    <td><a class="btn btn-primary" href="<c:url value="/courseDetail?courseId=${element.id}"/>">Check Detail And Feedback »</a></td>
+			    <td><a class="btn btn-primary" href="<c:url value="/courseDetail?courseName=${element.name}"/>">Check Detail And Feedback »</a></td>
 			  </tr>
 			</c:forEach>
 		</table>

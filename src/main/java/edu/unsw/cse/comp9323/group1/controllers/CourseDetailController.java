@@ -16,11 +16,11 @@ import edu.unsw.cse.comp9323.group1.models.Course;
 public class CourseDetailController {
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String getCourseDetail(@RequestParam("courseId") String courseId, ModelMap model) throws UnsupportedEncodingException {
+	public String getCourseDetail(@RequestParam("courseName") String courseName, ModelMap model) throws UnsupportedEncodingException {
 		
 		CourseDAO crsDAO = new CourseDAO();
 		Course course = new Course();
-		course = crsDAO.getCourseByID(courseId);
+		course = crsDAO.getCourseByName(courseName);
 		model.addAttribute("course", course);
 		return "courseDetail";
 	
