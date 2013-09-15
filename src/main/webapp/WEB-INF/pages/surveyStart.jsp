@@ -78,40 +78,45 @@
 
 		configuration.submitListener = function() {
 
-			var result = 0;
+		
 			
 			$('#SHORT_Q_RESPONSE').submit(function() {
 
-				var i = 0
+				var response="";
+				var result=0;
+				var i=0;
 				
 				while ($('#questionFormResponse'+i).length) {
-					$.ajax({
-				        type: "POST",
-				        url: "../containProfanity/",
-				        data: $('#questionFormResponse'+i).val(),
-				        dataType: "text",
-				        success: function(data) {
-				        	  var obj = jQuery.parseJSON(data);
-				        	  if (obj.response) {
-				        		  	result = 1;
-				        		  	return false;
-								}
-					           
-					       },
-					        error: function(e) {
-					          console.log(e);
-					        }
-				      });
+					
+					response = response +" "+ $('#questionFormResponse'+i).val(),
 					
 					i++;
 				}
+				
+				
+				$.ajax({
+			        type: "POST",
+			        url: "../containProfanity/",
+			        data: response,
+			        dataType: "text",
+			        async: false,
+			        success: function(data) {
+			        	  var obj = jQuery.parseJSON(data);
+			        	  if(obj.response=="true"){
+			        	  	result = 1;
+			        	  }
+				           
+				       },
+				        error: function(e) {
+				          console.log(e);
+				        }
+			      });
+				
 				
 				if (result) {
 					alert('Cannot submit feedback, please be polite');
 					return false;
 				}
-				
-				return false;
 			});
 		};
 
