@@ -165,7 +165,7 @@ public class CourseDAO {
 			
 			//TODO: need to put in DAO
 			client.oauth2Login( client.getUserCredentials());
-			String newRestUri = "/query/?q=" + URLEncoder.encode("SELECT id__c, name__c,description__c,start_date__c,length__c FROM course_detail__c WHERE name__c = '"+courseName+"'","UTF-8") ;
+			String newRestUri = "/query/?q=" + URLEncoder.encode("SELECT id__c, name__c,description__c,start_date__c,length__c FROM course_detail__c WHERE name__c = '"+courseName.replace("'", "\\'")+"'","UTF-8") ;
 			
 			String response = client.restGet(newRestUri);
 			System.out.println(response);
