@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -53,7 +55,7 @@ public class SurveyStartController {
 	
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public String processForm(@ModelAttribute(value="SHORT_Q_RESPONSE") QuestionListForm questionListForm,BindingResult result){
+	public String processForm(@Valid QuestionForm questionForm, @ModelAttribute(value="SHORT_Q_RESPONSE") QuestionListForm questionListForm,BindingResult result){
 		if(result.hasErrors()){
 			return "surveyCreate";
 		}else{

@@ -1,5 +1,7 @@
 package edu.unsw.cse.comp9323.group1.forms;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class QuestionForm {
 	
 	private String title;
