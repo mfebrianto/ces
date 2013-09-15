@@ -111,7 +111,7 @@
 	}
 	
 	$(function() {
-		$('#star').raty({ path: '/ces-1.0-SNAPSHOT/resources/js/img', size: 24,
+		$('#star').raty({ path: '/resources/imgs', size: 24,
 			click: function(score, evt) {
 				
 			}

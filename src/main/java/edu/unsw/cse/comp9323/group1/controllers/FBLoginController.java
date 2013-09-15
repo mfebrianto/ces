@@ -30,6 +30,7 @@ import com.restfb.types.User;
 import com.restfb.types.User.Education;
 
 import edu.unsw.cse.comp9323.group1.DAOs.CourseDAO;
+import edu.unsw.cse.comp9323.group1.DAOs.RestClient;
 import edu.unsw.cse.comp9323.group1.Tools.InitializeREST;
 import edu.unsw.cse.comp9323.group1.Tools.RestDelete;
 import edu.unsw.cse.comp9323.group1.Tools.RestGet;
@@ -157,10 +158,14 @@ public class FBLoginController {
     	    	//student.getInterests();
     	    	//student.getEducations();
     	    	
-    	    	newRestUri = initREST.getRestUri() +"/sobjects/StudentAccount__c/";
-    	    	RestPost restPost = new RestPost();
-    	    	result = restPost.post(newRestUri,initREST.getOauthHeader(), newStudentJSONObj.toString());//  restPost(restUri + "/sobjects/course_detail__c/", newCourse.toString());
-    	    	System.out.println("Insert Result : \n" + result);
+//    	    	newRestUri = initREST.getRestUri() +"/sobjects/StudentAccount__c/";
+//    	    	RestPost restPost = new RestPost();
+//    	    	result = restPost.post(newRestUri,initREST.getOauthHeader(), newStudentJSONObj.toString());//  restPost(restUri + "/sobjects/course_detail__c/", newCourse.toString());
+//    	    	System.out.println("Insert Result : \n" + result);
+    	    	
+    	    	RestClient client = new RestClient();
+    	    	client.oauth2Login( client.getUserCredentials());
+    	    	String response = client.restPost("/sobjects/StudentAccount__c/", newStudentJSONObj.toString());
     	    	
     		
     	    }
