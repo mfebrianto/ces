@@ -111,26 +111,29 @@
 	}
 	
 	$(function() {
-		$('#star').raty({ path: 'resources/imgs/', size: 24,
-			click: function(score, evt) {
-				$.ajax({
-			        type: 'GET',
-			        url: './test',
-			        async: false,
-			        success: function(result) {
-			          
-			          alert(result);
-			           
-			        },
-			        error: function(e) {
-			          console.log(e);
-			        }
-			      });
-				
+		$('#star').raty({ path: 'resources/imgs/', size: 24,target: '#rating',
+		hints: [null, null, null, null, null],
+		click: function(score, evt) {
+		$.ajax({
+		        type: "POST",
+		        url: "./Rating/",
+		        data: {courseName:'${course.getName()}'
+		   	   ,studentID:${studentId}
+		   	   ,rating:$("#rating").val()
+		   	   },
+		    dataType: "text",
+		        success: function(data) {
+		          alert("Rating Updated !!");
+		           
+		        },
+		        error: function(e) {
+		          console.log(e);
+		        }
+		      });
 			}
 		});
-	
 	});
+
 
 </script>
 
@@ -150,6 +153,7 @@
         </p>
         <p> Rating :
         <div id="star"></div>
+        <input type="hidden" id="rating">
         <div>
         	<table border="1">
 				<c:forEach items="${allSurveys}" var="element">
