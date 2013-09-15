@@ -149,9 +149,21 @@
 		   Course Length  :	${course.getLength()}<br></br>
         </p>
         <p> Rating :
-        <div id="star"></div></p>
+        <div id="star"></div>
+        <div>
+        	<table border="1">
+				<c:forEach items="${allSurveys}" var="element">
+					<tr>
+						<%-- <form:hidden path="id" value="${element.id}"/> --%>
+						<td><c:out value="${element.title}" /></td>
+						<td><a class="btn btn-primary"
+							href="<c:url value="/uni/survey/start?surveyId=${element.id}&studentId=${student.id}"/>">Take
+								Survey</a></td>
+					</tr>
+				</c:forEach>
+			</table>
+        </div>
         <p>
-          <a class="btn btn-lg btn-primary" href="#">View navbar docs »</a>
           <a href="#" 
   			 onclick="
   				 FB.ui({

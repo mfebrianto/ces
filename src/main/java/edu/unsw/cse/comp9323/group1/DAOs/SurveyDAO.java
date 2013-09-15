@@ -21,6 +21,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.unsw.cse.comp9323.group1.models.Course;
 import edu.unsw.cse.comp9323.group1.models.Survey;
@@ -132,6 +134,80 @@ public class SurveyDAO {
 
 	}
 	
+	
+	public List<Survey> getAllAvailableSurvey() {
+		
+		List<Survey> allSurveys = new ArrayList<Survey>();
+		
+		/*
+		 *oauth, doesn't need it, because need to fill in pop-uppages. 
+		 */
+		//authentication();
+		String url = "https://restapi.surveygizmo.com/head/survey";
+		 
+		HttpClient client = new HttpClient();
+		
+		GetMethod method = new GetMethod(url);
+		
+		method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, 
+	    		new DefaultHttpMethodRetryHandler(3, false));
+		
+		method.setQueryString(new NameValuePair[] { 
+			    new NameValuePair("user:pass", userPass)
+			});
+		
+		 try {
+		      // Execute the method.
+		      int statusCode = client.executeMethod(method);
+
+		      if (statusCode != HttpStatus.SC_OK) {
+		        System.err.println("Method failed: " + method.getStatusLine());
+		      }
+
+		      // Read the response body.
+		      byte[] responseBody = method.getResponseBody();
+
+		      // Deal with the response.
+		      // Use caution: ensure correct character encoding and is not binary data
+		      String responseBodyStr = new String(responseBody);
+		      
+		      JSONParser parser = new JSONParser();
+		      Object obj = parser.parse(responseBodyStr);
+		      JSONObject jsonObject = (JSONObject) obj ;
+		      
+		      JSONArray listOfSurvey = (JSONArray) jsonObject.get("data");
+		      
+		      /*
+		       * put all results to list
+		       */
+		      @SuppressWarnings("unchecked")
+			Iterator<JSONObject> iterator = listOfSurvey.iterator();
+		      while (iterator.hasNext()) {
+		    	  JSONObject jsonObject2 = (JSONObject) iterator.next();
+		    	  Survey survey = new Survey((String)jsonObject2.get("id"),
+		    			  (String)jsonObject2.get("title"),
+		    			  (String)jsonObject2.get("created_on"));
+		    	  allSurveys.add(survey); 		    	  
+				}
+		 
+		      
+		      
+		      
+
+		    }  catch (IOException e) {
+		      System.err.println("Fatal transport error: " + e.getMessage());
+		      e.printStackTrace();
+		    } catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+		      // Release the connection.
+		      method.releaseConnection();
+		    } 
+		
+		return allSurveys;
+ 
+	}
 	
 	public void saveSurvey(Survey survey){
 		
