@@ -43,84 +43,12 @@ public class SurveyDetailController {
 		
 		List<Question> allQuestions = new ArrayList<Question>();
 		
-		String url = "https://restapi.surveygizmo.com/head/survey/"+surveyId;
-		 
-		HttpClient client = new HttpClient();
+		QuestionDAO questionDAO = new QuestionDAO();
+		allQuestions = questionDAO.getAllQuestion(surveyId);
 		
-		GetMethod method = new GetMethod(url);
-		
-		method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, 
-	    		new DefaultHttpMethodRetryHandler(3, false));
-		
-		method.setQueryString(new NameValuePair[] { 
-			    new NameValuePair("user:pass", userPass)
-			});
-		
-		 try {
-		      // Execute the method.
-		      int statusCode = client.executeMethod(method);
-
-		      if (statusCode != HttpStatus.SC_OK) {
-		        System.err.println("Method failed: " + method.getStatusLine());
-		      }
-
-		      // Read the response body.
-		      byte[] responseBody = method.getResponseBody();
-
-		      // Deal with the response.
-		      // Use caution: ensure correct character encoding and is not binary data
-		      String responseBodyStr = new String(responseBody);
-		      
-		      
-//		      System.out.println(responseBodyStr);
-		      
-
-		      JSONParser parser = new JSONParser();
-		      Object obj = parser.parse(responseBodyStr);
-		      JSONObject jsonObject = (JSONObject) obj;
-		      
-		      JSONObject jsonObjectData = (JSONObject) jsonObject.get("data");
-		      JSONArray listOfPages = (JSONArray) jsonObjectData.get("pages");
-		      
-		      @SuppressWarnings("unchecked")
-		      Iterator<JSONObject> iteratorPages = listOfPages.iterator();
-		      while(iteratorPages.hasNext()){
-		    	  JSONObject jsonPage = (JSONObject) iteratorPages.next();
-		    	  JSONArray listOfQuestions = (JSONArray) jsonPage.get("questions");
-		    	  
-		    	  @SuppressWarnings("unchecked")
-		    	  Iterator<JSONObject> iteratorQuestions = listOfQuestions.iterator();
-		    	  while (iteratorQuestions.hasNext()) {
-		    		  JSONObject jsonQuestion = (JSONObject) iteratorQuestions.next();
-		    		  
-		    		  JSONObject jsonQuestionEnglish = (JSONObject)jsonQuestion.get("title");
-		    		  
-		    		  
-		    		  Question question = new Question((Long)jsonQuestion.get("id"),
-		    				  (String)jsonQuestion.get("_subtype"),
-		    				  (String)jsonQuestionEnglish.get("English"));
-		    		  
-		    
-		    		  
-			    	  allQuestions.add(question);
-		    	  }
-		      }
-
-		    } catch (HttpException e) {
-		      System.err.println("Fatal protocol violation: " + e.getMessage());
-		      e.printStackTrace();
-		    } catch (IOException e) {
-		      System.err.println("Fatal transport error: " + e.getMessage());
-		      e.printStackTrace();
-		    } catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally {
-		      // Release the connection.
-		      method.releaseConnection();
-		    }  
-		
-		
+		if (allQuestions.size() > 0){
+			allQuestions.remove(allQuestions.size()-1);
+		}
 		
 		model.addAttribute("allQuestions", allQuestions);
 		model.addAttribute("surveyId", surveyId);

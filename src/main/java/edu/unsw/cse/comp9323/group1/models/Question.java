@@ -3,7 +3,7 @@ package edu.unsw.cse.comp9323.group1.models;
 public class Question {
 	
 	private Long id;
-	private String surveyId;
+	private int surveyId;
 	private String subtype;
 	private String title;
 
@@ -38,11 +38,11 @@ public class Question {
 		this.title = title;
 	}
 	
-	public String getSurveyId() {
+	public int getSurveyId() {
 		return surveyId;
 	}
 
-	public void setSurveyId(String surveyId) {
+	public void setSurveyId(int surveyId) {
 		this.surveyId = surveyId;
 	}
 
