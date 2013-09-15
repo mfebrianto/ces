@@ -7,6 +7,15 @@ public class Course {
 	private String startDate;
 	private String description;
 	private String length;
+	private String uni;
+
+	public String getUni() {
+		return uni;
+	}
+
+	public void setUni(String uni) {
+		this.uni = uni;
+	}
 
 	public String getStartDate() {
 		return startDate;
