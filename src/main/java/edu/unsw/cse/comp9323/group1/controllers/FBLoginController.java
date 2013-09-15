@@ -198,8 +198,7 @@ public class FBLoginController {
     	    	//System.out.println(jarray.get(0).toString());
         	    JsonObject jobjectFirstRecord = jarray.get(0).getAsJsonObject();
         	    
-        	    student.setId(jobjectFirstRecord.get("ID__c").toString());
-        	    System.out.println(jobjectFirstRecord.get("ID__c").toString());
+        	    student.setId(jobjectFirstRecord.get("ID__c").toString().replaceAll("\"", ""));
         	  
         	    student.setFirstName(jobjectFirstRecord.get("FIrstName__c").toString());
         	    student.setMiddleName(jobjectFirstRecord.get("MiddleName__c").toString());

@@ -157,7 +157,7 @@
 						<%-- <form:hidden path="id" value="${element.id}"/> --%>
 						<td><c:out value="${element.title}" /></td>
 						<td><a class="btn btn-primary"
-							href="<c:url value="/uni/survey/start?surveyId=${element.id}&studentId=${student.id}"/>">Take
+							href="<c:url value="/uni/survey/start?surveyId=${element.id}&studentId=${studentId}"/>">Take
 								Survey</a></td>
 					</tr>
 				</c:forEach>

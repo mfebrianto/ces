@@ -21,7 +21,7 @@ import edu.unsw.cse.comp9323.group1.models.Survey;
 public class CourseDetailController {
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String getCourseDetail(@RequestParam("courseName") String courseName, ModelMap model) throws UnsupportedEncodingException {
+	public String getCourseDetail(@RequestParam("courseName") String courseName,@RequestParam("studentId") String studentId, ModelMap model) throws UnsupportedEncodingException {
 		
 		CourseDAO crsDAO = new CourseDAO();
 		Course course = new Course();
@@ -57,6 +57,7 @@ public class CourseDetailController {
 		
 		model.addAttribute("allSurveys", returnSurveys);
 		model.addAttribute("course", course);
+		model.addAttribute("studentId", studentId);
 		return "courseDetail";
 	
 	}
