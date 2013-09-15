@@ -20,14 +20,17 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import edu.unsw.cse.comp9323.group1.models.Course;
 import edu.unsw.cse.comp9323.group1.models.Survey;
 
 public class SurveyDAO {
 
 	private String userPass = "michaelfebrianto@gmail.com:C0urs3Evalu@t10n!";
 
-	public void createSurvey(Survey survey) {
+	public String createSurvey(Survey survey) {
 
+		String surveyId=null;
+		
 		System.out.println("Title of the survey :" + survey.getTitle());
 		String url = "https://restapi.surveygizmo.com/head/survey";
 
@@ -60,13 +63,16 @@ public class SurveyDAO {
 			// data
 			String responseBodyStr = new String(responseBody);
 
-			System.out.println(responseBodyStr);
+			
 
-			// JSONParser parser = new JSONParser();
-			// Object obj = parser.parse(responseBodyStr);
-			// JSONObject jsonObject = (JSONObject) obj;
-			//
-			// JSONArray listOfSurvey = (JSONArray) jsonObject.get("data");
+			 JSONParser parser = new JSONParser();
+			 Object obj = parser.parse(responseBodyStr);
+			 JSONObject jsonObject = (JSONObject) obj;
+			
+			 jsonObject = (JSONObject) jsonObject.get("data");
+			 surveyId = (String) jsonObject.get("id");
+			 
+			 System.out.println("new surveyId :"+surveyId);
 
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
@@ -76,6 +82,7 @@ public class SurveyDAO {
 			method.releaseConnection();
 		}
 
+		return surveyId;
 	}
 
 	public void deleteSurvey(int surveyId) {
@@ -120,5 +127,34 @@ public class SurveyDAO {
 			method.releaseConnection();
 		}
 
+	}
+	
+	
+	public void saveSurvey(Survey survey){
+		
+		RestClient client = new RestClient();
+		
+		try {
+			
+			//TODO: need to put in DAO
+			JSONObject newReview = new JSONObject();
+			
+			client.oauth2Login( client.getUserCredentials());
+			newReview.put("id__c", survey.getId());
+			newReview.put("courseId__c", survey.getCourseId());
+			String response = client.restPost("/sobjects/Review__c/", newReview.toString());
+			
+			System.out.println(">>>>>"+response);
+		    
+		    
+			
+			
+			
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} catch (HttpException e) {
+			e.printStackTrace();
+		}
+	
 	}
 }

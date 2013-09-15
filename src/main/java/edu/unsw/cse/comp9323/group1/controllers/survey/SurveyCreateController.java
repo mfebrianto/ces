@@ -35,10 +35,13 @@ public class SurveyCreateController {
 			
 			Survey survey = new Survey();
 			survey.setTitle(surveyForm.getTitle());
+			survey.setCourseId(surveyForm.getCourseId());
 			
-			surveyDAO.createSurvey(survey);
+			survey.setId(surveyDAO.createSurvey(survey));
+			surveyDAO.saveSurvey(survey);
 			
-			return "redirect:/uni/survey";
+			
+			return "redirect:/uni/survey?courseId="+surveyForm.getCourseId();
 		}		
 	}
 }

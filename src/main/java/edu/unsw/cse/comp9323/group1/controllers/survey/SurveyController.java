@@ -40,7 +40,7 @@ public class SurveyController {
 	private String userPass = "michaelfebrianto@gmail.com:C0urs3Evalu@t10n!";
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String getAllAvailableSurvey(ModelMap model) {
+	public String getAllAvailableSurvey(@RequestParam("courseId") String courseId,ModelMap model) {
 		
 		List<Survey> allSurveys = new ArrayList<Survey>();
 		
@@ -117,20 +117,21 @@ public class SurveyController {
 		
 		
 		model.addAttribute("allSurveys", allSurveys);
+		model.addAttribute("courseId",courseId);
 		
 		return "survey";
  
 	}
 	
 	@RequestMapping(value="/delete", method = RequestMethod.GET)
-	public String deleteSurvey(@RequestParam("surveyId") int surveyId, Model model) {
+	public String deleteSurvey(@RequestParam("surveyId") int surveyId, @RequestParam("courseId") String courseId, Model model) {
 		
 		System.out.println("Delete id :"+ surveyId);
 		
 		SurveyDAO surveyDAO = new SurveyDAO();
 		surveyDAO.deleteSurvey(surveyId);
 		
-		return "redirect:/uni/survey";
+		return "redirect:/uni/survey?courseId="+courseId;
 	}
 	
 }

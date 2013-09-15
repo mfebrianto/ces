@@ -38,8 +38,11 @@
 		<!-- Main component for a primary marketing message or call to action -->
 		<div class="jumbotron">
 
-			<form id="SURVEY" action="/ces-1.0-SNAPSHOT/uni/survey/create"
-				method="post">
+			<h2>${courseId}</h2>
+
+			<form id="SURVEY" action="/ces-1.0-SNAPSHOT/uni/survey/create" method="post">
+			
+				<input id="courseId" name="courseId" type="hidden" value="${courseId}">
 
 				<table>
 					<tr>
@@ -64,7 +67,7 @@
 									value="${element.title}" /></a></td>
 						<td><c:out value="${element.created_on}" /></td>
 						<td><a class="btn btn-warning"
-							href="<c:url value="/uni/survey/delete?surveyId=${element.id}"/>">Delete
+							href="<c:url value="/uni/survey/delete?surveyId=${element.id}&courseId=${courseId}"/>">Delete
 								Survey</a></td>
 					</tr>
 				</c:forEach>

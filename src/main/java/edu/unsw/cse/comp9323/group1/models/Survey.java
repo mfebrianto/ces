@@ -5,6 +5,7 @@ public class Survey {
 	private String id;
 	private String title;
 	private String created_on;
+	private String courseId;
 	
 	public Survey(){
 		
@@ -36,6 +37,14 @@ public class Survey {
 	}
 	public void setCreated_on(String created_on) {
 		this.created_on = created_on;
+	}
+	
+	public String getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(String courseId) {
+		this.courseId = courseId;
 	}
 	
 	

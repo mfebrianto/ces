@@ -1,4 +1,4 @@
-package edu.unsw.cse.comp9323.group1.controllers;
+package edu.unsw.cse.comp9323.group1.controllers.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

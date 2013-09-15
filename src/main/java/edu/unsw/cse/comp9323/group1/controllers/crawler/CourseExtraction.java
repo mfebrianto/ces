@@ -1,4 +1,4 @@
-package edu.unsw.cse.comp9323.group1.controllers;
+package edu.unsw.cse.comp9323.group1.controllers.crawler;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

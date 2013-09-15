@@ -13,6 +13,7 @@ import java.net.URISyntaxException;
 //import java.util.ArrayList;
 
 
+
 import org.apache.http.Header;
 //import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
@@ -29,6 +30,7 @@ import org.apache.http.message.BasicHeader;
 //import org.apache.http.util.EntityUtils;
 
 
+
 import com.google.gson.Gson;
 //import org.json.*;
 //import com.google.gson.JsonElement;
@@ -36,7 +38,8 @@ import com.google.gson.Gson;
 //import com.google.gson.JsonParser;
 //import org.json.simple.JSONObject;
 
-import edu.unsw.cse.comp9323.group1.controllers.CourseExtraction;
+
+import edu.unsw.cse.comp9323.group1.controllers.crawler.CourseExtraction;
 
 //Vu Quang Hoa - Matilda
 

@@ -44,7 +44,7 @@ if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document)
 	       <c:forEach items="${courses}" var="element"> 
 			  <tr>
 			    <td><c:out value="${element.name}"/></td>
-			    <td><a class="btn btn-primary" href="<c:url value="/uni/survey"/>">View surveys »</a></td>
+			    <td><a class="btn btn-primary" href="<c:url value="/uni/survey?courseId=${element.name}"/>">View surveys »</a></td>
 			  </tr>
 			</c:forEach>
 		</table>
