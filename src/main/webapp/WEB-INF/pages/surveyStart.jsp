@@ -34,7 +34,7 @@
 		<!-- Main component for a primary marketing message or call to action -->
 		<div class="jumbotron">
 		
-			<form id="SHORT_Q" action="/ces-1.0-SNAPSHOT/uni/survey/detail" method="post">
+			<form id="SHORT_Q_RESPONSE" action="/ces-1.0-SNAPSHOT/survey/start" method="post">
 		
 				<table border="1">
 					<c:forEach items="${responseListForm.questionForm}" var="contact" varStatus="status">

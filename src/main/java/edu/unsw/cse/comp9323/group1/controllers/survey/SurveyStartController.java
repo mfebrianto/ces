@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,6 +49,19 @@ public class SurveyStartController {
 		model.addAttribute("surveyId", surveyId);
 		
 		return "surveyStart";
+	}
+	
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public String processForm(@ModelAttribute(value="SHORT_Q_RESPONSE") QuestionListForm questionListForm,BindingResult result){
+		if(result.hasErrors()){
+			return "surveyCreate";
+		}else{
+			
+			System.out.println(">>>>>SIZE>>>>"+questionListForm.getQuestionForm().size());
+			
+			return "redirect:/courseDetail?courseName=Category Theory for Scientists (MIT)&studentId=594128691";
+		}		
 	}
 
 }
