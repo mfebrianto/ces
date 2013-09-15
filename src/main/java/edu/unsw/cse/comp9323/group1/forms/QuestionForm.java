@@ -7,6 +7,9 @@ public class QuestionForm {
 	private String id;
 	private String response;
 	
+	public QuestionForm(){
+		
+	}
 	
 	public QuestionForm(String id, String title, String response, int surveyId){
 		this.id = id;
