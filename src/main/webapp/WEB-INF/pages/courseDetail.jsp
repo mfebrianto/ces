@@ -111,8 +111,21 @@
 	}
 	
 	$(function() {
-		$('#star').raty({ path: '/resources/imgs', size: 24,
+		$('#star').raty({ path: '../resources/imgs/', size: 24,
 			click: function(score, evt) {
+				$.ajax({
+			        type: 'GET',
+			        url: './test',
+			        async: false,
+			        success: function(result) {
+			          
+			          alert(result);
+			           
+			        },
+			        error: function(e) {
+			          console.log(e);
+			        }
+			      });
 				
 			}
 		});
@@ -135,7 +148,8 @@
 		   Course Start Date  :	${course.getStartDate()}<br></br>
 		   Course Length  :	${course.getLength()}<br></br>
         </p>
-        <div id="star"></div>
+        <p> Rating :
+        <div id="star"></div></p>
         <p>
           <a class="btn btn-lg btn-primary" href="#">View navbar docs »</a>
           <a href="#" 
@@ -148,6 +162,7 @@
     				  caption: '${course.getName()}',
     				  description: 'This is test Dialog to test facebook sharing.'
     				}, function(response){});">
+  				
   				<img src="<c:url value="/resources/imgs/icon_fb.jpg"/>" border="0">
   				
 		</a>
