@@ -142,6 +142,7 @@ public class SurveyDAO {
 			client.oauth2Login( client.getUserCredentials());
 			newReview.put("id__c", survey.getId());
 			newReview.put("courseId__c", survey.getCourseId());
+			client.oauth2Login( client.getUserCredentials());
 			String response = client.restPost("/sobjects/Review__c/", newReview.toString());
 			
 			System.out.println(">>>>>"+response);

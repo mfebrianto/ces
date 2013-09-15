@@ -230,6 +230,7 @@ public class RestClient extends Object {
 
   public String restPost(String uri, String requestBody) throws HttpException, URISyntaxException {
     String result = null;
+    uri = restUri+uri;
 //    printBanner("POST", uri);
     try {
       HttpClient httpClient = new DefaultHttpClient();
