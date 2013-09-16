@@ -35,7 +35,8 @@ public class ProfanityController {
 	@RequestMapping(value = "/containProfanity", method = RequestMethod.POST)
 	@ResponseBody
 	public String containProfanity(@RequestBody String data) throws IOException {
-		URL url = new URL(endpoint+"?q="+ URLEncoder.encode(data));
+		String replaceString = data.replaceAll("[^a-z\\sA-Z\\d]"," ");
+		URL url = new URL(endpoint+"?q="+ URLEncoder.encode(replaceString));
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("Accept", "application/json");
