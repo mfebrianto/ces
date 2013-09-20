@@ -133,22 +133,24 @@
 			}
 		});
 	});
-
-	$('#enrol').click(function() {
-		$.ajax({
-	        type: "POST",
-	        url: "./enrollment",
-	        data: {course_id:"${course.getId()}"
-	   	   ,student_id:"${studentId}"
-	   	   },
-	    	dataType: "text",
-	        success: function(data) {
-	          alert("Enrolled !!");
-	        },
-	        error: function(e) {
-	          alert("Error !!");
-	        }
-	     	});
+	
+	$(function() {
+		$('#enrol').click(function() {
+			$.ajax({
+		        type: "POST",
+		        url: "./enrollment",
+		        data: {course_id:"${course.getId()}"
+		   	   ,student_id:"${studentId}"
+		   	   },
+		    	dataType: "text",
+		        success: function(data) {
+		          alert("Enrolled !!");
+		        },
+		        error: function(e) {
+		          alert("Error !!");
+		        }
+		     });
+		});
 	});
 </script>
 
