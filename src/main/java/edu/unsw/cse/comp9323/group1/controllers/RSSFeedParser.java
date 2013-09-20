@@ -141,7 +141,7 @@ public class RSSFeedParser {
   
   
   @SuppressWarnings("unchecked")
-	public static void main(String[] args) throws URISyntaxException, HttpException {
+	public List<JSONObject> getRSSMITCourses(String[] args) throws URISyntaxException, HttpException {
 	  	RestClient client = new RestClient();
 		String linkString = "http://ocw.mit.edu/rss/new/mit-newcourses.xml";
 		//Login to the system.
@@ -149,6 +149,8 @@ public class RSSFeedParser {
 			
 	    RSSFeedParser parser = new RSSFeedParser(linkString);
 	    List<FeedMessage> allFeeds = parser.readFeed();
+	    
+	    List<JSONObject> result = new ArrayList<JSONObject>();
 	    for (FeedMessage message : allFeeds) {
 		    JSONObject newCourse = new JSONObject();
 		    newCourse.put("name__c", message.getTitle());
@@ -180,7 +182,7 @@ public class RSSFeedParser {
 		    String response = client.restGet(client.getRestUri() + "/query/?q=SELECT+name__c+FROM+course_detail__c+WHERE+name__c+=+\'"+ courseName + "\'");
 		    if (response.contains("errorCode")) {
 		    	System.out.println(courseName + " has errors: " + response);
-		    	return;
+		    	return result;
 		    }
 		    JsonParser jsonParser = new JsonParser();
 		    JsonElement jsonElement = jsonParser.parse(response);
@@ -188,12 +190,15 @@ public class RSSFeedParser {
 		    String total = jsonElement.getAsJsonObject().get("totalSize").getAsString();
 		    if (total.compareTo("0") == 0) {
 		    	response = client.restPost(client.getRestUri() + "/sobjects/course_detail__c/", newCourse.toString());
-		    	if (!response.contains("errorCode"))
+		    	if (!response.contains("errorCode")) {
+		    		result.add(newCourse);
 		    		System.out.println("Inserted new course: " + courseName);
+		    	}
 		    	else {
 		    		System.out.println(courseName + " has errors: " + response);
 				}
 		    }
 	    }
+	    return result;
 	}
 } 
