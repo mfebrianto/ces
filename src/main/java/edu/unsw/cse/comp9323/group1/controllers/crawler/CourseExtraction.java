@@ -144,7 +144,7 @@ public class CourseExtraction {
 		}
 	}
  
-	public static void main(String[] args) throws URISyntaxException, HttpException, ParseException {
+	public static void getMoocListCourse() throws URISyntaxException, HttpException, ParseException {
 	    //RestClient client = new RestClient();
 	    client.oauth2Login( client.getUserCredentials());
 	    getAllCourses();
