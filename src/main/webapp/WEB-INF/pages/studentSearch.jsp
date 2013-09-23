@@ -107,60 +107,32 @@
 
 
 <div class="container">
-
      <jsp:include page="layouts/studentHeader.jsp">
      	<jsp:param name="studentId" >  
 	      <jsp:attribute name="value" >  
-	         <c:out value="${student.getId()}"/>  
+	         <c:out value="${studentId}"/>  
 	      </jsp:attribute>  
 	  	</jsp:param>  
      </jsp:include>
 
       <!-- Main component for a primary marketing message or call to action -->
-      <div data-action="share" class="g-plus" id="plusOne"></div>
-  <button onClick="gapi.plus.render('plusOne', getParamBag('http://localhost:8080/ces-1.0-SNAPSHOT/'))"></button>
-  
-      <div class="jumbotron">
-        <h1>Welcome Student</h1>
-        
-          <a href="#" 
-  			 onclick="
-  				 FB.ui({
-    				  method: 'feed',
-    				  link: 'http://localhost:8080/ces-1.0-SNAPSHOT/',
-    				  picture: 'http://www.unsw.edu.au/sites/default/files/UNSW.png',
-    				  name: 'UNSW Open Courses',
-    				  caption: 'COMP 9323 - E-Enterprise Project',
-    				  description: 'This is test Dialog to test facebook sharing.'
-    				}, function(response){});">
-  				<img src="<c:url value="/resources/imgs/icon_fb.jpg"/>" border="0">
-  				
-		</a>
-		<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://localhost:8080/ces-1.0-SNAPSHOT/student" data-text="Hey, check out this cool Course Evaluation Website : http://localhost:8080/ces-1.0-SNAPSHOT/student" data-count="none" data-via="Faridaji" data-lang="en">Tweet</a>
-		
-		
-		<!--  <g:plus action="share"></g:plus>
-		<a href="https://plus.google.com/share?url=http://www.unsw.edu.au" onclick="javascript:window.open(this.href,
-  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><img
-  src="https://www.gstatic.com/images/icons/gplus-16.png" alt="Share on Google+"/></a>-->
-		<!-- window.open(
-      				'https://www.facebook.com/sharer/sharer.php?u=http://www.yahoo.com',
-      				'facebook-share-dialog', 
-      				'width=626,height=436'); 
-    				return false; -->
-		
-		<div class="fb-comments" data-href="http://localhost:8080/ces-1.0-SNAPSHOT/student" data-width="470"></div>
-        
+     <div class="jumbotron">
+        <h1>Search</h1>
+        	<button id="logout" >Logout</button>
+        <p>
+        <form method="post" action="/ces-1.0-SNAPSHOT/studentSearch?studentId=${studentId}">
+			<input type="text" name="searchedText">
+			<input type="submit" value="Search" name="submit" />
+		</form>
         <table border="1">
-	       <c:forEach items="${courses}" var="element"> 
+	       <c:forEach items="${searchedCourses}" var="element"> 
 			  <tr>
-			  <td><c:out value="${element.name}"/></td>
-			    <td><c:out value="${element.getId()}"/></td>
-			    <td><a class="btn btn-primary" href="<c:url value="/courseDetail?courseName=${element.name}&studentId=${student.getId()}"/>">Check Detail And Do Evaluation »</a></td>
+			    <td><c:out value="${element.name}"/></td>
+			    <td><a class="btn btn-primary" href="<c:url value="/courseDetail?courseName=${element.name}&studentId=${studentId}"/>">View surveys »Check Detail And Do Evaluation »</a></td>
 			  </tr>
 			</c:forEach>
 		</table>
-		
+        
       </div>
       
 

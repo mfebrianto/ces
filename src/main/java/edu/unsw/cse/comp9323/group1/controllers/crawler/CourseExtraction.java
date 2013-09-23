@@ -3,6 +3,7 @@ package edu.unsw.cse.comp9323.group1.controllers.crawler;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpException;
@@ -24,9 +25,10 @@ import edu.unsw.cse.comp9323.group1.DAOs.RestClient;
 public class CourseExtraction {
 	protected static String linkString = "http://www.mooc-list.com";
 	protected static RestClient client = new RestClient();
- 
+	protected List<JSONObject> listCourses;
+
 	@SuppressWarnings("unchecked")
-	public static void getCourseDetail(String link) throws IOException, HttpException, URISyntaxException, ParseException {
+	public void getCourseDetail(String link) throws IOException, HttpException, URISyntaxException, ParseException {
 		JSONObject newCourse = new JSONObject();
 		Document doc;
 		doc = Jsoup.connect(link).timeout(0).get();
@@ -91,16 +93,17 @@ public class CourseExtraction {
 //	    	jsonElement = jsonParser.parse(response);
 //	    	String success = jsonElement.getAsJsonObject().get("success").getAsString();
 //	    	String errors = jsonElement.getAsJsonObject().get("errors").getAsString();
-	    	if (!response.contains("errorCode"))
+	    	if (!response.contains("errorCode")) {
+	    		listCourses.add(newCourse);
 	    		System.out.println("Inserted new course: " + courseName);
+	    	}
 	    	else {
 	    		System.out.println(courseName + " has errors: " + response);
 			}
 	    }
 	}
 	
-	public static void getListCourses(String link) throws IOException, HttpException, URISyntaxException, ParseException {
-		ArrayList<JSONObject> allCourses = new ArrayList<JSONObject>();
+	public void getListCourses(String link) throws IOException, HttpException, URISyntaxException, ParseException {
 		Document doc;
 		doc = Jsoup.connect(link).timeout(0).get();
 		Elements main_divs = doc.select("div.view-content");
@@ -114,7 +117,7 @@ public class CourseExtraction {
 		}
 	}
 	
-	public static void getAllCourses() throws HttpException, URISyntaxException, ParseException {
+	public List<JSONObject> getAllCourses() throws HttpException, URISyntaxException, ParseException {
 		Document doc;
 		try {
 
@@ -142,11 +145,20 @@ public class CourseExtraction {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return listCourses;
 	}
  
+<<<<<<< HEAD
 	public static void getMoocListCourse() throws URISyntaxException, HttpException, ParseException {
 	    //RestClient client = new RestClient();
 	    client.oauth2Login( client.getUserCredentials());
 	    getAllCourses();
 	}
+=======
+//	public static void main(String[] args) throws URISyntaxException, HttpException, ParseException {
+//	    //RestClient client = new RestClient();
+//	    client.oauth2Login( client.getUserCredentials());
+//	    getAllCourses();
+//	}
+>>>>>>> 843dc8f5c1ae4f630acd292309eb44d9b011907b
 }

@@ -34,6 +34,7 @@
             <li class="active"><a href="./">Default</a></li>
             <li><a href="../navbar-static-top/">Static top</a></li>
             <li><a href="../navbar-fixed-top/">Fixed top</a></li>
+            <li><a href="/ces-1.0-SNAPSHOT/search">Search</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

@@ -14,20 +14,22 @@ import edu.unsw.cse.comp9323.group1.models.Course;
 
 
 @Controller
-@RequestMapping("/search")
-public class SearchController {
+@RequestMapping("/studentSearch")
+public class StudentSearchController {
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String getAllCourses(ModelMap model) {
+	public String getAllCourses(@RequestParam("studentId") String studentId, ModelMap model) {
 		//CourseDAO courseDAO = new CourseDAO();
 		//model.addAttribute("courses", courseDAO.getAllCourses());
-		return "search";
+		
+		model.addAttribute("studentId", studentId);
+		return "studentSearch";
  
 	}
 	
 	//Search courses based on uni name or course name
 	@RequestMapping(method = RequestMethod.POST)
-	public String postSearchedCourses(@RequestParam("searchedText") String searchedText, ModelMap model) {
+	public String postSearchedCourses(@RequestParam("searchedText") String searchedText, @RequestParam("studentId") String studentId, ModelMap model) {
 		CourseDAO courseDAO = new CourseDAO();
 		List<Course> searchedCourses = new ArrayList<Course>();
 		
@@ -41,7 +43,8 @@ public class SearchController {
 			}
 		}
 		model.addAttribute("searchedCourses", searchedCourses);
-		return "search";
+		model.addAttribute("studentId", studentId);
+		return "studentSearch";
 	}
 
 }

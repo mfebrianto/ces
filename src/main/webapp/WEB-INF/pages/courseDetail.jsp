@@ -133,8 +133,25 @@
 			}
 		});
 	});
-
-
+	
+	$(function() {
+		$('#enrol').click(function() {
+			$.ajax({
+		        type: "POST",
+		        url: "./enrollment",
+		        data: {course_id:"${course.getId()}"
+		   	   ,student_id:"${studentId}"
+		   	   },
+		    	dataType: "text",
+		        success: function(data) {
+		          alert("Enrolled !!");
+		        },
+		        error: function(e) {
+		          alert("Error !!");
+		        }
+		     });
+		});
+	});
 </script>
 
 <div class="container">
@@ -154,6 +171,7 @@
         <p> Rating :
         <div id="star"></div>
         <input type="hidden" id="rating">
+        <div><a class="btn btn-lg btn-success" id="enrol" name="enrol">Enrol</a></div>
         <div>
         	<table border="1">
 				<c:forEach items="${allSurveys}" var="element">
