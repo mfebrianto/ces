@@ -141,11 +141,11 @@ public class RSSFeedParser {
   
   
   @SuppressWarnings("unchecked")
-<<<<<<< HEAD
-	public void getRSSMitCourse() throws URISyntaxException, HttpException {
-=======
-	public List<JSONObject> getRSSMITCourses(String[] args) throws URISyntaxException, HttpException {
->>>>>>> 843dc8f5c1ae4f630acd292309eb44d9b011907b
+
+//	public void getRSSMitCourse() throws URISyntaxException, HttpException {
+
+	public List<JSONObject> getRSSMITCourses() throws URISyntaxException, HttpException {
+
 	  	RestClient client = new RestClient();
 		String linkString = "http://ocw.mit.edu/rss/new/mit-newcourses.xml";
 		//Login to the system.

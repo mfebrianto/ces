@@ -25,10 +25,10 @@ import edu.unsw.cse.comp9323.group1.DAOs.RestClient;
 public class CourseExtraction {
 	protected static String linkString = "http://www.mooc-list.com";
 	protected static RestClient client = new RestClient();
-	protected List<JSONObject> listCourses;
+	protected static List<JSONObject> listCourses;
 
 	@SuppressWarnings("unchecked")
-	public void getCourseDetail(String link) throws IOException, HttpException, URISyntaxException, ParseException {
+	public static void getCourseDetail(String link) throws IOException, HttpException, URISyntaxException, ParseException {
 		JSONObject newCourse = new JSONObject();
 		Document doc;
 		doc = Jsoup.connect(link).timeout(0).get();
@@ -103,7 +103,7 @@ public class CourseExtraction {
 	    }
 	}
 	
-	public void getListCourses(String link) throws IOException, HttpException, URISyntaxException, ParseException {
+	public static void getListCourses(String link) throws IOException, HttpException, URISyntaxException, ParseException {
 		Document doc;
 		doc = Jsoup.connect(link).timeout(0).get();
 		Elements main_divs = doc.select("div.view-content");
@@ -117,7 +117,7 @@ public class CourseExtraction {
 		}
 	}
 	
-	public List<JSONObject> getAllCourses() throws HttpException, URISyntaxException, ParseException {
+	public static List<JSONObject> getAllCourses() throws HttpException, URISyntaxException, ParseException {
 		Document doc;
 		try {
 
@@ -148,17 +148,17 @@ public class CourseExtraction {
 		return listCourses;
 	}
  
-<<<<<<< HEAD
+
 	public static void getMoocListCourse() throws URISyntaxException, HttpException, ParseException {
 	    //RestClient client = new RestClient();
 	    client.oauth2Login( client.getUserCredentials());
 	    getAllCourses();
 	}
-=======
+
 //	public static void main(String[] args) throws URISyntaxException, HttpException, ParseException {
 //	    //RestClient client = new RestClient();
 //	    client.oauth2Login( client.getUserCredentials());
 //	    getAllCourses();
 //	}
->>>>>>> 843dc8f5c1ae4f630acd292309eb44d9b011907b
+
 }
