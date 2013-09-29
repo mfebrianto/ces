@@ -7,14 +7,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.http.HttpException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -45,15 +51,36 @@ import edu.unsw.cse.comp9323.group1.models.fqlUser;
 @RequestMapping("/FBLogin")
 @SessionAttributes({"review", "externalReview"})
 public class FBLoginController {
-	@RequestMapping(value = "/{accesstoken}", method = RequestMethod.GET)
-	public String getStudentDetail(@PathVariable String accesstoken, ModelMap model) {
- 
+	//@RequestMapping(value = "/{accesstoken}", method = RequestMethod.GET)
+	//public String getStudentDetail(@PathVariable String accesstoken, ModelMap model) {
+	@RequestMapping(value = "/checkToken", method = RequestMethod.POST)
+	@ResponseBody
+	public String getStudentDetail(@RequestBody String accesstoken, String redirectUrl) {
 		
+		System.out.println("CheckTokenLoaded");
 		//model.addAttribute("accesstoken", accesstoken);
 		
+		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+	    HttpSession session = attr.getRequest().getSession(true);
+		
+	    if (session.getAttribute("token") != null) {
+			return "already login";
+		}
+	    if(session.getAttribute("loginRole") != null){
+	    	if(session.getAttribute("loginRole").toString() == "student"){
+	    		return "already login";
+	    	}else if(session.getAttribute("loginRole").toString() == "uni"){
+	    		return "uni";
+	    		
+	    	}
+	    }
+	    
 		FacebookClient facebookClient = new DefaultFacebookClient(accesstoken);
 		System.out.println(accesstoken);
 		User user = facebookClient.fetchObject("me", User.class);
+		
+		
+		
 		
 		//Alternative by using Facebook Query Language (FQL)
 		
@@ -146,7 +173,8 @@ public class FBLoginController {
     	    	}
     	    	
     	    	student.setEducations(lstStuHistory);
-    	    	model.addAttribute("student", student);
+    	    	session.setAttribute("student", student);
+    	    	//model.addAttribute("student", student);
     	    	
     	    	//insert to database.com
     	    	JsonObject newStudentJSONObj = new JsonObject();
@@ -206,11 +234,14 @@ public class FBLoginController {
     	    	student.setGender(jobjectFirstRecord.get("Gender__c").toString());
     	    	//student.setInterests(user.getInterestedIn());
     	    	System.out.println("Data Load Success !!");
-    	    	model.addAttribute("student", student);
+    	    	
+    	    	session.setAttribute("student", student);
+    	    	//model.addAttribute("student", student);
     	    	
     	    	CourseDAO crsDAO = new CourseDAO();
     	    	ArrayList<Course>  x = new ArrayList<Course>(crsDAO.getAllIDNameCourses());
-    	    	model.addAttribute("courses", crsDAO.getAllIDNameCourses());
+    	    	session.setAttribute("courses", crsDAO.getAllIDNameCourses());
+    	    	//model.addAttribute("courses", crsDAO.getAllIDNameCourses());
     	    	
     	    }
     	    
@@ -225,8 +256,12 @@ public class FBLoginController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "studentHome";
+		//return "studentHome";
 		
+		session.setAttribute("token", accesstoken);
+		session.setAttribute("loginRole", "student");
+		
+		return "success";
 		
  
 	}
@@ -239,10 +274,21 @@ public class FBLoginController {
 	
 	@RequestMapping(value = "/FBLoginTest", method = RequestMethod.GET)
 	public String FBtest(ModelMap model) {
-		//System.out.println(surveyId);
+		System.out.println("FBLoginTestLoaded");
 		return "FBLoginTest";
  
 	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String FBLogout(ModelMap model) {
+		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+	    HttpSession session = attr.getRequest().getSession(true);
+	    session.invalidate();
+	    
+		return "hello";
+ 
+	}
+	
 	
 	
 }

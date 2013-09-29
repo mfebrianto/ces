@@ -82,7 +82,7 @@ public class RatingDAO {
     	    	
     	    	client.oauth2Login( client.getUserCredentials());
     	    	System.out.println("/sobjects/StudentUniRating__c/"+id);
-    	    	response = client.restPatch("/sobjects/StudentUniRating__c/"+id, newRatingJSONObj.toString());
+    	    	response = client.restPatch(URLEncoder.encode("/sobjects/StudentUniRating__c/"+id,"UTF-8"), newRatingJSONObj.toString());
     	    	
 			}
 		    

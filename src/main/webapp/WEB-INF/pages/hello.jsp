@@ -22,9 +22,25 @@
       <script src="../../assets/js/html5shiv.js"></script>
       <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
+    
+    <script type="text/javascript">
+    		
+    	var popupWindow=null;
+
+    	function child_open()
+    	{ 
+	   		popupWindow=window.open('','_facebook','width=400,height=300,scrollbars=yes');
+    		popupWindow.focus();
+    	}
+    	
+    	function parent_disable() {
+    		if(popupWindow && !popupWindow.closed)
+    			popupWindow.focus();
+    	}
+    </script>
   </head>
 
-  <body>
+  <body onFocus="parent_disable();" onclick="parent_disable();">
 
     <div class="container">
       <div class="header">
@@ -43,6 +59,8 @@
 
 	       <!--  <a class="btn btn-lg btn-success" href="<c:url value="/uni"/>">University</a>-->
     		<script type="text/javascript">
+    		
+    		
     		 <!-- Place this asynchronous JavaScript just before your </body> tag -->
     		      (function() {
     		       var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
@@ -144,7 +162,7 @@ function onSignInCallback(authResult) {
   helper.onSignInCallback(authResult);
 }
 </script>
-	        <a class="btn btn-lg btn-success" onclick="var gw=window.open('','_facebook','width=400,height=300,scrollbars=yes');gw.focus();" href="https://graph.facebook.com/oauth/authorize?client_id=575842165811798&amp;redirect_uri=http://localhost:8080/ces-1.0-SNAPSHOT/FBLogin/FBLoginTest&amp;scope=email,user_education_history,publish_actions&amp;display=popup&amp;response_type=token" target="_facebook">Student</a>
+	        <a class="btn btn-lg btn-success" onclick="child_open()" href="https://graph.facebook.com/oauth/authorize?client_id=575842165811798&amp;redirect_uri=http://localhost:8080/ces-1.0-SNAPSHOT/FBLogin/FBLoginTest&amp;scope=email,user_education_history,publish_actions&amp;display=popup&amp;response_type=token" target="_facebook">Student</a>
 
 <!--         <a class="btn btn-lg btn-success" href="<c:url value="/uni"/>">University</a>
 	        <a class="btn btn-lg btn-success" onclick="var gw=window.open('','_facebook','width=400,height=300,scrollbars=yes');gw.focus();" href="https://graph.facebook.com/oauth/authorize?client_id=575842165811798&amp;redirect_uri=http://localhost:8080/ces-1.0-SNAPSHOT/FBLogin/FBLoginTest&amp;scope=email,user_education_history,publish_actions,user_interests&amp;display=popup&amp;response_type=token" target="_facebook">Student</a>

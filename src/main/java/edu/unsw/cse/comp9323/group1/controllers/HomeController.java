@@ -132,6 +132,7 @@ public class HomeController {
 	          rdb.oauth2Login(rdb.userCredentials);
 	          String result = rdb.postUniLoginData(university);
 	          System.out.println(result);
+	          session.setAttribute("loginRole", "uni");
 	          return name+" Successfully Login";
 		
 	}
@@ -165,9 +166,9 @@ public class HomeController {
 	          
 	          System.out.println("session token    "+session.getAttribute("token"));
 	          System.out.println(name + "  out");
-
+	          
 	          session.removeAttribute("token");
-
+	          session.removeAttribute("loginRole");
 	          
 	          return name+" Successfully logout.";
 	        } catch (IOException e) {

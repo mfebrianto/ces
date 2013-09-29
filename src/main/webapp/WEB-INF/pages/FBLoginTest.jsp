@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 
-    
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" ></script>    
 </head>
 <body>
 <div id="fb-root"></div>
@@ -27,9 +27,36 @@
   	    var accessToken = response.authResponse.accessToken;
   	    console.log("Your Access Token : " + accessToken);
   	    
-  	    window.location.href = accessToken;
-  	    window.opener.location.href="http://localhost:8080/ces-1.0-SNAPSHOT/FBLogin/"+accessToken;
-  	    self.close();
+  	    //window.location.href = accessToken;
+  	    //window.opener.location.href="http://localhost:8080/ces-1.0-SNAPSHOT/FBLogin/"+accessToken;
+  	  	$.ajax({
+          type: 'POST',
+          url: 'http://localhost:8080/ces-1.0-SNAPSHOT/FBLogin/checkToken',
+          contentType: 'application/octet-stream; charset=utf-8',
+          success: function(result) {
+            console.log(result);
+            if(result == 'success'){
+            	window.opener.location.href="http://localhost:8080/ces-1.0-SNAPSHOT/student";
+            	self.close();
+            }else if(result == 'uni'){
+            	alert('You need to logout from uni account first and login using student account')
+            	window.opener.location.href="http://localhost:8080/ces-1.0-SNAPSHOT/";
+            	self.close();
+            }else{
+            
+            	alert(result);
+            	window.opener.location.href="http://localhost:8080/ces-1.0-SNAPSHOT/student";
+            	self.close();
+            }
+            //helper.people();
+          },error: function(request,error) {
+              alert('An error occurred');
+              console.log(request, error);
+          },
+          processData: false,
+          data:  accessToken 
+        });
+  	    
   	  } else if (response.status === 'not_authorized') {
   	    // the user is logged in to Facebook, 
   	    // but has not authenticated your app
@@ -57,6 +84,6 @@
   }(document));
 
 </script>
-XXXX
+Loading Data...
 </body>           
 </html>
