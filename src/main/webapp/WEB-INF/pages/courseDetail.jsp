@@ -39,17 +39,19 @@
  	//load Star Jquery
 	
 	$(function() {
-		$('#star').raty({ path: 'resources/imgs/', size: 24,target: '#rating',
+		$('#UserStar').raty({ path: 'resources/imgs/', size: 24,target: '#UserRating',
 		hints: [null, null, null, null, null],
+		score: ${UserRating
 		click: function(score, evt) {
 		$.ajax({
 		        type: "POST",
 		        url: "./Rating/",
 		        data: {courseName:'${course.getName()}'
 		   	   ,studentID:${studentId}
-		   	   ,rating:$("#rating").val()
+		   	   ,rating:$("#UserRating").val()
+		   	   ,category: 'category1'
 		   	   },
-		    dataType: "text",
+		    	dataType: "text",
 		        success: function(data) {
 		          alert("Rating Updated !!");
 		           
@@ -61,6 +63,15 @@
 			}
 		});
 	});
+ 	
+	$(function() {
+		$('#OverallStar').raty({ path: 'resources/imgs/', size: 24,target: '#OverallRating',
+		hints: [null, null, null, null, null],
+		score: ${OverallRating},
+		readOnly: true
+		});
+	});
+	
 	
 	$(function() {
 		$('#enrol').click(function() {
@@ -96,9 +107,14 @@
 		   Course Start Date  :	${course.getStartDate()}<br></br>
 		   Course Length  :	${course.getLength()}<br></br>
         </p>
-        <p> Rating :
-        <div id="star"></div>
-        <input type="hidden" id="rating">
+        <p> Overall Rating : 
+        <div id="OverallStar"></div>
+        <input type="hidden" id="OverallRating">
+        
+        <p> Your Rating : 
+        <div id="UserStar"></div>
+        <input type="hidden" id="UserRating">
+        
         <div><a class="btn btn-lg btn-success" id="enrol" name="enrol">Enrol</a></div>
         <div>
         	<table border="1">

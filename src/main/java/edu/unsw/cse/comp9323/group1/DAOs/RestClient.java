@@ -188,13 +188,16 @@ public class RestClient extends Object {
     String result = "";
     printBanner("PATCH", uri);
     try {
+    	
       HttpClient httpClient = new DefaultHttpClient();
-      HttpPatch httpPatch = new HttpPatch(uri);
+      HttpPatch httpPatch = new HttpPatch(restUri+uri);
       httpPatch.addHeader(oauthHeader);
       httpPatch.addHeader(prettyPrintHeader);
       StringEntity body = new StringEntity(requestBody);
       body.setContentType("application/json");
       httpPatch.setEntity(body);
+      System.out.println(restUri+uri);
+      System.out.println(requestBody);
       HttpResponse response = httpClient.execute(httpPatch);
       result = response.getEntity() != null ? 
           getBody( response.getEntity().getContent() ) : "";
@@ -231,7 +234,7 @@ public class RestClient extends Object {
   public String restPost(String uri, String requestBody) throws HttpException, URISyntaxException {
     String result = null;
     uri = restUri+uri;
-//    printBanner("POST", uri);
+   printBanner("POST", uri);
     try {
       HttpClient httpClient = new DefaultHttpClient();
       HttpPost httpPost = new HttpPost(uri);

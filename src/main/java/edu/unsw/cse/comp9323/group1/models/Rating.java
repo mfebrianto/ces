@@ -4,7 +4,15 @@ public class Rating {
 	private Integer studentID;
 	private String courseName;
 	private Integer rating;
+	private String category;
 	
+	
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 	public Integer getStudentID() {
 		return studentID;
 	}

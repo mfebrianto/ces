@@ -23,17 +23,20 @@ public class RatingController {
 		if(result.hasErrors()){
 			return "surveyCreate";
 		}else{
-			Rating ratingObj = new Rating();
+			
 			RatingDAO ratingDAO = new RatingDAO();
-			boolean success = ratingDAO.updateRating(rating.getStudentID(), rating.getCourseName(), rating.getRating());
+			boolean success = ratingDAO.updateRating(rating.getStudentID(), rating.getCourseName(), rating.getRating(), rating.getCategory());
 			
 			
 			System.out.println("StudentID : " + rating.getStudentID());
 			System.out.println("Course Name : " + rating.getCourseName());
 			System.out.println("Rating : " + rating.getRating());
+			System.out.println("Category : " + rating.getCategory());
 			
 			
 			return "studentHome";
 		}		
 	}
+	
+	
 }

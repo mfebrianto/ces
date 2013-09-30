@@ -3,19 +3,19 @@ package edu.unsw.cse.comp9323.group1.models;
 import java.util.List;
 
 public class StudentModel {
-	private String id;
+	public String id;
 	//The user's first name.
-	private String FirstName;
+	public String FirstName;
 	//The user's middle name.
-	private String MiddleName;
+	public String MiddleName;
 	//The user's last name.
-	private String LastName;
+	public String LastName;
 	//The user's gender.
-	private String gender;
+	public String gender;
 	//The genders the user is interested in.
-	private List<String> Interests;
+	public List<String> Interests;
 	
-	private List<StudentEduHistoryModel> Educations;
+	public List<StudentEduHistoryModel> Educations;
 	
 	public String getId() {
 		return id;

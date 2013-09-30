@@ -1,10 +1,12 @@
 package edu.unsw.cse.comp9323.group1.controllers;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.http.HttpException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.unsw.cse.comp9323.group1.DAOs.CourseDAO;
+import edu.unsw.cse.comp9323.group1.DAOs.RatingDAO;
 import edu.unsw.cse.comp9323.group1.DAOs.SurveyDAO;
 import edu.unsw.cse.comp9323.group1.models.Course;
 import edu.unsw.cse.comp9323.group1.models.Survey;
@@ -21,7 +24,7 @@ import edu.unsw.cse.comp9323.group1.models.Survey;
 public class CourseDetailController {
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String getCourseDetail(@RequestParam("courseName") String courseName,@RequestParam("studentId") String studentId, ModelMap model) throws UnsupportedEncodingException {
+	public String getCourseDetail(@RequestParam("courseName") String courseName,@RequestParam("studentId") String studentId, ModelMap model) throws UnsupportedEncodingException, URISyntaxException, HttpException {
 		
 		CourseDAO crsDAO = new CourseDAO();
 		Course course = new Course();
@@ -53,11 +56,17 @@ public class CourseDetailController {
 				 }
 			 }
 		 }
-		
-		
-		model.addAttribute("allSurveys", returnSurveys);
-		model.addAttribute("course", course);
-		model.addAttribute("studentId", studentId);
+		 
+		 RatingDAO ratingDAO = new RatingDAO();
+		 
+		 int overallRatingCourse = ratingDAO.getOverAllRating(courseName);
+		 int userRatingCourse = ratingDAO.getUserRating(Integer.parseInt(studentId), courseName);
+		 
+		 model.addAttribute("UserRating", userRatingCourse);
+		 model.addAttribute("OverallRating", overallRatingCourse);
+		 model.addAttribute("allSurveys", returnSurveys);
+		 model.addAttribute("course", course);
+		 model.addAttribute("studentId", studentId);
 		return "courseDetail";
 	
 	}
