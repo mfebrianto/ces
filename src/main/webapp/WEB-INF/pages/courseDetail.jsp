@@ -41,7 +41,7 @@
 	$(function() {
 		$('#UserStar').raty({ path: 'resources/imgs/', size: 24,target: '#UserRating',
 		hints: [null, null, null, null, null],
-		score: ${UserRating
+		score: ${UserRating},
 		click: function(score, evt) {
 		$.ajax({
 		        type: "POST",
