@@ -85,6 +85,18 @@
 				</tr>
 			</table>
 		</div>
+		<div id = "checkSection">
+			<table>
+				<tr>
+					<td>
+						<input id="title" name="title" type="text" value="">
+					</td>
+					<td>
+						<input id="title" name="title" type="text" value="">
+					</td>
+				</tr>
+			</table>
+		</div>
 	</div>
 	
 	<!-- /container -->
@@ -106,6 +118,7 @@
 			var questionLayout = $('#question_layout');
 			var questionOptions = $('#question_options');
 			var radioSection = $('#radioSection');
+			var checkSection = $('#checkSection');
 			if(questionTypeVal==1){
 				questionLayout.html('<td>Question Title</td><td><input id="title" name="title" type="text" value=""></td>');
 				questionOptions.html('');
@@ -116,11 +129,11 @@
 			}
 			else if(questionTypeVal==3){
 				questionLayout.html('<td>Question Title</td><td><input id="title" name="title" type="text" value=""></td>');
-				questionOptions.html(radioSection);
+				questionOptions.html(radioSection.html());
 			}
 			else if(questionTypeVal==4){
 				questionLayout.html('<td>Question Title</td><td><input id="title" name="title" type="text" value=""></td>');
-				questionOptions.html('');
+				questionOptions.html(checkSection.html());
 			}
 			else{
 				questionLayout.html('');
