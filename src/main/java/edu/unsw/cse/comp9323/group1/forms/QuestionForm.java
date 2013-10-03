@@ -8,16 +8,18 @@ public class QuestionForm {
 	private int surveyId;
 	private String id;
 	private String response;
+	private String questionType;
 	
 	public QuestionForm(){
 		
 	}
 	
-	public QuestionForm(String id, String title, String response, int surveyId){
+	public QuestionForm(String id, String title, String response, int surveyId, String questionType){
 		this.id = id;
 		this.surveyId = surveyId;
 		this.response = response;
 		this.title = title;
+		this.questionType = questionType;
 	}
 	
 	
@@ -45,7 +47,10 @@ public class QuestionForm {
 	public void setResponse(String response) {
 		this.response = response;
 	}
-	
-	
-
+	public String getQuestionType() {
+		return questionType;
+	}
+	public void setQuestionType(String questionType) {
+		this.questionType = questionType;
+	}
 }

@@ -49,19 +49,19 @@
 				<table>
 					<tr>
 						<td>Question Type :</td>
-						<td><select id="questionType">
+						<td><select id="questionType" name="questionType">
 								<option value="0"></option>
 								<option value="1">short text</option>
 								<option value="2">long text</option>
-								<option value="3">multiple choice</option>
+								<option value="3">radio</option>
 								<option value="4">checkboxes</option>
-								<option value="5">dropdown menu</option>
-								<option value="6">slider</option>
-								<option value="7">net promoter score</option>
-								<option value="8">likert scale</option>
 						</select></td>
 					</tr>
 					<tr id="question_layout">
+					</tr>
+					<tr>
+						<td colspan="2" id="question_options">
+						</td>
 					</tr>
 					<tr>
 						<td><input class="btn btn-success" type="submit"
@@ -71,6 +71,22 @@
 			</form>
 		</div>
 	</div>
+	
+	<div style = "display:none">
+		<div id = "radioSection">
+			<table>
+				<tr>
+					<td>
+						<input id="title" name="title" type="text" value="">
+					</td>
+					<td>
+						<input id="title" name="title" type="text" value="">
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
 	<!-- /container -->
 
 
@@ -88,32 +104,27 @@
 		$('#questionType').change(function(){
 			var questionTypeVal = $('#questionType').val();
 			var questionLayout = $('#question_layout');
+			var questionOptions = $('#question_options');
+			var radioSection = $('#radioSection');
 			if(questionTypeVal==1){
 				questionLayout.html('<td>Question Title</td><td><input id="title" name="title" type="text" value=""></td>');
+				questionOptions.html('');
 			}
 			else if(questionTypeVal==2){
-				
+				questionLayout.html('<td>Question Title</td><td><input id="title" name="title" type="text" value=""></td>');
+				questionOptions.html('');
 			}
 			else if(questionTypeVal==3){
-				
+				questionLayout.html('<td>Question Title</td><td><input id="title" name="title" type="text" value=""></td>');
+				questionOptions.html(radioSection);
 			}
 			else if(questionTypeVal==4){
-				
-			}
-			else if(questionTypeVal==5){
-				
-			}
-			else if(questionTypeVal==6){
-				
-			}
-			else if(questionTypeVal==7){
-				
-			}
-			else if(questionTypeVal==8){
-				
+				questionLayout.html('<td>Question Title</td><td><input id="title" name="title" type="text" value=""></td>');
+				questionOptions.html('');
 			}
 			else{
 				questionLayout.html('');
+				questionOptions.html('');
 			}
 		})
 	};

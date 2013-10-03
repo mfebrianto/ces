@@ -40,7 +40,7 @@ public class SurveyStartController {
 		Iterator<Question> allQuestionsItr = allQuestions.iterator();
 		while(allQuestionsItr.hasNext()){
 			Question questionTemp = allQuestionsItr.next();
-			QuestionForm questionForm = new QuestionForm(questionTemp.getId().toString(), questionTemp.getTitle(),"",surveyId);
+			QuestionForm questionForm = new QuestionForm(questionTemp.getId().toString(), questionTemp.getTitle(),"",surveyId,"");
 			questionListTmp.add(questionForm);
 		}
 		

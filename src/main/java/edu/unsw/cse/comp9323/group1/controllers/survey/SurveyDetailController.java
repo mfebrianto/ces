@@ -66,6 +66,7 @@ public class SurveyDetailController {
 			Question question = new Question();
 			question.setSurveyId(questionForm.getSurveyId());
 			question.setTitle(questionForm.getTitle());
+			question.setSubtype(questionForm.getQuestionType());
 			
 			QuestionDAO questionDAO = new QuestionDAO();
 			questionDAO.createQuestion(question);

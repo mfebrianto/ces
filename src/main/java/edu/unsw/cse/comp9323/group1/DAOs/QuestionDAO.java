@@ -29,6 +29,27 @@ public class QuestionDAO {
 		String url = "https://restapi.surveygizmo.com/head/survey/"+question.getSurveyId()+"/surveypage/1/surveyquestion";
 
 		HttpClient client = new HttpClient();
+		
+		/*
+		 * setup question type to survey gizmo format
+		 */
+		String QuestionType=new String();
+		int questionTypeForm = Integer.parseInt(question.getSubtype());
+		switch(questionTypeForm){
+		case 1:
+			QuestionType="text";
+			break;
+		case 2:
+			QuestionType="essay";
+			break;
+		case 3:
+			QuestionType="radio";
+			break;
+		case 4:
+			QuestionType="checkbox";
+			break;
+		}
+			
 
 		GetMethod method = new GetMethod(url);
 
@@ -39,7 +60,7 @@ public class QuestionDAO {
 				new NameValuePair("user:pass", userPass),
 				new NameValuePair("_method", "PUT"),
 				new NameValuePair("surveypage", "1"),
-				new NameValuePair("type", "text"),
+				new NameValuePair("type", QuestionType),
 				new NameValuePair("title", question.getTitle())});
 
 		try {
