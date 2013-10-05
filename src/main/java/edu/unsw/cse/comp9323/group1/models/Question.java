@@ -1,11 +1,14 @@
 package edu.unsw.cse.comp9323.group1.models;
 
+import java.util.List;
+
 public class Question {
 	
 	private Long id;
 	private int surveyId;
 	private String subtype;
 	private String title;
+	private List<QuestionOption> questionOptions;
 
 	public Question(){
 		
@@ -44,6 +47,14 @@ public class Question {
 
 	public void setSurveyId(int surveyId) {
 		this.surveyId = surveyId;
+	}
+
+	public List<QuestionOption> getQuestionOptions() {
+		return questionOptions;
+	}
+
+	public void setQuestionOptions(List<QuestionOption> questionOptions) {
+		this.questionOptions = questionOptions;
 	}
 
 }

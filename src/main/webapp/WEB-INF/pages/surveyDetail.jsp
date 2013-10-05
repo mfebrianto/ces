@@ -43,7 +43,7 @@
 				</c:forEach>
 			</table>
 
-			<form id="SHORT_Q" action="/ces-1.0-SNAPSHOT/uni/survey/detail" method="post">
+			<form:form action="/ces-1.0-SNAPSHOT/uni/survey/detail" method="post" modelAttribute="questionForm">
 
 				<input id="surveyId" name="surveyId" type="hidden" value="${surveyId}">
 				<table>
@@ -68,21 +68,23 @@
 							value="Add Question" /></td>
 					</tr>
 				</table>
-			</form>
+			</form:form>
 		</div>
 	</div>
 	
 	<div style = "display:none">
 		<div id = "radioSection">
 			<table>
+				<c:forEach items="${questionForm.questionFormOptions}" var="contact" varStatus="status">
 				<tr>
 					<td>
-						<input id="title" name="title" type="text" value="">
+						<input id="questionFormOptions[${status.index}].title" name="questionFormOptions[${status.index}].title" type="text" value="">
 					</td>
 					<td>
-						<input id="title" name="title" type="text" value="">
+						<input id="questionFormOptions[${status.index}].title" name="questionFormOptions[${status.index}].value" type="text" value="">
 					</td>
 				</tr>
+				</c:forEach>
 			</table>
 		</div>
 		<div id = "checkSection">

@@ -1,5 +1,7 @@
 package edu.unsw.cse.comp9323.group1.forms;
 
+import java.util.List;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class QuestionForm {
@@ -9,6 +11,8 @@ public class QuestionForm {
 	private String id;
 	private String response;
 	private String questionType;
+	
+	private List<QuestionFormOption> questionFormOptions;
 	
 	public QuestionForm(){
 		
@@ -53,4 +57,11 @@ public class QuestionForm {
 	public void setQuestionType(String questionType) {
 		this.questionType = questionType;
 	}
+	public List<QuestionFormOption> getQuestionFormOptions() {
+		return questionFormOptions;
+	}
+	public void setQuestionFormOptions(List<QuestionFormOption> questionFormOptions) {
+		this.questionFormOptions = questionFormOptions;
+	}
+	
 }
