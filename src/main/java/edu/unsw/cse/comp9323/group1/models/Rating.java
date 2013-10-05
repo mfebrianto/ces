@@ -1,7 +1,7 @@
 package edu.unsw.cse.comp9323.group1.models;
 
 public class Rating {
-	private Integer studentID;
+	private String studentID;
 	private String courseName;
 	private Integer rating;
 	private String category;
@@ -13,10 +13,10 @@ public class Rating {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public Integer getStudentID() {
+	public String getStudentID() {
 		return studentID;
 	}
-	public void setStudentID(Integer studentID) {
+	public void setStudentID(String studentID) {
 		this.studentID = studentID;
 	}
 	public String getCourseName() {

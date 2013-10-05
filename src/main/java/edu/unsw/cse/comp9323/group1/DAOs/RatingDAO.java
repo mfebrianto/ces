@@ -25,7 +25,7 @@ import edu.unsw.cse.comp9323.group1.Tools.RestPatch;
 
 public class RatingDAO {
 protected static RestClient client = new RestClient();
-public boolean updateRating(int studentID, String courseName, int rating, String category) throws UnsupportedEncodingException{
+public boolean updateRating(String studentID, String courseName, int rating, String category) throws UnsupportedEncodingException{
 try {
 //TODO: need to put in DAO
 client.oauth2Login( client.getUserCredentials());
