@@ -11,6 +11,7 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -80,8 +81,50 @@ public class QuestionDAO {
 			String responseBodyStr = new String(responseBody);
 
 			System.out.println(responseBodyStr);
+			
+			/*
+			 * parse respond to get id
+			 */
+			
+			 JSONParser parser = new JSONParser();
+		      Object obj = parser.parse(responseBodyStr);
+		      JSONObject jsonObject = (JSONObject) obj;
+	
+		      
+		      JSONObject jsonObjectData = (JSONObject) jsonObject.get("data");
+		      Long questionId = (Long) jsonObjectData.get("id");
+		      
+		      String urlOption = "https://restapi.surveygizmo.com/head/survey/"+question.getSurveyId()+"/surveypage/1/surveyquestion/"+questionId.toString()+"/surveyoption";
+		      
+		      PutMethod methodOption = new PutMethod(urlOption);
 
+		      methodOption.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,
+						new DefaultHttpMethodRetryHandler(3, false));
 
+		      methodOption.setQueryString(new NameValuePair[] {
+						new NameValuePair("user:pass", userPass),
+						new NameValuePair("_method", "PUT"),
+						new NameValuePair("value", "1"),
+						new NameValuePair("title", "Option Title")
+		      });
+		      
+		      
+		      int statusCodeOption = client.executeMethod(methodOption);
+
+				if (statusCodeOption != HttpStatus.SC_OK) {
+					System.err.println("Method failed: " + methodOption.getStatusLine());
+				}
+
+				// Read the response body.
+				byte[] responseBodyOption = methodOption.getResponseBody();
+
+				// Deal with the response.
+				// Use caution: ensure correct character encoding and is not binary
+				// data
+				String responseBodyStrOption = new String(responseBodyOption);
+
+				System.out.println(responseBodyStrOption);
+				
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace();
