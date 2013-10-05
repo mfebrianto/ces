@@ -41,7 +41,16 @@ public class StudentSearchController {
 			@RequestParam("uni_name") String uni_name,
 			@RequestParam("category") String category,
 			@RequestParam("average_rating_min") int average_rating_min, 
-			@RequestParam("average_rating_max") int average_rating_max) throws UnsupportedEncodingException, URISyntaxException, HttpException, ParseException {
+			@RequestParam("average_rating_max") int average_rating_max,
+			@RequestParam("average_reputation_rating_min") int average_reputation_rating_min, 
+			@RequestParam("average_reputation_rating_max") int average_reputation_rating_max,
+			@RequestParam("average_teaching_rating_min") int average_teaching_rating_min, 
+			@RequestParam("average_teaching_rating_max") int average_teaching_rating_max,
+			@RequestParam("average_materials_rating_min") int average_materials_rating_min, 
+			@RequestParam("average_materials_rating_max") int average_materials_rating_max,
+			@RequestParam("average_administrators_rating_min") int average_administrators_rating_min, 
+			@RequestParam("average_administrators_rating_max") int average_administrators_rating_max
+			) throws UnsupportedEncodingException, URISyntaxException, HttpException, ParseException {
 		CourseDAO courseDAO = new CourseDAO();
 		List<Course> searchedCourses = new ArrayList<Course>();
 		
@@ -50,7 +59,7 @@ public class StudentSearchController {
 		if (searchedText.length() > 0) {
 			List<Course> list = courseDAO.getAllCourses();
 			for (Course c : list) {
-				if (c.getName().contains(searchedText) || c.getUni().contains(searchedText)) {
+				if (c.getName().toLowerCase().contains(searchedText.toLowerCase())) {
 					searchedCourses.add(c);
 				}
 			}
@@ -65,7 +74,7 @@ public class StudentSearchController {
 			Iterator<Course> course_it = searchedCourses.iterator();
 			while (course_it.hasNext()) {
 				Course c = course_it.next();
-				if (c.getUni().contains(uni_name))
+				if (c.getUni().toLowerCase().contains(uni_name.toLowerCase()))
 					tmpList.add(c);
 			}
 			searchedCourses = tmpList;
@@ -78,7 +87,7 @@ public class StudentSearchController {
 			Iterator<Course> course_it = searchedCourses.iterator();
 			while (course_it.hasNext()) {
 				Course c = course_it.next();
-				if (c.getCategories().contains(category))
+				if (c.getCategories().toLowerCase().contains(category.toLowerCase()))
 					tmpList.add(c);
 			}
 			searchedCourses = tmpList;
