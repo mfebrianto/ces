@@ -124,12 +124,12 @@
         <form method="post" action="/ces-1.0-SNAPSHOT/studentSearch?studentId=${student.id}">
 			<table>
 				<tr>
-					<td>Course name</td>
-					<td><input type="text" name="searchedText"></td>
+					<td style="padding: 10px 0px">Course name</td>
+					<td style="padding: 10px 0px"><input type="text" name="searchedText"></td>
 				</tr>
 				<tr>
-					<td>Average rating</td>
-					<td>&nbsp Min<select name="average_rating_min">
+					<td style="padding: 10px 0px">Average rating</td>
+					<td style="padding: 10px 0px">&nbsp Min<select name="average_rating_min">
 			  			<option value="0" selected>0</option>
 			  			<option value="1">1</option>
 					  	<option value="2">2</option>
@@ -156,7 +156,7 @@
 	       <c:forEach items="${searchedCourses}" var="element"> 
 			  <tr>
 			    <td><c:out value="${element.name}"/></td>
-			    <td><a class="btn btn-primary" href="<c:url value="/courseDetail?courseName=${element.name}"/>">View surveys »Check Detail And Do Evaluation »</a></td>
+			    <td><a class="btn btn-primary" href="<c:url value="/courseDetail?courseName=${element.name}&studentId=${student.id}"/>">View surveys »Check Detail And Do Evaluation »</a></td>
 			  </tr>
 			</c:forEach>
 		</table>

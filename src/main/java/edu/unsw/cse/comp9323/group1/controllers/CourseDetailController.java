@@ -57,7 +57,7 @@ RatingDAO ratingDAO = new RatingDAO();
  
 int overallRatingCourse = ratingDAO.getOverAllRating(courseName);
 HashMap <String, Integer> userRatingsCourse = new HashMap <String, Integer>();
-userRatingsCourse = ratingDAO.getUserRating(Integer.parseInt(studentId), courseName);
+userRatingsCourse = ratingDAO.getUserRating(studentId, courseName);
  
  
        	model.addAttribute("UniReputationRating", 0);
