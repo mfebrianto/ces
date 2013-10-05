@@ -74,30 +74,34 @@
 	
 	<div style = "display:none">
 		<div id = "radioSection">
-			<table>
+			<table id="radioSectionTable">
 				<c:forEach items="${questionForm.questionFormOptions}" var="contact" varStatus="status">
 				<tr>
 					<td>
 						<input id="questionFormOptions[${status.index}].title" name="questionFormOptions[${status.index}].title" type="text" value="">
 					</td>
 					<td>
-						<input id="questionFormOptions[${status.index}].title" name="questionFormOptions[${status.index}].value" type="text" value="">
+						<input id="questionFormOptions[${status.index}].value" name="questionFormOptions[${status.index}].value" type="text" value="">
 					</td>
 				</tr>
 				</c:forEach>
 			</table>
+			<a id="addOptionRadio">add option</a>
 		</div>
 		<div id = "checkSection">
-			<table>
+			<table id="checkSectionTable">
+				<c:forEach items="${questionForm.questionFormOptions}" var="contact" varStatus="status">
 				<tr>
 					<td>
-						<input id="title" name="title" type="text" value="">
+						<input id="questionFormOptions[${status.index}].title" name="questionFormOptions[${status.index}].title" type="text" value="">
 					</td>
 					<td>
-						<input id="title" name="title" type="text" value="">
+						<input id="questionFormOptions[${status.index}].value" name="questionFormOptions[${status.index}].value" type="text" value="">
 					</td>
 				</tr>
+				</c:forEach>
 			</table>
+			<a id="addOptionCheck">add option</a>
 		</div>
 	</div>
 	
@@ -113,6 +117,7 @@
 	<script>
   	
   	configuration = {};
+  	var optionsNumber = 0;
 	
 	configuration.changeQuestionType= function(){
 		$('#questionType').change(function(){
@@ -132,10 +137,14 @@
 			else if(questionTypeVal==3){
 				questionLayout.html('<td>Question Title</td><td><input id="title" name="title" type="text" value=""></td>');
 				questionOptions.html(radioSection.html());
+				configuration.addOptionRadio();
+				optionsNumber = 0;
 			}
 			else if(questionTypeVal==4){
 				questionLayout.html('<td>Question Title</td><td><input id="title" name="title" type="text" value=""></td>');
 				questionOptions.html(checkSection.html());
+				configuration.addOptionCheck();
+				optionsNumber = 0;
 			}
 			else{
 				questionLayout.html('');
@@ -144,6 +153,34 @@
 		})
 	};
   	
+	configuration.addOptionRadio= function(){
+		$('#addOptionRadio').click(function(){
+			optionsNumber++;
+			$('#radioSectionTable').append("<tr> \
+					<td> \
+					<input id=questionFormOptions["+optionsNumber+"].title name=questionFormOptions["+optionsNumber+"].title type=text> \
+			    </td> \
+				<td> \
+					<input id=questionFormOptions["+optionsNumber+"].value name=questionFormOptions["+optionsNumber+"].value type=text> \
+				</td> \
+			</tr>");
+		})
+	};
+	
+	configuration.addOptionCheck= function(){
+		$('#addOptionCheck').click(function(){
+			optionsNumber++;
+			$('#checkSectionTable').append("<tr> \
+					<td> \
+					<input id=questionFormOptions["+optionsNumber+"].title name=questionFormOptions["+optionsNumber+"].title type=text> \
+			    </td> \
+				<td> \
+					<input id=questionFormOptions["+optionsNumber+"].value name=questionFormOptions["+optionsNumber+"].value type=text> \
+				</td> \
+			</tr>");
+		})
+	};
+	
     $( document ).ready(function() {
         
     	configuration.changeQuestionType();
