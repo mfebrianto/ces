@@ -6,8 +6,10 @@ public class Question {
 	
 	private Long id;
 	private int surveyId;
+	private String optionId;
 	private String subtype;
 	private String title;
+	private String response;
 	private List<QuestionOption> questionOptions;
 
 	public Question(){
@@ -48,6 +50,22 @@ public class Question {
 	public void setSurveyId(int surveyId) {
 		this.surveyId = surveyId;
 	}
+	
+	public String getResponse() {
+		return response;
+	}
+
+	public void setResponse(String response) {
+		this.response = response;
+	}
+	
+	public String getOptionId() {
+		return optionId;
+	}
+
+	public void setOptionId(String optionId) {
+		this.optionId = optionId;
+	}
 
 	public List<QuestionOption> getQuestionOptions() {
 		return questionOptions;
@@ -56,5 +74,6 @@ public class Question {
 	public void setQuestionOptions(List<QuestionOption> questionOptions) {
 		this.questionOptions = questionOptions;
 	}
+	
 
 }

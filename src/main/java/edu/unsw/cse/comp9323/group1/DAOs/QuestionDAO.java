@@ -208,6 +208,7 @@ public class QuestionDAO {
 				Iterator<JSONObject> iteratorQuestions = listOfQuestions
 						.iterator();
 				while (iteratorQuestions.hasNext()) {
+
 					JSONObject jsonQuestion = (JSONObject) iteratorQuestions
 							.next();
 
@@ -218,6 +219,39 @@ public class QuestionDAO {
 							(Long) jsonQuestion.get("id"),
 							(String) jsonQuestion.get("_subtype"),
 							(String) jsonQuestionEnglish.get("English"));
+
+					
+					System.out.println(">>>>>>"+jsonQuestion.toString());
+					/*
+					 * add options for radio button and checkbox
+					 */
+					JSONArray listOfOptions = (JSONArray) jsonQuestion
+							.get("options");
+					if (listOfOptions != null) {
+						if (listOfOptions.size() > 0) {
+							@SuppressWarnings("unchecked")
+							Iterator<JSONObject> iteratorQptions = listOfOptions
+									.iterator();
+							List<QuestionOption> questionOptionList = new ArrayList<QuestionOption>();
+							while (iteratorQptions.hasNext()) {
+
+								JSONObject jsonOption = (JSONObject) iteratorQptions
+										.next();
+
+								
+								JSONObject jsonOptionTitle = (JSONObject) jsonOption
+										.get("title");
+
+								QuestionOption questionOption = new QuestionOption();
+								questionOption.setId(jsonOption.get("id").toString());
+								questionOption.setTitle(jsonOptionTitle.get("English")
+										.toString());
+								questionOptionList.add(questionOption);
+							}
+
+							question.setQuestionOptions(questionOptionList);
+						}
+					}
 
 					allQuestions.add(question);
 				}

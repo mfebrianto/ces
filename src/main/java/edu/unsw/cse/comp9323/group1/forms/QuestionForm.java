@@ -11,6 +11,7 @@ public class QuestionForm {
 	private String id;
 	private String response;
 	private String questionType;
+	private String responseContainer;
 	
 	private List<QuestionFormOption> questionFormOptions;
 	
@@ -57,6 +58,15 @@ public class QuestionForm {
 	public void setQuestionType(String questionType) {
 		this.questionType = questionType;
 	}
+	
+	public String getResponseContainer() {
+		return responseContainer;
+	}
+
+	public void setResponseContainer(String responseContainer) {
+		this.responseContainer = responseContainer;
+	}
+
 	public List<QuestionFormOption> getQuestionFormOptions() {
 		return questionFormOptions;
 	}

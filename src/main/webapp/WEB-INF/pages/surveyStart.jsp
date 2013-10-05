@@ -38,27 +38,34 @@
 		<!-- Main component for a primary marketing message or call to action -->
 		<div class="jumbotron">
 
-			<form id="SHORT_Q_RESPONSE" action="/ces-1.0-SNAPSHOT/survey/start"
-				method="post">
+			<form:form action="/ces-1.0-SNAPSHOT/survey/start" method="post" modelAttribute="responseListForm">
 				
 				<input type="hidden" id="courseName" name="courseName"
 							value="${responseListForm.courseName}" />
 				<input type="hidden" id="studentId" name="studentId"
 							value="${responseListForm.studentId}" />
-							
+				<input type="hidden" id="surveyId" name="surveyId"
+							value="${responseListForm.surveyId}" />	
+						
 
-				<table border="1">
+				<table border="1" id="responseTable">
 					<c:forEach items="${responseListForm.questionForm}" var="contact"
 						varStatus="status">
 						<input type="hidden" name="questionForm[${status.index}].surveyId"
+						id="questionForm[${status.index}].surveyId"
 							value="${contact.surveyId}" />
 						<input type="hidden" name="questionForm[${status.index}].id"
+						id="questionForm[${status.index}].id"
 							value="${contact.id}" />
+						
+						
 						<tr>
 							<td>${contact.title}</td>
-							<td><input id="questionFormResponse${status.index}"
-								name="questionForm[${status.index}].response"
-								value="${contact.response}" /></td>
+							<td>${contact.questionType}</td>
+							<td>
+								${contact.responseContainer}
+							</td>
+							<%-- <form:radiobutton path="questionForm[${status.index}].response" /> --%>
 						</tr>
 					</c:forEach>
 				</table>
@@ -66,7 +73,7 @@
 				<br /> <input class="btn btn-success" type="submit"
 					value="Submit Response" />
 
-			</form>
+			</form:form>
 
 		</div>
 	</div>
@@ -125,6 +132,10 @@
 				}
 			});
 		};
+		
+		
+		
+		
 
 		$(document).ready(function() {
 
