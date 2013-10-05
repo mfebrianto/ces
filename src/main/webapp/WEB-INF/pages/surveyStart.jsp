@@ -61,7 +61,7 @@
 						
 						<tr>
 							<td>${contact.title}</td>
-							<td>${contact.questionType}</td>
+							<%-- <td>${contact.questionType}</td> --%>
 							<td>
 								${contact.responseContainer}
 							</td>

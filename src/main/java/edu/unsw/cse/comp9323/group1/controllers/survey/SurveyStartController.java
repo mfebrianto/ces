@@ -74,6 +74,21 @@ public class SurveyStartController {
 					}
 				}
 				responseContiner = responseContainerBuff.toString();
+			}else if (questionTemp.getSubtype().equals("checkbox")) {
+				
+				StringBuffer responseContainerBuff = new StringBuffer();
+				
+				if(questionTemp.getQuestionOptions()!=null){
+					if(questionTemp.getQuestionOptions().size() > 0){
+						Iterator<QuestionOption> questionOptionsItr = questionTemp.getQuestionOptions().iterator();
+						while(questionOptionsItr.hasNext()){
+							QuestionOption questionOption = questionOptionsItr.next();
+							responseContainerBuff.append("<input type=checkbox name=questionForm["
+						+ questionIndex + "].response value="+questionOption.getId()+"###"+questionOption.getTitle()+">"+questionOption.getTitle()+"<br>");
+						}
+					}
+				}
+				responseContiner = responseContainerBuff.toString();
 			}
 
 			questionIndex++;

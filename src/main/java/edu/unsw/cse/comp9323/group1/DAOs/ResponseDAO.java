@@ -42,16 +42,26 @@ public class ResponseDAO {
 		while(responseListItr.hasNext()){
 			Question response = responseListItr.next();
 			
-			if(response.getResponse().contains("###")){
+			if(response.getResponse().contains("###") && response.getResponse().contains(",")){
+				String loopToBeProcessed[] = response.getResponse().split(",");
+				for(String toBeProccessed:loopToBeProcessed){
+					String needToBeProcessed[] = toBeProccessed.split("###");
+					System.out.println(">>>>>"+needToBeProcessed[1]);
+					nameValuePair[nameValuePairIndex] = new NameValuePair("data["+response.getId()+"]["+needToBeProcessed[0]+"]", needToBeProcessed[1]);
+					//nameValuePairIndex++;
+				}
+			}
+			else if(response.getResponse().contains("###")){
 				String needToBeProcessed[] = response.getResponse().split("###");
 				nameValuePair[nameValuePairIndex] = new NameValuePair("data["+response.getId()+"]["+needToBeProcessed[0]+"]", needToBeProcessed[1]);
-			}else{
+			}
+			else{
 				nameValuePair[nameValuePairIndex] = new NameValuePair("data["+response.getId()+"][value]", response.getResponse());
 			}
 			nameValuePairIndex++;
 		}
 		
-		System.out.println(">>>>>"+nameValuePairIndex);
+		System.out.println(">>>>>"+nameValuePair);
 		method.setQueryString(nameValuePair);
 		
 		try {
