@@ -150,20 +150,20 @@
 		});
 	});
 
-	//Campus
+	//LectureNotes
 
 	$(function() {
-		$('#UniCampus').raty({ path: 'resources/imgs/', size: 24,target: '#UniCampusRating',
+		$('#LectureNotes').raty({ path: 'resources/imgs/', size: 24,target: '#LectureNotesRating',
 			hints: [null, null, null, null, null],
-			score: ${UniCampusRating},
+			score: ${LectureNotesRating},
 			click: function(score, evt) {
 				$.ajax({
 					type: "POST",
 					url: "./Rating/",
 					data: {courseName:'${course.getName()}'
 						,studentID:${studentId}
-					,rating:$("#UniCampusRating").val()
-					,category: 'Campus' 
+					,rating:$("#LectureNotesRating").val()
+					,category: 'LectureNotes' 
 					},
 					dataType: "text",
 					success: function(data) {
@@ -231,25 +231,25 @@
         <div id="OverallStar"></div>
         <input type="hidden" id="OverallRating">
         
-        <p> Uni Reputation Rating : 
+        <p> Reputation Rating : 
         <div id="UniReputation"></div>
         <input type="hidden" id="UniReputationRating">
         
-        <p> Uni Teaching Rating : 
+        <p> Teaching Rating : 
         <div id="UniTeaching"></div>
         <input type="hidden" id="UniTeachingRating">
         
-        <p> Uni Research Rating : 
+        <p> Research Rating : 
         <div id="UniResearch"></div>
         <input type="hidden" id="UniResearchRating">
         
-        <p> Uni Administrator Rating : 
+        <p> Administrator Rating : 
         <div id="UniAdmin"></div>
         <input type="hidden" id="UniAdminRating">
         
-        <p> Uni Campus Rating : 
-        <div id="UniCampus"></div>
-        <input type="hidden" id="UniCampusRating">
+        <p> Lecture Notes Rating : 
+        <div id="LectureNotes"></div>
+        <input type="hidden" id="LectureNotesRating">
         
         <div><a class="btn btn-lg btn-success" id="enrol" name="enrol">Enrol</a></div>
         <div>

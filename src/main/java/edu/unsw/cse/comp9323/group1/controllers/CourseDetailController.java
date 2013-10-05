@@ -63,7 +63,7 @@ public class CourseDetailController {
 		model.addAttribute("UniTeachingRating", 0);
 		model.addAttribute("UniResearchRating", 0);
 		model.addAttribute("UniAdminRating", 0);
-		model.addAttribute("UniCampusRating", 0);
+		model.addAttribute("LectureNotesRating", 0);
 		Iterator it = userRatingsCourse.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry pairs = (Map.Entry)it.next();
@@ -77,7 +77,7 @@ public class CourseDetailController {
 		   	}else if(pairs.getKey().toString().equalsIgnoreCase("admin")){
 		   		model.addAttribute("UniAdminRating", Integer.parseInt(pairs.getValue().toString()));
 		   	}else if(pairs.getKey().toString().equalsIgnoreCase("campus")){
-		   		model.addAttribute("UniCampusRating", Integer.parseInt(pairs.getValue().toString()));
+		   		model.addAttribute("LectureNotesRating", Integer.parseInt(pairs.getValue().toString()));
 		   	}
 		       
 	       //System.out.println(pairs.getKey().toString() + " = " + pairs.getValue());
