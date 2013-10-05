@@ -60,7 +60,7 @@ public class CourseDetailController {
 		 RatingDAO ratingDAO = new RatingDAO();
 		 
 		 int overallRatingCourse = ratingDAO.getOverAllRating(courseName);
-		 int userRatingCourse = ratingDAO.getUserRating(Integer.parseInt(studentId), courseName);
+		 int userRatingCourse = ratingDAO.getUserRating(studentId, courseName);
 		 
 		 model.addAttribute("UserRating", userRatingCourse);
 		 model.addAttribute("OverallRating", overallRatingCourse);

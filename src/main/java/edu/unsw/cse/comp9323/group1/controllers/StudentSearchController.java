@@ -29,7 +29,10 @@ public class StudentSearchController {
 	
 	//Search courses based on uni name or course name
 	@RequestMapping(method = RequestMethod.POST)
-	public String postSearchedCourses(@RequestParam("searchedText") String searchedText, @RequestParam("studentId") String studentId, ModelMap model) {
+	public String postSearchedCourses(@RequestParam("searchedText") String searchedText, 
+			ModelMap model, 
+			@RequestParam("average_rating_min") String average_rating_min, 
+			@RequestParam("average_rating_max") String average_rating_max) {
 		CourseDAO courseDAO = new CourseDAO();
 		List<Course> searchedCourses = new ArrayList<Course>();
 		
@@ -42,8 +45,10 @@ public class StudentSearchController {
 				}
 			}
 		}
+		
+		
+		
 		model.addAttribute("searchedCourses", searchedCourses);
-		model.addAttribute("studentId", studentId);
 		return "studentSearch";
 	}
 

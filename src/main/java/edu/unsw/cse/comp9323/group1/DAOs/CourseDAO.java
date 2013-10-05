@@ -46,11 +46,7 @@ public class CourseDAO {
 		    	course.setUni((String)jsonAttribute.get("uni__c"));
 		    	listOfCourses.add(course);
 		    }
-		    
-		    
-			
-			
-			
+		
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		} catch (HttpException e) {

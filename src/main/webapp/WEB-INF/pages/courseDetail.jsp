@@ -95,8 +95,15 @@
 
 <div class="container">
 
-     <%@include file="layouts/studentHeader.jsp" %>
-
+     <%-- <%@include file="layouts/studentHeader.jsp" %> --%>
+	<jsp:include page="layouts/studentHeader.jsp">
+     	<jsp:param name="studentId" >  
+	      <jsp:attribute name="value" >  
+	         <c:out value="${studentId}"/>  
+	      </jsp:attribute>
+	  	</jsp:param>
+     </jsp:include>
+     
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
         <h1>Welcome Student</h1>

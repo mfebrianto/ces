@@ -107,12 +107,13 @@
 
 
 <div class="container">
+	<%-- <%@include file="layouts/studentHeader.jsp" %> --%>
      <jsp:include page="layouts/studentHeader.jsp">
      	<jsp:param name="studentId" >  
 	      <jsp:attribute name="value" >  
 	         <c:out value="${studentId}"/>  
 	      </jsp:attribute>  
-	  	</jsp:param>  
+	  	</jsp:param>
      </jsp:include>
 
       <!-- Main component for a primary marketing message or call to action -->
@@ -121,14 +122,41 @@
         	<button id="logout" >Logout</button>
         <p>
         <form method="post" action="/ces-1.0-SNAPSHOT/studentSearch?studentId=${studentId}">
-			<input type="text" name="searchedText">
+			<table>
+				<tr>
+					<td>Course name</td>
+					<td><input type="text" name="searchedText"></td>
+				</tr>
+				<tr>
+					<td>Average rating</td>
+					<td>&nbsp Min<select name="average_rating_min">
+			  			<option value="0" selected>0</option>
+			  			<option value="1">1</option>
+					  	<option value="2">2</option>
+			  			<option value="3">3</option>
+			  			<option value="4">4</option>
+			  			<option value="5">5</option>
+						</select>
+						&nbsp Max
+						<select name="average_rating_max">
+			  			<option value="0">0</option>
+			  			<option value="1">1</option>
+					  	<option value="2">2</option>
+			  			<option value="3">3</option>
+			  			<option value="4">4</option>
+			  			<option value="5" selected>5</option>
+						</select>
+					</td>
+				</tr>
+				
+			</table>
 			<input type="submit" value="Search" name="submit" />
 		</form>
         <table border="1">
 	       <c:forEach items="${searchedCourses}" var="element"> 
 			  <tr>
 			    <td><c:out value="${element.name}"/></td>
-			    <td><a class="btn btn-primary" href="<c:url value="/courseDetail?courseName=${element.name}&studentId=${studentId}"/>">View surveys »Check Detail And Do Evaluation »</a></td>
+			    <td><a class="btn btn-primary" href="<c:url value="/courseDetail?courseName=${element.name}"/>">View surveys »Check Detail And Do Evaluation »</a></td>
 			  </tr>
 			</c:forEach>
 		</table>

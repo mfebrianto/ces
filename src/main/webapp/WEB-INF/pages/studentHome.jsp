@@ -29,11 +29,11 @@
 
 
 <div class="container">
-
-     <jsp:include page="layouts/studentHeader.jsp">
+	<%-- <%@include file="layouts/studentHeader.jsp" %> --%>
+    <jsp:include page="layouts/studentHeader.jsp">
      	<jsp:param name="studentId" >  
 	      <jsp:attribute name="value" >  
-	         <c:out value="${student.getId()}"/>  
+	         <c:out value="${student.id}"/>  
 	      </jsp:attribute>  
 	  	</jsp:param>  
      </jsp:include>
