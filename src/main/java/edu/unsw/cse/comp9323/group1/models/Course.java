@@ -8,6 +8,15 @@ public class Course {
 	private String description;
 	private String length;
 	private String uni;
+	private String categories;
+
+	public String getCategories() {
+		return categories;
+	}
+
+	public void setCategories(String categories) {
+		this.categories = categories;
+	}
 
 	public String getUni() {
 		return uni;

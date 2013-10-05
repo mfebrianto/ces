@@ -38,12 +38,15 @@ public class StudentSearchController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String postSearchedCourses(@RequestParam("searchedText") String searchedText, 
 			ModelMap model, 
+			@RequestParam("uni_name") String uni_name,
+			@RequestParam("category") String category,
 			@RequestParam("average_rating_min") int average_rating_min, 
 			@RequestParam("average_rating_max") int average_rating_max) throws UnsupportedEncodingException, URISyntaxException, HttpException, ParseException {
 		CourseDAO courseDAO = new CourseDAO();
 		List<Course> searchedCourses = new ArrayList<Course>();
 		
 		searchedText.trim();
+		//If searchedText is not empty
 		if (searchedText.length() > 0) {
 			List<Course> list = courseDAO.getAllCourses();
 			for (Course c : list) {
@@ -56,7 +59,32 @@ public class StudentSearchController {
 			searchedCourses = courseDAO.getAllCourses();
 		}
 		
+		//If uni_name is not empty
+		List<Course> tmpList = new ArrayList<Course>();
+		if (uni_name.length() > 0) {
+			Iterator<Course> course_it = searchedCourses.iterator();
+			while (course_it.hasNext()) {
+				Course c = course_it.next();
+				if (c.getUni().contains(uni_name))
+					tmpList.add(c);
+			}
+			searchedCourses = tmpList;
+		}
 		
+		
+		//If category is not empty
+		tmpList = new ArrayList<Course>();
+		if (category.length() > 0) {
+			Iterator<Course> course_it = searchedCourses.iterator();
+			while (course_it.hasNext()) {
+				Course c = course_it.next();
+				if (c.getCategories().contains(category))
+					tmpList.add(c);
+			}
+			searchedCourses = tmpList;
+		}
+		
+		//If average_rating_min, max is [0,5]
 		if (average_rating_max <= 5 && average_rating_min >= 0) {
 			CourseAverageRatingDAO carDAO = new CourseAverageRatingDAO();
 			List<CourseAverageRating> list = carDAO.getAllCourseAverageRating();
@@ -90,6 +118,8 @@ public class StudentSearchController {
 					course_it.remove();
 			}
 		}
+		
+		
 		
 		model.addAttribute("searchedCourses", searchedCourses);
 		return "studentSearch";
