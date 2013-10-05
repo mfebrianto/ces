@@ -21,7 +21,7 @@ public class RatingController {
 	@RequestMapping(value = "/", method=RequestMethod.POST)
 	public String processForm(@ModelAttribute(value="rating") Rating rating,BindingResult result) throws UnsupportedEncodingException{
 		if(result.hasErrors()){
-			return "surveyCreate";
+			return "studentHome";
 		}else{
 			
 			RatingDAO ratingDAO = new RatingDAO();

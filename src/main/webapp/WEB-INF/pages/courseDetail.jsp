@@ -35,60 +35,173 @@
 <body>
 <script>
  
-
- 	//load Star Jquery
 	
+ 	//load Star Jquery
+ 	//Reputation
 	$(function() {
-		$('#UserStar').raty({ path: 'resources/imgs/', size: 24,target: '#UserRating',
+	$('#UniReputation').raty({ path: 'resources/imgs/', size: 24,target: '#UniReputationRating',
 		hints: [null, null, null, null, null],
-		score: ${UserRating},
+		score: ${UniReputationRating},
 		click: function(score, evt) {
 		$.ajax({
-		        type: "POST",
-		        url: "./Rating/",
-		        data: {courseName:'${course.getName()}'
-		   	   ,studentID:${studentId}
-		   	   ,rating:$("#UserRating").val()
-		   	   ,category: 'category1'
-		   	   },
-		    	dataType: "text",
-		        success: function(data) {
-		          alert("Rating Updated !!");
-		           
-		        },
-		        error: function(e) {
-		          console.log(e);
-		        }
-		      });
+        	type: "POST",
+        	url: "./Rating/",
+        	data: {courseName:'${course.getName()}'
+   	   			,studentID:${studentId}
+   	   			,rating:$("#UniReputationRating").val()
+   	   			,category: 'Reputation'
+   	   		},
+    		dataType: "text",
+        	success: function(data) {
+          		alert("Rating Updated !!");
+           
+       		 },
+        	error: function(e) {
+          		console.log(e);
+        	}
+      	});
+		
+	}
+	});
+	});
+ 
+	//Teaching
+	$(function() {
+	$('#UniTeaching').raty({ path: 'resources/imgs/', size: 24,target: '#UniTeachingRating',
+		hints: [null, null, null, null, null],
+		score: ${UniTeachingRating},
+		click: function(score, evt) {
+		$.ajax({
+        	type: "POST",
+        	url: "./Rating/",
+        	data: {courseName:'${course.getName()}'
+   	   			,studentID:${studentId}
+   	   			,rating:$("#UniTeachingRating").val()
+   	   			,category: 'Teaching'
+   	   		},
+    		dataType: "text",
+        	success: function(data) {
+          		alert("Rating Updated !!");
+           
+        	},
+        	error: function(e) {
+          		console.log(e);
+        	}
+      });
+		
+	  }
+	});
+	});
+
+	//Research
+
+	$(function() {
+
+		$('#UniResearch').raty({ path: 'resources/imgs/', size: 24,target: '#UniResearchRating',
+
+			hints: [null, null, null, null, null],
+			score: ${UniResearchRating},
+			click: function(score, evt) {
+				$.ajax({
+					type: "POST",
+					url: "./Rating/",
+					data: {courseName:'${course.getName()}'   	   
+						,studentID:${studentId}   	   
+						,rating:$("#UniResearchRating").val()
+   	   					,category: 'Research'
+   	   				},    
+					dataType: "text",        
+					success: function(data) {          
+						alert("Rating Updated !!");  
+					},        
+					error: function(e) {          
+						console.log(e);        
+					}      
+				});
 			}
 		});
 	});
- 	
+	
+
+	//Administrator
+
 	$(function() {
-		$('#OverallStar').raty({ path: 'resources/imgs/', size: 24,target: '#OverallRating',
-		hints: [null, null, null, null, null],
-		score: ${OverallRating},
-		readOnly: true
+		$('#UniAdmin').raty({ path: 'resources/imgs/', size: 24,target: '#UniAdminRating',
+			hints: [null, null, null, null, null],
+			score: ${UniAdminRating},
+			click: function(score, evt) {
+				$.ajax({
+					type: "POST",      
+					url: "./Rating/",        
+					data: {courseName:'${course.getName()}'   	   
+						,studentID:${studentId}   	   
+					,rating:$("#UniAdminRating").val()   	   
+					,category: 'Admin'   	   
+					},    
+					dataType: "text",        
+					success: function(data) {          
+						alert("Rating Updated !!");    
+					},        
+					error: function(e) {          
+						console.log(e);        
+					}     
+				});
+			}
 		});
 	});
-	
-	
+
+	//Campus
+
+	$(function() {
+		$('#UniCampus').raty({ path: 'resources/imgs/', size: 24,target: '#UniCampusRating',
+			hints: [null, null, null, null, null],
+			score: ${UniCampusRating},
+			click: function(score, evt) {
+				$.ajax({
+					type: "POST",
+					url: "./Rating/",
+					data: {courseName:'${course.getName()}'
+						,studentID:${studentId}
+					,rating:$("#UniCampusRating").val()
+					,category: 'Campus' 
+					},
+					dataType: "text",
+					success: function(data) {
+						alert("Rating Updated !!");
+					},
+					error: function(e) { 
+						console.log(e);
+					}
+				});
+			}
+		});
+	});
+ 
+
+	$(function() {
+		$('#OverallStar').raty({ path: 'resources/imgs/', size: 24,target: '#OverallRating',
+			hints: [null, null, null, null, null],
+			score: ${OverallRating},
+			readOnly: true
+		});
+	});
+
 	$(function() {
 		$('#enrol').click(function() {
-			$.ajax({
-		        type: "POST",
-		        url: "./enrollment",
-		        data: {course_id:"${course.getId()}"
-		   	   ,student_id:"${studentId}"
-		   	   },
-		    	dataType: "text",
-		        success: function(data) {
-		          alert("Enrolled !!");
-		        },
-		        error: function(e) {
-		          alert("Error !!");
-		        }
-		     });
+			$.ajax({        
+				type: "POST",        
+				url: "./enrollment",        
+				data: {course_id:"${course.getId()}"   	   
+					,student_id:"${studentId}"   	   
+				},    
+				dataType: "text",        
+				success: function(data) {          
+					alert("Enrolled !!");        
+				},        
+				error: function(e) {          
+					alert("Error !!");        
+				}   
+			});
 		});
 	});
 </script>
@@ -114,13 +227,29 @@
 		   Course Start Date  :	${course.getStartDate()}<br></br>
 		   Course Length  :	${course.getLength()}<br></br>
         </p>
-        <p> Overall Rating : 
+         <p> Overall Rating : 
         <div id="OverallStar"></div>
         <input type="hidden" id="OverallRating">
         
-        <p> Your Rating : 
-        <div id="UserStar"></div>
-        <input type="hidden" id="UserRating">
+        <p> Uni Reputation Rating : 
+        <div id="UniReputation"></div>
+        <input type="hidden" id="UniReputationRating">
+        
+        <p> Uni Teaching Rating : 
+        <div id="UniTeaching"></div>
+        <input type="hidden" id="UniTeachingRating">
+        
+        <p> Uni Research Rating : 
+        <div id="UniResearch"></div>
+        <input type="hidden" id="UniResearchRating">
+        
+        <p> Uni Administrator Rating : 
+        <div id="UniAdmin"></div>
+        <input type="hidden" id="UniAdminRating">
+        
+        <p> Uni Campus Rating : 
+        <div id="UniCampus"></div>
+        <input type="hidden" id="UniCampusRating">
         
         <div><a class="btn btn-lg btn-success" id="enrol" name="enrol">Enrol</a></div>
         <div>
