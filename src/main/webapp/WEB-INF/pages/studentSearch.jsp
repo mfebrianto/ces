@@ -111,7 +111,7 @@
      <jsp:include page="layouts/studentHeader.jsp">
      	<jsp:param name="studentId" >  
 	      <jsp:attribute name="value" >  
-	         <c:out value="${studentId}"/>  
+	         <c:out value="${student.id}"/>  
 	      </jsp:attribute>  
 	  	</jsp:param>
      </jsp:include>
@@ -121,7 +121,7 @@
         <h1>Search</h1>
         	<button id="logout" >Logout</button>
         <p>
-        <form method="post" action="/ces-1.0-SNAPSHOT/studentSearch?studentId=${studentId}">
+        <form method="post" action="/ces-1.0-SNAPSHOT/studentSearch?studentId=${student.id}">
 			<table>
 				<tr>
 					<td>Course name</td>

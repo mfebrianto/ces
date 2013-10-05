@@ -31,7 +31,7 @@ public class CourseAverageRatingDAO {
 		List<CourseAverageRating> result = new ArrayList<CourseAverageRating>();
 		
 		client.oauth2Login( client.getUserCredentials());
-		String newRestUri = "/query/?q=" + URLEncoder.encode("SELECT course_id__c, rating__c FROM course_average_rating__c","UTF-8");
+		String newRestUri = "/query/?q=" + URLEncoder.encode("SELECT courseName__c, rating__c FROM course_average_rating__c","UTF-8");
 		
 		String response = client.restGet(newRestUri);
 		JSONParser parser = new JSONParser();
@@ -45,16 +45,63 @@ public class CourseAverageRatingDAO {
 	    while(iteratorRecords.hasNext()){
 	    	JSONObject jsonAttribute = (JSONObject)iteratorRecords.next();
 	    	CourseAverageRating rate = new CourseAverageRating();
-	    	rate.setCourse_id((Integer)jsonAttribute.get("course_id__c"));
-	    	rate.setAverage_rating((Integer)jsonAttribute.get("rating__c"));
+	    	rate.setCourse_name((String)jsonAttribute.get("courseName__c"));
+	    	rate.setRating((Double)jsonAttribute.get("rating__c"));
 	    	result.add(rate);
 	    }
 	    
 		return result;
 	}
 	
+	public List<CourseAverageRating> getCoursesByRating(int min, int max) throws URISyntaxException, HttpException, UnsupportedEncodingException, ParseException {
+		List<CourseAverageRating> result = new ArrayList<CourseAverageRating>();
+		
+		client.oauth2Login( client.getUserCredentials());
+		String newRestUri = "/query/?q=" + URLEncoder.encode("SELECT courseName__c, rating__c " +
+				"FROM course_average_rating__c" +
+				"WHERE rating__c <= " + max + " AND rating__c >= " + min,"UTF-8");
+		String response = client.restGet(newRestUri);
+
+		JSONParser parser = new JSONParser();
+	    Object obj = parser.parse(response);
+	    JSONObject jsonObject = (JSONObject) obj;
+	      
+	    JSONArray listOfRecords = (JSONArray) jsonObject.get("records");
+	    
+	    @SuppressWarnings("unchecked")
+	    Iterator<JSONObject> iteratorRecords = listOfRecords.iterator();
+	    while(iteratorRecords.hasNext()){
+	    	JSONObject jsonAttribute = (JSONObject)iteratorRecords.next();
+	    	CourseAverageRating rate = new CourseAverageRating();
+	    	rate.setCourse_name((String)jsonAttribute.get("coursename__c"));
+	    	rate.setRating((Double)jsonAttribute.get("rating__c"));
+	    	result.add(rate);
+	    }
+	    
+		return result;
+	}
+	
+	public double getCourseRatingByName(String course_name) throws URISyntaxException, HttpException, UnsupportedEncodingException, ParseException {
+		client.oauth2Login( client.getUserCredentials());
+		String newRestUri = "/query/?q=" + URLEncoder.encode("SELECT rating__c " +
+				"FROM course_average_rating__c WHERE courseName__c='" + course_name + "'","UTF-8");
+		
+		String response = client.restGet(newRestUri);
+		JSONParser parser = new JSONParser();
+	    Object obj = parser.parse(response);
+	    JSONObject jsonObject = (JSONObject) obj;
+	    
+	    JSONArray listOfRecords = (JSONArray) jsonObject.get("records");
+	    if(listOfRecords.size() > 0){
+	    	JSONObject jsonAttribute = (JSONObject) listOfRecords.get(0);
+	    	return Double.parseDouble(jsonAttribute.get("rating__c").toString());
+	    }
+		
+		return 0;
+	}
+	
 	public void main() throws UnsupportedEncodingException, URISyntaxException, HttpException, ParseException {
 		CourseAverageRatingDAO carDao = new CourseAverageRatingDAO();
-		carDao.getAllCourseAverageRating();
+		carDao.getCoursesByRating(0, 5);
 	}
 }
