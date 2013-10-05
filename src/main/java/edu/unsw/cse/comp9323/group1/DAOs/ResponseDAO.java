@@ -1,5 +1,6 @@
 package edu.unsw.cse.comp9323.group1.DAOs;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -33,11 +34,11 @@ public class ResponseDAO {
 		method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,
 				new DefaultHttpMethodRetryHandler(3, false));
 		
-		NameValuePair nameValuePair[] = new NameValuePair[responseList.size()+2];
-		nameValuePair[0]=new NameValuePair("user:pass", userPass);
-		nameValuePair[1]=new NameValuePair("_method", "PUT");
+		//NameValuePair nameValuePair[] = new NameValuePair[responseList.size()+2];
+		List<NameValuePair> nameValuePairLst = new ArrayList<NameValuePair>();
+		nameValuePairLst.add(new NameValuePair("user:pass", userPass));
+		nameValuePairLst.add(new NameValuePair("_method", "PUT"));
 		Iterator<Question> responseListItr = responseList.iterator();
-		int nameValuePairIndex = 2;
 		
 		while(responseListItr.hasNext()){
 			Question response = responseListItr.next();
@@ -47,21 +48,25 @@ public class ResponseDAO {
 				for(String toBeProccessed:loopToBeProcessed){
 					String needToBeProcessed[] = toBeProccessed.split("###");
 					System.out.println(">>>>>"+needToBeProcessed[1]);
-					nameValuePair[nameValuePairIndex] = new NameValuePair("data["+response.getId()+"]["+needToBeProcessed[0]+"]", needToBeProcessed[1]);
+					nameValuePairLst.add(new NameValuePair("data["+response.getId()+"]["+needToBeProcessed[0]+"]", needToBeProcessed[1]));
 					//nameValuePairIndex++;
 				}
 			}
 			else if(response.getResponse().contains("###")){
 				String needToBeProcessed[] = response.getResponse().split("###");
-				nameValuePair[nameValuePairIndex] = new NameValuePair("data["+response.getId()+"]["+needToBeProcessed[0]+"]", needToBeProcessed[1]);
+				nameValuePairLst.add(new NameValuePair("data["+response.getId()+"]["+needToBeProcessed[0]+"]", needToBeProcessed[1]));
 			}
 			else{
-				nameValuePair[nameValuePairIndex] = new NameValuePair("data["+response.getId()+"][value]", response.getResponse());
+				nameValuePairLst.add(new NameValuePair("data["+response.getId()+"][value]", response.getResponse()));
 			}
-			nameValuePairIndex++;
 		}
 		
-		System.out.println(">>>>>"+nameValuePair);
+		/*
+		 * convert list to array
+		 */
+		NameValuePair nameValuePair[] = new NameValuePair[nameValuePairLst.size()];
+		nameValuePair = nameValuePairLst.toArray(nameValuePair);
+	    
 		method.setQueryString(nameValuePair);
 		
 		try {
