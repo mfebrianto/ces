@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.unsw.cse.comp9323.group1.controllers.crawler.CourseExtraction;
+import edu.unsw.cse.comp9323.group1.controllers.crawler.RSSFeedParser;
 @Controller
 @RequestMapping("/courseExtraction")
 public class CourseExtractionController {

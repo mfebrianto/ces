@@ -31,7 +31,7 @@ public class CourseExtraction {
 	public static void getCourseDetail(String link) throws IOException, HttpException, URISyntaxException, ParseException {
 		JSONObject newCourse = new JSONObject();
 		Document doc;
-		doc = Jsoup.connect(link).timeout(0).get();
+		doc = Jsoup.connect(link).userAgent("Mozilla").timeout(0).get();
 		Element titleElement = doc.select("h1[id^=page-title]").first();
 		Element mainContent = doc.select("div.node-content").first();
 		String courseName = titleElement.text();
@@ -105,7 +105,7 @@ public class CourseExtraction {
 	
 	public static void getListCourses(String link) throws IOException, HttpException, URISyntaxException, ParseException {
 		Document doc;
-		doc = Jsoup.connect(link).timeout(0).get();
+		doc = Jsoup.connect(link).userAgent("Mozilla").timeout(0).get();
 		Elements main_divs = doc.select("div.view-content");
 		if (main_divs.size() == 1)
 			return;
@@ -118,13 +118,14 @@ public class CourseExtraction {
 	}
 	
 	public static List<JSONObject> getAllCourses() throws HttpException, URISyntaxException, ParseException {
+		client.oauth2Login( client.getUserCredentials());
 		Document doc;
 		try {
 
 
 //			System.setProperty("http.proxyHost", "147.167.10.2");//replace with your proxy host
 //			System.setProperty("http.proxyPort", "8080");//replace with your proxy port
-			doc = Jsoup.connect(linkString + "/tags/").timeout(0).get();
+			doc = Jsoup.connect(linkString + "/tags/").userAgent("Mozilla").timeout(0).get();
 			
 			Element page_div = doc.select("div.item-list").first();
 			Element page_a_tagsElement = page_div.select("a[href]").last();
@@ -133,7 +134,7 @@ public class CourseExtraction {
 			int max_page = Integer.parseInt(page_a_tagsElement.attr("href").substring(index + 1));
 			//System.out.println(max_page);
 			for (int i = 0; i <= max_page; i++) {
-				doc = Jsoup.connect(linkString + "/tags?page=" + i).get();
+				doc = Jsoup.connect(linkString + "/tags?page=" + i).userAgent("Mozilla").timeout(0).get();
 				Element main_div = doc.select("div.view-content").first();
 				Elements a_tags = main_div.select("a[href]");
 				for (Element a : a_tags) {

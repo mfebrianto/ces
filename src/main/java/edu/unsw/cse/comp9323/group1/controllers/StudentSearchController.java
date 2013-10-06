@@ -46,16 +46,18 @@ public class StudentSearchController {
 			@RequestParam("average_reputation_rating_max") int average_reputation_rating_max,
 			@RequestParam("average_teaching_rating_min") int average_teaching_rating_min, 
 			@RequestParam("average_teaching_rating_max") int average_teaching_rating_max,
-			@RequestParam("average_materials_rating_min") int average_materials_rating_min, 
-			@RequestParam("average_materials_rating_max") int average_materials_rating_max,
+			@RequestParam("average_research_rating_min") int average_research_rating_min, 
+			@RequestParam("average_research_rating_max") int average_research_rating_max,
 			@RequestParam("average_administrators_rating_min") int average_administrators_rating_min, 
-			@RequestParam("average_administrators_rating_max") int average_administrators_rating_max
+			@RequestParam("average_administrators_rating_max") int average_administrators_rating_max,
+			@RequestParam("average_lecture_notes_rating_min") int average_lecture_notes_rating_min, 
+			@RequestParam("average_lecture_notes_rating_max") int average_lecture_notes_rating_max
 			) throws UnsupportedEncodingException, URISyntaxException, HttpException, ParseException {
 		CourseDAO courseDAO = new CourseDAO();
 		List<Course> searchedCourses = new ArrayList<Course>();
 		
 		searchedText.trim();
-		//If searchedText is not empty
+		//If searchedText is not empty (searchedText is course name)
 		if (searchedText.length() > 0) {
 			List<Course> list = courseDAO.getAllCourses();
 			for (Course c : list) {
@@ -93,45 +95,82 @@ public class StudentSearchController {
 			searchedCourses = tmpList;
 		}
 		
+		
+		CourseAverageRatingDAO carDAO = new CourseAverageRatingDAO();
 		//If average_rating_min, max is [0,5]
 		if (average_rating_max <= 5 && average_rating_min >= 0) {
-			CourseAverageRatingDAO carDAO = new CourseAverageRatingDAO();
-			List<CourseAverageRating> list = carDAO.getAllCourseAverageRating();
-			
-			Iterator<CourseAverageRating> carIterator = list.iterator();
-			while (carIterator.hasNext()) {
-				CourseAverageRating tmp = carIterator.next();
-				if (tmp.getRating() > average_rating_max || tmp.getRating() < average_rating_min)
-					carIterator.remove();
-			}
-			
-			List<String> searchedCourseNameList = new ArrayList<String>();
-			for (Course c: searchedCourses) {
-				searchedCourseNameList.add(c.getName());
-			}
-			List<String> averageCourseNameList = new ArrayList<String>();
-			for (CourseAverageRating c: list) {
-				averageCourseNameList.add(c.getCourse_name());
-			}
-			
-			Iterator<String> it = searchedCourseNameList.iterator();
-			while (it.hasNext()) {
-				String st = it.next();
-				if (!averageCourseNameList.contains(st) && average_rating_min > 0)
-					it.remove();
-			}
-			
-			Iterator<Course> course_it = searchedCourses.iterator();
-			while (course_it.hasNext()) {
-				if (!searchedCourseNameList.contains(course_it.next().getName()))
-					course_it.remove();
-			}
+			if (average_rating_max != 5 || average_rating_min != 0)
+				searchedCourses = refineSearchedCourse("ALL", carDAO, 
+					average_rating_min, average_rating_max, searchedCourses);
 		}
-		
-		
+		//If average_reputation_rating_min, max is [0,5]
+		if (average_reputation_rating_max <= 5 && average_reputation_rating_min >= 0) {
+			if (average_reputation_rating_max != 5 || average_reputation_rating_min != 0)
+				searchedCourses = refineSearchedCourse("Reputation", carDAO, 
+					average_reputation_rating_min, average_reputation_rating_max, searchedCourses);
+		}
+		//If average_teaching_rating_min, max is [0,5]
+		if (average_teaching_rating_max <= 5 && average_teaching_rating_min >= 0) {
+			if (average_teaching_rating_max != 5 || average_teaching_rating_min != 0)
+				searchedCourses = refineSearchedCourse("Teaching", carDAO, 
+					average_teaching_rating_min, average_teaching_rating_max, searchedCourses);
+		}
+		//If average_research_rating_min, max is [0,5]
+		if (average_research_rating_max <= 5 && average_research_rating_min >= 0) {
+			if (average_research_rating_max != 5 || average_research_rating_min != 0)
+				searchedCourses = refineSearchedCourse("Research", carDAO, 
+					average_research_rating_min, average_research_rating_max, searchedCourses);
+		}
+		//If average_administrators_rating_min, max is [0,5]
+		if (average_administrators_rating_max <= 5 && average_administrators_rating_min >= 0) {
+			if (average_administrators_rating_max != 5 || average_administrators_rating_min != 0)
+				searchedCourses = refineSearchedCourse("Admin", carDAO, 
+					average_administrators_rating_min, average_administrators_rating_max, searchedCourses);
+		}
+		//If average_lecture_notes_rating_min, max is [0,5]
+		if (average_lecture_notes_rating_max <= 5 && average_lecture_notes_rating_min >= 0) {
+			if (average_lecture_notes_rating_max != 5 || average_lecture_notes_rating_min != 0)
+			searchedCourses = refineSearchedCourse("LectureNotes", carDAO, 
+					average_lecture_notes_rating_min, average_lecture_notes_rating_max, searchedCourses);
+		}
 		
 		model.addAttribute("searchedCourses", searchedCourses);
 		return "studentSearch";
 	}
 
+	public List<Course> refineSearchedCourse(String category, CourseAverageRatingDAO carDAO, 
+			int min, int max, List<Course> searchedCourses) throws UnsupportedEncodingException, URISyntaxException, HttpException, ParseException {
+		List<Course> result = searchedCourses;
+		List<CourseAverageRating> list = carDAO.getAllCourseAverageRatingByCategory(category);
+		Iterator<CourseAverageRating> carIterator = list.iterator();
+		while (carIterator.hasNext()) {
+			CourseAverageRating tmp = carIterator.next();
+			if (tmp.getRating() > max || tmp.getRating() < min)
+				carIterator.remove();
+		}
+		
+		List<String> searchedCourseNameList = new ArrayList<String>();
+		for (Course c: searchedCourses) {
+			searchedCourseNameList.add(c.getName());
+		}
+		List<String> averageCourseNameList = new ArrayList<String>();
+		for (CourseAverageRating c: list) {
+			averageCourseNameList.add(c.getCourse_name());
+		}
+		
+		Iterator<String> it = searchedCourseNameList.iterator();
+		while (it.hasNext()) {
+			String st = it.next();
+			if (!averageCourseNameList.contains(st) && min > 0)
+				it.remove();
+		}
+		
+		Iterator<Course> course_it = searchedCourses.iterator();
+		while (course_it.hasNext()) {
+			if (!searchedCourseNameList.contains(course_it.next().getName()))
+				course_it.remove();
+		}
+		return result;
+	}
+	
 }

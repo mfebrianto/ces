@@ -199,8 +199,8 @@
 					</td>
 				</tr>
 				<tr>
-					<td style="padding: 10px 0px">Uni Materials Average rating</td>
-					<td style="padding: 10px 0px">&nbsp Min<select name="average_materials_rating_min">
+					<td style="padding: 10px 0px">Uni Research Average rating</td>
+					<td style="padding: 10px 0px">&nbsp Min<select name="average_research_rating_min">
 			  			<option value="0" selected>0</option>
 			  			<option value="1">1</option>
 					  	<option value="2">2</option>
@@ -209,7 +209,7 @@
 			  			<option value="5">5</option>
 						</select>
 						&nbsp Max
-						<select name="average_materials_rating_max">
+						<select name="average_research_rating_max">
 			  			<option value="0">0</option>
 			  			<option value="1">1</option>
 					  	<option value="2">2</option>
@@ -231,6 +231,27 @@
 						</select>
 						&nbsp Max
 						<select name="average_administrators_rating_max">
+			  			<option value="0">0</option>
+			  			<option value="1">1</option>
+					  	<option value="2">2</option>
+			  			<option value="3">3</option>
+			  			<option value="4">4</option>
+			  			<option value="5" selected>5</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td style="padding: 10px 0px">Uni Lecture Notes Average rating</td>
+					<td style="padding: 10px 0px">&nbsp Min<select name="average_lecture_notes_rating_min">
+			  			<option value="0" selected>0</option>
+			  			<option value="1">1</option>
+					  	<option value="2">2</option>
+			  			<option value="3">3</option>
+			  			<option value="4">4</option>
+			  			<option value="5">5</option>
+						</select>
+						&nbsp Max
+						<select name="average_lecture_notes_rating_max">
 			  			<option value="0">0</option>
 			  			<option value="1">1</option>
 					  	<option value="2">2</option>

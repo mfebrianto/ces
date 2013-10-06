@@ -4,6 +4,14 @@ public class CourseAverageRating {
 	private int id;
 	private String course_name;
 	private double rating;
+	private String RateCategory;
+	
+	public String getRateCategory() {
+		return RateCategory;
+	}
+	public void setRateCategory(String rateCategory) {
+		RateCategory = rateCategory;
+	}
 	public int getId() {
 		return id;
 	}
@@ -22,14 +30,16 @@ public class CourseAverageRating {
 	public void setRating(double rating) {
 		this.rating = rating;
 	}
-	public CourseAverageRating(int id, String course_name, double rating) {
+	public CourseAverageRating(int id, String course_name, double rating, String RateCategory) {
 		super();
+		this.RateCategory = RateCategory;
 		this.id = id;
 		this.course_name = course_name;
 		this.rating = rating;
 	}
-	public CourseAverageRating(String course_name, double rating) {
+	public CourseAverageRating(String course_name, double rating, String RateCategory) {
 		super();
+		this.RateCategory = RateCategory;
 		this.course_name = course_name;
 		this.rating = rating;
 	}
