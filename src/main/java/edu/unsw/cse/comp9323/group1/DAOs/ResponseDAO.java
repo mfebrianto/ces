@@ -43,21 +43,25 @@ public class ResponseDAO {
 		while(responseListItr.hasNext()){
 			Question response = responseListItr.next();
 			
-			if(response.getResponse().contains("###") && response.getResponse().contains(",")){
-				String loopToBeProcessed[] = response.getResponse().split(",");
-				for(String toBeProccessed:loopToBeProcessed){
-					String needToBeProcessed[] = toBeProccessed.split("###");
-					System.out.println(">>>>>"+needToBeProcessed[1]);
-					nameValuePairLst.add(new NameValuePair("data["+response.getId()+"]["+needToBeProcessed[0]+"]", needToBeProcessed[1]));
-					//nameValuePairIndex++;
+			if(response.getResponse() != null){
+				if(response.getResponse().length()  > 0){
+					if(response.getResponse().contains("###") && response.getResponse().contains(",")){
+						String loopToBeProcessed[] = response.getResponse().split(",");
+						for(String toBeProccessed:loopToBeProcessed){
+							String needToBeProcessed[] = toBeProccessed.split("###");
+							System.out.println(">>>>>"+needToBeProcessed[1]);
+							nameValuePairLst.add(new NameValuePair("data["+response.getId()+"]["+needToBeProcessed[0]+"]", needToBeProcessed[1]));
+							//nameValuePairIndex++;
+						}
+					}
+					else if(response.getResponse().contains("###")){
+						String needToBeProcessed[] = response.getResponse().split("###");
+						nameValuePairLst.add(new NameValuePair("data["+response.getId()+"]["+needToBeProcessed[0]+"]", needToBeProcessed[1]));
+					}
+					else{
+						nameValuePairLst.add(new NameValuePair("data["+response.getId()+"][value]", response.getResponse()));
+					}
 				}
-			}
-			else if(response.getResponse().contains("###")){
-				String needToBeProcessed[] = response.getResponse().split("###");
-				nameValuePairLst.add(new NameValuePair("data["+response.getId()+"]["+needToBeProcessed[0]+"]", needToBeProcessed[1]));
-			}
-			else{
-				nameValuePairLst.add(new NameValuePair("data["+response.getId()+"][value]", response.getResponse()));
 			}
 		}
 		
