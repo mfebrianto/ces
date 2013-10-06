@@ -1,6 +1,6 @@
 package edu.unsw.cse.comp9323.group1.models;
 
-public class Enrollment {
+public class Enrolment {
 	int id;
 	String s_id;
 	String c_id;
@@ -22,12 +22,12 @@ public class Enrollment {
 	public void setC_id(String c_id) {
 		this.c_id = c_id;
 	}
-	public Enrollment(String s_id, String c_id) {
+	public Enrolment(String s_id, String c_id) {
 		super();
 		this.s_id = s_id;
 		this.c_id = c_id;
 	}
-	public Enrollment() {
+	public Enrolment() {
 		super();
 	}
 	

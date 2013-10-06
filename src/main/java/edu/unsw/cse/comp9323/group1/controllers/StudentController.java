@@ -1,7 +1,12 @@
 package edu.unsw.cse.comp9323.group1.controllers;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.HttpException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +17,13 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.types.User;
+import java.util.List;
+
+import edu.unsw.cse.comp9323.group1.DAOs.CourseDAO;
+import edu.unsw.cse.comp9323.group1.DAOs.EnrolmentDAO;
+import edu.unsw.cse.comp9323.group1.models.Course;
+import edu.unsw.cse.comp9323.group1.models.Enrolment;
+import edu.unsw.cse.comp9323.group1.models.StudentModel;
  
 @Controller
 @RequestMapping("/student")
@@ -45,6 +57,34 @@ public class StudentController {
 		if(user==null){
 			return "hello";
 		}else{
+			
+			StudentModel studentModel = (StudentModel)session.getAttribute("student");
+			
+			/*
+	    	 * getEnrollment
+	    	 */
+	    	try {
+		    	EnrolmentDAO enrollmentDAO = new EnrolmentDAO();
+				List<Enrolment> enrolmentList = enrollmentDAO.getEnrollmentBasedOnStudentId(studentModel.getId());
+				
+				if (enrolmentList.size() > 0){
+					CourseDAO crsDAO = new CourseDAO();
+			    	session.setAttribute("courses", crsDAO.getAllIDNameCoursesBasedOnMultipleCourseId(enrolmentList));
+				}
+				
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (HttpException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	
+	    	
+			
 			return "studentHome";
 		}
  

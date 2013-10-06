@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.google.api.client.json.Json;
 import com.google.gson.JsonObject;
 
-import edu.unsw.cse.comp9323.group1.DAOs.EnrollmentDAO;
-import edu.unsw.cse.comp9323.group1.models.Enrollment;
+import edu.unsw.cse.comp9323.group1.DAOs.EnrolmentDAO;
+import edu.unsw.cse.comp9323.group1.models.Enrolment;
 
 @Controller
 @RequestMapping("/enrollment")
@@ -21,7 +21,7 @@ public class EnrollmentController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String enrolACourse(@RequestParam("course_id") String courseId, @RequestParam("student_id") String studentId) throws UnsupportedEncodingException, URISyntaxException, HttpException {
-		EnrollmentDAO eDao = new EnrollmentDAO();
+		EnrolmentDAO eDao = new EnrolmentDAO();
 		
 		if (eDao.updateEnrollment(studentId, courseId, "new"))
 			return "enrollment";

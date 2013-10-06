@@ -36,6 +36,7 @@ import com.restfb.types.User;
 import com.restfb.types.User.Education;
 
 import edu.unsw.cse.comp9323.group1.DAOs.CourseDAO;
+import edu.unsw.cse.comp9323.group1.DAOs.EnrolmentDAO;
 import edu.unsw.cse.comp9323.group1.DAOs.RestClient;
 import edu.unsw.cse.comp9323.group1.Tools.InitializeREST;
 import edu.unsw.cse.comp9323.group1.Tools.RestDelete;
@@ -238,10 +239,9 @@ public class FBLoginController {
     	    	session.setAttribute("student", student);
     	    	//model.addAttribute("student", student);
     	    	
-    	    	CourseDAO crsDAO = new CourseDAO();
-    	    	ArrayList<Course>  x = new ArrayList<Course>(crsDAO.getAllIDNameCourses());
-    	    	session.setAttribute("courses", crsDAO.getAllIDNameCourses());
-    	    	//model.addAttribute("courses", crsDAO.getAllIDNameCourses());
+    	    	
+    	    	
+    	    	
     	    	
     	    }
     	    

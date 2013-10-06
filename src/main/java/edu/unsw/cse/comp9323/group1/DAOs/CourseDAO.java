@@ -14,6 +14,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import edu.unsw.cse.comp9323.group1.models.Course;
+import edu.unsw.cse.comp9323.group1.models.Enrolment;
 
 
 
@@ -70,6 +71,67 @@ public class CourseDAO {
 			//TODO: need to put in DAO
 			client.oauth2Login( client.getUserCredentials());
 			String response = client.restGet("/query/?q=SELECT+id__c+,+name__c+FROM+course_detail__c");
+			
+			JSONParser parser = new JSONParser();
+		    Object obj = parser.parse(response);
+		    JSONObject jsonObject = (JSONObject) obj;
+		      
+		    JSONArray listOfRecords = (JSONArray) jsonObject.get("records");
+		    
+		    @SuppressWarnings("unchecked")
+		    Iterator<JSONObject> iteratorRecords = listOfRecords.iterator();
+		    while(iteratorRecords.hasNext()){
+		    	JSONObject jsonAttribute = (JSONObject)iteratorRecords.next();
+		    	Course course = new Course();
+		    	course.setName((String)jsonAttribute.get("name__c"));
+		    	course.setId(jsonAttribute.get("id__c").toString());
+		    	listOfCourses.add(course);
+		    }
+		    
+		    
+			
+			
+			
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} catch (HttpException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	return listOfCourses;
+	
+	}
+	
+	
+	public List<Course> getAllIDNameCoursesBasedOnMultipleCourseId(List<Enrolment> enrolmentList){
+		
+		List<Course> listOfCourses = new ArrayList<Course>();
+		
+		try {
+			
+			//TODO: need to put in DAO
+			client.oauth2Login( client.getUserCredentials());
+			StringBuffer urlBuffer = new StringBuffer();
+			urlBuffer.append("/query/?q=SELECT+id__c+,+name__c+FROM+course_detail__c+where+id__c+in+(");
+			int iteratorNumber=0;
+			Iterator<Enrolment> enrolmentListItr = enrolmentList.iterator();
+			while(enrolmentListItr.hasNext()){
+				
+				if(iteratorNumber==0){
+					urlBuffer.append("'"+Integer.toString(Integer.parseInt(enrolmentListItr.next().getC_id()))+"'");
+				}
+				else{
+					urlBuffer.append(",'"+Integer.toString(Integer.parseInt(enrolmentListItr.next().getC_id()))+"'");
+				}
+				iteratorNumber++;
+				
+			}
+			urlBuffer.append(")");
+			System.out.println(">>>>>>"+urlBuffer.toString());
+			String response = client.restGet(urlBuffer.toString());
 			
 			JSONParser parser = new JSONParser();
 		    Object obj = parser.parse(response);
