@@ -70,7 +70,7 @@
 					</c:forEach>
 				</table>
 
-				<br /> <input class="btn btn-success" type="submit"
+				<br /> <input id="submitButton" class="btn btn-success" type="submit"
 					value="Submit Response" />
 
 			</form:form>
@@ -91,19 +91,20 @@
 
 		configuration.submitListener = function() {
 
-		
 			
-			$('#SHORT_Q_RESPONSE').submit(function() {
+			
+			$('#submitButton').click(function(event) {
 
+				
 				var response="";
 				var result=0;
-				var i=0;
+				var questionNumber=0;
 				
-				while ($('#questionFormResponse'+i).length) {
-					
-					response = response +" "+ $('#questionFormResponse'+i).val(),
-					
-					i++;
+				// event.preventDefault();
+				
+				while($('#questionForm'+questionNumber).length){
+					response = response +" "+$('#questionForm'+questionNumber).val();
+					questionNumber++;
 				}
 				
 				
@@ -130,6 +131,7 @@
 					alert('Cannot submit feedback, please be polite');
 					return false;
 				}
+				
 			});
 		};
 		

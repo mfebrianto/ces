@@ -51,12 +51,12 @@ public class SurveyStartController {
 
 			String responseContiner = new String();
 			if (questionTemp.getSubtype().equals("textbox")) {
-				responseContiner = "<input id=questionForm["
-						+ questionIndex + "] name=questionForm["
+				responseContiner = "<input id=questionForm"
+						+ questionIndex + " name=questionForm["
 						+ questionIndex + "].response //>";
 			} else if (questionTemp.getSubtype().equals("essay")) {
-				responseContiner = "<textarea  id=questionForm["
-						+ questionIndex + "] name=questionForm["
+				responseContiner = "<textarea  id=questionForm"
+						+ questionIndex + " name=questionForm["
 						+ questionIndex
 						+ "].response rows=4 cols=50></textarea>";
 			}else if (questionTemp.getSubtype().equals("radio")) {
@@ -68,7 +68,8 @@ public class SurveyStartController {
 						Iterator<QuestionOption> questionOptionsItr = questionTemp.getQuestionOptions().iterator();
 						while(questionOptionsItr.hasNext()){
 							QuestionOption questionOption = questionOptionsItr.next();
-							responseContainerBuff.append("<input type=radio name=questionForm["
+							responseContainerBuff.append("<input type=radio id=questionForm"
+						+ questionIndex + " name=questionForm["
 						+ questionIndex + "].response value="+questionOption.getId()+"###"+questionOption.getTitle()+">"+questionOption.getTitle()+"<br>");
 						}
 					}
@@ -83,7 +84,8 @@ public class SurveyStartController {
 						Iterator<QuestionOption> questionOptionsItr = questionTemp.getQuestionOptions().iterator();
 						while(questionOptionsItr.hasNext()){
 							QuestionOption questionOption = questionOptionsItr.next();
-							responseContainerBuff.append("<input type=checkbox name=questionForm["
+							responseContainerBuff.append("<input type=checkbox id=questionForm"
+						+ questionIndex + " name=questionForm["
 						+ questionIndex + "].response value="+questionOption.getId()+"###"+questionOption.getTitle()+">"+questionOption.getTitle()+"<br>");
 						}
 					}
