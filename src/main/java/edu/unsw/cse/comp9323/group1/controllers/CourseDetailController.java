@@ -76,7 +76,7 @@ public class CourseDetailController {
 		   		model.addAttribute("UniResearchRating", Integer.parseInt(pairs.getValue().toString()));
 		   	}else if(pairs.getKey().toString().equalsIgnoreCase("admin")){
 		   		model.addAttribute("UniAdminRating", Integer.parseInt(pairs.getValue().toString()));
-		   	}else if(pairs.getKey().toString().equalsIgnoreCase("campus")){
+		   	}else if(pairs.getKey().toString().equalsIgnoreCase("lecturenotes")){
 		   		model.addAttribute("LectureNotesRating", Integer.parseInt(pairs.getValue().toString()));
 		   	}
 		       
