@@ -196,7 +196,8 @@
 				},    
 				dataType: "text",        
 				success: function(data) {          
-					alert("Enrolled !!");        
+					alert("Enrolled !!"); 
+					$('#enrol').html("<b>Enrolled</b>");
 				},        
 				error: function(e) {          
 					alert("Error !!");        
@@ -251,7 +252,7 @@
         <div id="LectureNotes"></div>
         <input type="hidden" id="LectureNotesRating">
         
-        <div><a class="btn btn-lg btn-success" id="enrol" name="enrol">Enrol</a></div>
+        <div id="enrol"><a class="btn btn-lg btn-success" name="enrol">Enrol</a></div>
         <div>
         	<table border="1">
 				<c:forEach items="${allSurveys}" var="element">

@@ -20,29 +20,14 @@ import edu.unsw.cse.comp9323.group1.DAOs.CourseDAO;
 import edu.unsw.cse.comp9323.group1.models.Course;
 import edu.unsw.cse.comp9323.group1.models.CourseAverageRating;
 
-
 @Controller
-@RequestMapping("/studentSearch")
-public class StudentSearchController {
+@RequestMapping("/studentSearchAjax")
+public class StudentSearchAjaxController {
 	static List<String> list_unis = Arrays.asList("ALL", "MIT", "Berkeley", "Saylor", "OpenSecurityTraining",
-		"Macquarie", "Georgetown", "DTU", "British", "Washington", "College", "Harvard", "RMIT");
+			"Macquarie", "Georgetown", "DTU", "British", "Washington", "College", "Harvard", "RMIT");
 	static List<String> list_categories = Arrays.asList("ALL", "Chemistry", "Humanities", "Computer Science", "Biology",
 		"Energy", "Health", "Chemistry", "Art", "Economics", "Finance", "Music", "Mathematics", 
 		"Medicine", "Physics", "Education");
-	
-	
-	@RequestMapping(method = RequestMethod.GET)
-	public String getAllCourses(@RequestParam("studentId") String studentId, ModelMap model) {
-		//CourseDAO courseDAO = new CourseDAO();
-		//model.addAttribute("courses", courseDAO.getAllCourses());
-		
-		model.addAttribute("studentId", studentId);
-		model.addAttribute("list_categories", list_categories);
-		model.addAttribute("list_unis", list_unis);
-		model.addAttribute("uni_name", "ALL");
-		model.addAttribute("category", "ALL");
-		return "studentSearch";
-	}
 	
 	//Search courses based on uni name or course name
 	@RequestMapping(method = RequestMethod.POST)
@@ -82,7 +67,7 @@ public class StudentSearchController {
 		
 		//If uni_name is not empty
 		List<Course> tmpList = new ArrayList<Course>();
-		if (uni_name.length() > 0) {
+		if (uni_name.length() > 0 && !uni_name.contains("ALL")) {
 			Iterator<Course> course_it = searchedCourses.iterator();
 			while (course_it.hasNext()) {
 				Course c = course_it.next();
@@ -95,7 +80,7 @@ public class StudentSearchController {
 		
 		//If category is not empty
 		tmpList = new ArrayList<Course>();
-		if (category.length() > 0) {
+		if (category.length() > 0 && !category.equals("ALL")) {
 			Iterator<Course> course_it = searchedCourses.iterator();
 			while (course_it.hasNext()) {
 				Course c = course_it.next();
@@ -145,23 +130,23 @@ public class StudentSearchController {
 		}
 		
 		model.addAttribute("searchedCourses", searchedCourses);
-//		model.addAttribute("searchedText", searchedText);
-//		model.addAttribute("uni_name", "ALL");
-//		model.addAttribute("category", "ALL");
-//		model.addAttribute("average_rating_min", average_rating_min);
-//		model.addAttribute("average_rating_max", average_rating_max);
-//		model.addAttribute("average_reputation_rating_min", average_reputation_rating_min);
-//		model.addAttribute("average_reputation_rating_max", average_reputation_rating_max);
-//		model.addAttribute("average_teaching_rating_min", average_teaching_rating_min);
-//		model.addAttribute("average_teaching_rating_max", average_teaching_rating_max);
-//		model.addAttribute("average_research_rating_min", average_research_rating_min);
-//		model.addAttribute("average_research_rating_max", average_research_rating_max);
-//		model.addAttribute("average_administrators_rating_min", average_administrators_rating_min);
-//		model.addAttribute("average_administrators_rating_max", average_administrators_rating_max);
-//		model.addAttribute("average_lecture_notes_rating_min", average_lecture_notes_rating_min);
-//		model.addAttribute("average_lecture_notes_rating_max", average_lecture_notes_rating_max);
-//		model.addAttribute("list_categories", list_categories);
-//		model.addAttribute("list_unis", list_unis);
+		model.addAttribute("searchedText", searchedText);
+		model.addAttribute("uni_name", uni_name);
+		model.addAttribute("category", category);
+		model.addAttribute("average_rating_min", average_rating_min);
+		model.addAttribute("average_rating_max", average_rating_max);
+		model.addAttribute("average_reputation_rating_min", average_reputation_rating_min);
+		model.addAttribute("average_reputation_rating_max", average_reputation_rating_max);
+		model.addAttribute("average_teaching_rating_min", average_teaching_rating_min);
+		model.addAttribute("average_teaching_rating_max", average_teaching_rating_max);
+		model.addAttribute("average_research_rating_min", average_research_rating_min);
+		model.addAttribute("average_research_rating_max", average_research_rating_max);
+		model.addAttribute("average_administrators_rating_min", average_administrators_rating_min);
+		model.addAttribute("average_administrators_rating_max", average_administrators_rating_max);
+		model.addAttribute("average_lecture_notes_rating_min", average_lecture_notes_rating_min);
+		model.addAttribute("average_lecture_notes_rating_max", average_lecture_notes_rating_max);
+		model.addAttribute("list_categories", list_categories);
+		model.addAttribute("list_unis", list_unis);
 		
 		return "studentSearch";
 	}
@@ -200,5 +185,4 @@ public class StudentSearchController {
 		}
 		return result;
 	}
-	
 }

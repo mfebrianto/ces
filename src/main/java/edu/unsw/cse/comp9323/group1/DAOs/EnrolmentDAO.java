@@ -75,8 +75,8 @@ public class EnrolmentDAO {
 			Enrolment enrolment = new Enrolment();
 			JsonElement recordJsonElement = recordsItr.next();
 			JsonObject recordJsonObject = recordJsonElement.getAsJsonObject();
-			enrolment.setC_id(Integer.toString(recordJsonObject.get("c_id__c").getAsInt()));
-			enrolment.setS_id(Integer.toString(recordJsonObject.get("s_id__c").getAsInt()));
+			enrolment.setC_id(recordJsonObject.get("c_id__c").getAsString().substring(0, recordJsonObject.get("c_id__c").getAsString().indexOf('.')));
+			enrolment.setS_id(recordJsonObject.get("s_id__c").getAsString());
 			enrolments.add(enrolment);
 		}
 		

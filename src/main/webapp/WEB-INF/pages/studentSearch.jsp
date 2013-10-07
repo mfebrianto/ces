@@ -125,7 +125,7 @@
 			<table>
 				<tr>
 					<td style="padding: 10px 0px">Course name</td>
-					<td style="padding: 10px 0px"><input type="text" name="searchedText"></td>
+					<td style="padding: 10px 0px"><input type="text" name="searchedText" value="${searchedText}"></td>
 				</tr>
 				<tr>
 					<td style="padding: 10px 0px">Uni name</td>
@@ -264,15 +264,61 @@
 			</table>
 			<input type="submit" value="Search" name="submit" />
 		</form>
-        <table border="1">
-	       <c:forEach items="${searchedCourses}" var="element"> 
-			  <tr>
-			    <td><c:out value="${element.name}"/></td>
-			    <td><a class="btn btn-primary" href="<c:url value="/courseDetail?courseName=${element.name}&studentId=${student.id}"/>">View surveys »Check Detail And Do Evaluation »</a></td>
-			  </tr>
-			</c:forEach>
-		</table>
-        
+		<%-- <form method="post" action="/ces-1.0-SNAPSHOT/studentSearchAjax?studentId=${student.id}" 
+			name="search_ajax_form" id="search_ajax_form">
+			<div id="search_filter">
+			<h3>Search filter</h3>
+			<p>Universities</p>
+				<c:forEach items="${list_unis}" var="element"> 
+					<c:choose>
+	      				<c:when test="${element==uni_name}">
+	      					<input type="checkbox" value="${element}" name="uni_name" checked onchange="this.form.submit();">
+	      				</c:when>
+						<c:otherwise>
+							<input type="checkbox" value="${element}" name="uni_name"  onchange="this.form.submit();">
+	      				</c:otherwise>
+					</c:choose>
+				 	<c:out value="${element}"/>
+				</c:forEach>
+			<br/>
+			<p>Categories</p>	
+				<c:forEach items="${list_categories}" var="element"> 
+					<c:choose>
+	      				<c:when test="${element==category}">
+	      					<input type="checkbox" value="${element}" name="category" checked  onchange="this.form.submit();">
+	      				</c:when>
+						<c:otherwise>
+							<input type="checkbox" value="${element}" name="category"  onchange="this.form.submit();">
+	      				</c:otherwise>
+					</c:choose>
+				 	<c:out value="${element}"/>
+				</c:forEach>
+			</div>
+			<input type="hidden" name="searchedText" value="${searchedText}">
+			<input type="hidden" name="average_rating_min" value="${average_rating_min}">
+			<input type="hidden" name="average_rating_max" value="${average_rating_max}">
+			<input type="hidden" name="average_reputation_rating_min" value="${average_reputation_rating_min}">
+			<input type="hidden" name="average_reputation_rating_max" value="${average_reputation_rating_max}">
+			<input type="hidden" name="average_teaching_rating_min" value="${average_teaching_rating_min}">
+			<input type="hidden" name="average_teaching_rating_max" value="${average_teaching_rating_max}">
+			<input type="hidden" name="average_research_rating_min" value="${average_research_rating_min}">
+			<input type="hidden" name="average_research_rating_max" value="${average_research_rating_max}">
+			<input type="hidden" name="average_administrators_rating_min" value="${average_administrators_rating_min}">
+			<input type="hidden" name="average_administrators_rating_max" value="${average_administrators_rating_max}">
+			<input type="hidden" name="average_lecture_notes_rating_min" value="${average_lecture_notes_rating_min}">
+			<input type="hidden" name="average_lecture_notes_rating_max" value="${average_lecture_notes_rating_max}">
+			
+		</form> --%>
+		<div id="updated_result">
+	        <table border="1">
+		       <c:forEach items="${searchedCourses}" var="element"> 
+				  <tr>
+				    <td><c:out value="${element.name}"/></td>
+				    <td><a class="btn btn-primary" href="<c:url value="/courseDetail?courseName=${element.name}&studentId=${student.id}"/>">View surveys »Check Detail And Do Evaluation »</a></td>
+				  </tr>
+				</c:forEach>
+			</table>
+        </div>
       </div>
       
 

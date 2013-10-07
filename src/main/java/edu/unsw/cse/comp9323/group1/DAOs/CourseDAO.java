@@ -121,10 +121,10 @@ public class CourseDAO {
 			while(enrolmentListItr.hasNext()){
 				
 				if(iteratorNumber==0){
-					urlBuffer.append("'"+Integer.toString(Integer.parseInt(enrolmentListItr.next().getC_id()))+"'");
+					urlBuffer.append("'"+enrolmentListItr.next().getC_id()+"'");
 				}
 				else{
-					urlBuffer.append(",'"+Integer.toString(Integer.parseInt(enrolmentListItr.next().getC_id()))+"'");
+					urlBuffer.append(",'"+enrolmentListItr.next().getC_id()+"'");
 				}
 				iteratorNumber++;
 				
