@@ -22,6 +22,7 @@
       <script src="../../assets/js/html5shiv.js"></script>
       <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
+    <script src="<c:url value="/resources/js/jquery-2.0.3.min.js"/>"></script>
   </head>
 
   <body style="">
@@ -95,14 +96,47 @@
 		  }
 	  }(document,"script","twitter-wjs");
 	  
-	  function getParamBag(url){
-		    return {
-		      action: "share",
-		      href: url
-		    };
-		  }
-	  
-
+	  	function getParamBag(url){
+		   	return {
+		     	action: "share",
+		     	href: url
+		   	};
+		}
+	  	
+	  	/* $("#submit_button").click(function() {
+	  		$("#myForm").submit();
+	  		return false;
+  		}); */
+	  	
+		/* $('#myForm').submit(function(event) {
+			event.preventDefault();
+			$.ajax({        
+				type: "POST",        
+				url: $(this).attr('action'),        
+				data: $(this).serialize(),      
+				success: function(response) {           
+					$('#updated_result').html(response);
+				},        
+				error: function(e) {          
+					alert("Error !!");        
+				}   
+			});
+		}); */
+  		
+  		function submitForm() {
+  			$.ajax({        
+				type: "POST",        
+				url: $('#myForm').attr('action'),        
+				data: $('#myForm').serialize(),      
+				success: function(response) {           
+					$('#updated_result').html(response);
+				},        
+				error: function(e) {          
+					alert("Error !!");        
+				}   
+			});
+  			return false;
+  		}
 </script>
 
 
@@ -121,7 +155,8 @@
         <h1>Search</h1>
         	<button id="logout" >Logout</button>
         <p>
-        <form method="post" action="/ces-1.0-SNAPSHOT/studentSearch?studentId=${student.id}">
+        <form method="post" action="/ces-1.0-SNAPSHOT/studentSearch?studentId=${student.id}" 
+        	id="myForm" onsubmit="return submitForm(); return false;">
 			<table>
 				<tr>
 					<td style="padding: 10px 0px">Course name</td>
@@ -129,186 +164,165 @@
 				</tr>
 				<tr>
 					<td style="padding: 10px 0px">Uni name</td>
-					<td style="padding: 10px 0px"><input type="text" name="uni_name"></td>
+					<td style="padding: 10px 0px"><input type="text" name="uni_name" value="${uni_name}"></td>
 				</tr>
 				<tr>
 					<td style="padding: 10px 0px">Category</td>
-					<td style="padding: 10px 0px"><input type="text" name="category"></td>
+					<td style="padding: 10px 0px"><input type="text" name="category" value="${category}"></td>
 				</tr>
 				<tr>
 					<td style="padding: 10px 0px">Uni Average rating</td>
 					<td style="padding: 10px 0px">&nbsp Min<select name="average_rating_min">
-			  			<option value="0" selected>0</option>
-			  			<option value="1">1</option>
-					  	<option value="2">2</option>
-			  			<option value="3">3</option>
-			  			<option value="4">4</option>
-			  			<option value="5">5</option>
+					<c:forEach var="i" begin="0" end="5">
+						<c:if test="${i == average_rating_min}">
+						   	<option value="${i}" selected>${i}</option>
+						</c:if>
+					   	<c:if test="${i != average_rating_min}">
+						   	<option value="${i}">${i}</option>
+						</c:if>
+					</c:forEach>
 						</select>
 						&nbsp Max
 						<select name="average_rating_max">
-			  			<option value="0">0</option>
-			  			<option value="1">1</option>
-					  	<option value="2">2</option>
-			  			<option value="3">3</option>
-			  			<option value="4">4</option>
-			  			<option value="5" selected>5</option>
+				  			<c:forEach var="i" begin="0" end="5">
+								<c:if test="${i == average_rating_max}">
+								   	<option value="${i}" selected>${i}</option>
+								</c:if>
+							   	<c:if test="${i != average_rating_max}">
+								   	<option value="${i}">${i}</option>
+								</c:if>
+							</c:forEach>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<td style="padding: 10px 0px">Uni Reputation Average rating</td>
 					<td style="padding: 10px 0px">&nbsp Min<select name="average_reputation_rating_min">
-			  			<option value="0" selected>0</option>
-			  			<option value="1">1</option>
-					  	<option value="2">2</option>
-			  			<option value="3">3</option>
-			  			<option value="4">4</option>
-			  			<option value="5">5</option>
+			  			<c:forEach var="i" begin="0" end="5">
+							<c:if test="${i == average_reputation_rating_min}">
+							   	<option value="${i}" selected>${i}</option>
+							</c:if>
+						   	<c:if test="${i != average_reputation_rating_min}">
+							   	<option value="${i}">${i}</option>
+							</c:if>
+						</c:forEach>
 						</select>
 						&nbsp Max
 						<select name="average_reputation_rating_max">
-			  			<option value="0">0</option>
-			  			<option value="1">1</option>
-					  	<option value="2">2</option>
-			  			<option value="3">3</option>
-			  			<option value="4">4</option>
-			  			<option value="5" selected>5</option>
+			  			<c:forEach var="i" begin="0" end="5">
+							<c:if test="${i == average_reputation_rating_max}">
+							   	<option value="${i}" selected>${i}</option>
+							</c:if>
+						   	<c:if test="${i != average_reputation_rating_max}">
+							   	<option value="${i}">${i}</option>
+							</c:if>
+						</c:forEach>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<td style="padding: 10px 0px">Uni Teaching Average rating</td>
 					<td style="padding: 10px 0px">&nbsp Min<select name="average_teaching_rating_min">
-			  			<option value="0" selected>0</option>
-			  			<option value="1">1</option>
-					  	<option value="2">2</option>
-			  			<option value="3">3</option>
-			  			<option value="4">4</option>
-			  			<option value="5">5</option>
+			  			<c:forEach var="i" begin="0" end="5">
+							<c:if test="${i == average_teaching_rating_min}">
+							   	<option value="${i}" selected>${i}</option>
+							</c:if>
+						   	<c:if test="${i != average_teaching_rating_min}">
+							   	<option value="${i}">${i}</option>
+							</c:if>
+						</c:forEach>
 						</select>
 						&nbsp Max
 						<select name="average_teaching_rating_max">
-			  			<option value="0">0</option>
-			  			<option value="1">1</option>
-					  	<option value="2">2</option>
-			  			<option value="3">3</option>
-			  			<option value="4">4</option>
-			  			<option value="5" selected>5</option>
+			  			<c:forEach var="i" begin="0" end="5">
+							<c:if test="${i == average_teaching_rating_max}">
+							   	<option value="${i}" selected>${i}</option>
+							</c:if>
+						   	<c:if test="${i != average_teaching_rating_max}">
+							   	<option value="${i}">${i}</option>
+							</c:if>
+						</c:forEach>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<td style="padding: 10px 0px">Uni Research Average rating</td>
 					<td style="padding: 10px 0px">&nbsp Min<select name="average_research_rating_min">
-			  			<option value="0" selected>0</option>
-			  			<option value="1">1</option>
-					  	<option value="2">2</option>
-			  			<option value="3">3</option>
-			  			<option value="4">4</option>
-			  			<option value="5">5</option>
+			  			<c:forEach var="i" begin="0" end="5">
+							<c:if test="${i == average_research_rating_min}">
+							   	<option value="${i}" selected>${i}</option>
+							</c:if>
+						   	<c:if test="${i != average_research_rating_min}">
+							   	<option value="${i}">${i}</option>
+							</c:if>
+						</c:forEach>
 						</select>
 						&nbsp Max
 						<select name="average_research_rating_max">
-			  			<option value="0">0</option>
-			  			<option value="1">1</option>
-					  	<option value="2">2</option>
-			  			<option value="3">3</option>
-			  			<option value="4">4</option>
-			  			<option value="5" selected>5</option>
+			  			<c:forEach var="i" begin="0" end="5">
+							<c:if test="${i == average_research_rating_max}">
+							   	<option value="${i}" selected>${i}</option>
+							</c:if>
+						   	<c:if test="${i != average_research_rating_max}">
+							   	<option value="${i}">${i}</option>
+							</c:if>
+						</c:forEach>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<td style="padding: 10px 0px">Uni Administrators Average rating</td>
 					<td style="padding: 10px 0px">&nbsp Min<select name="average_administrators_rating_min">
-			  			<option value="0" selected>0</option>
-			  			<option value="1">1</option>
-					  	<option value="2">2</option>
-			  			<option value="3">3</option>
-			  			<option value="4">4</option>
-			  			<option value="5">5</option>
+			  			<c:forEach var="i" begin="0" end="5">
+							<c:if test="${i == average_administrators_rating_min}">
+							   	<option value="${i}" selected>${i}</option>
+							</c:if>
+						   	<c:if test="${i != average_administrators_rating_min}">
+							   	<option value="${i}">${i}</option>
+							</c:if>
+						</c:forEach>
 						</select>
 						&nbsp Max
 						<select name="average_administrators_rating_max">
-			  			<option value="0">0</option>
-			  			<option value="1">1</option>
-					  	<option value="2">2</option>
-			  			<option value="3">3</option>
-			  			<option value="4">4</option>
-			  			<option value="5" selected>5</option>
+			  			<c:forEach var="i" begin="0" end="5">
+							<c:if test="${i == average_administrators_rating_max}">
+							   	<option value="${i}" selected>${i}</option>
+							</c:if>
+						   	<c:if test="${i != average_administrators_rating_max}">
+							   	<option value="${i}">${i}</option>
+							</c:if>
+						</c:forEach>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<td style="padding: 10px 0px">Uni Lecture Notes Average rating</td>
 					<td style="padding: 10px 0px">&nbsp Min<select name="average_lecture_notes_rating_min">
-			  			<option value="0" selected>0</option>
-			  			<option value="1">1</option>
-					  	<option value="2">2</option>
-			  			<option value="3">3</option>
-			  			<option value="4">4</option>
-			  			<option value="5">5</option>
+			  			<c:forEach var="i" begin="0" end="5">
+							<c:if test="${i == average_lecture_notes_rating_min}">
+							   	<option value="${i}" selected>${i}</option>
+							</c:if>
+						   	<c:if test="${i != average_lecture_notes_rating_min}">
+							   	<option value="${i}">${i}</option>
+							</c:if>
+						</c:forEach>
 						</select>
 						&nbsp Max
 						<select name="average_lecture_notes_rating_max">
-			  			<option value="0">0</option>
-			  			<option value="1">1</option>
-					  	<option value="2">2</option>
-			  			<option value="3">3</option>
-			  			<option value="4">4</option>
-			  			<option value="5" selected>5</option>
+			  			<c:forEach var="i" begin="0" end="5">
+							<c:if test="${i == average_lecture_notes_rating_max}">
+							   	<option value="${i}" selected>${i}</option>
+							</c:if>
+						   	<c:if test="${i != average_lecture_notes_rating_max}">
+							   	<option value="${i}">${i}</option>
+							</c:if>
+						</c:forEach>
 						</select>
 					</td>
 				</tr>
 			</table>
-			<input type="submit" value="Search" name="submit" />
+			<input type="submit" value="Search" name="submit" id="submit_button"/>
 		</form>
-		<%-- <form method="post" action="/ces-1.0-SNAPSHOT/studentSearchAjax?studentId=${student.id}" 
-			name="search_ajax_form" id="search_ajax_form">
-			<div id="search_filter">
-			<h3>Search filter</h3>
-			<p>Universities</p>
-				<c:forEach items="${list_unis}" var="element"> 
-					<c:choose>
-	      				<c:when test="${element==uni_name}">
-	      					<input type="checkbox" value="${element}" name="uni_name" checked onchange="this.form.submit();">
-	      				</c:when>
-						<c:otherwise>
-							<input type="checkbox" value="${element}" name="uni_name"  onchange="this.form.submit();">
-	      				</c:otherwise>
-					</c:choose>
-				 	<c:out value="${element}"/>
-				</c:forEach>
-			<br/>
-			<p>Categories</p>	
-				<c:forEach items="${list_categories}" var="element"> 
-					<c:choose>
-	      				<c:when test="${element==category}">
-	      					<input type="checkbox" value="${element}" name="category" checked  onchange="this.form.submit();">
-	      				</c:when>
-						<c:otherwise>
-							<input type="checkbox" value="${element}" name="category"  onchange="this.form.submit();">
-	      				</c:otherwise>
-					</c:choose>
-				 	<c:out value="${element}"/>
-				</c:forEach>
-			</div>
-			<input type="hidden" name="searchedText" value="${searchedText}">
-			<input type="hidden" name="average_rating_min" value="${average_rating_min}">
-			<input type="hidden" name="average_rating_max" value="${average_rating_max}">
-			<input type="hidden" name="average_reputation_rating_min" value="${average_reputation_rating_min}">
-			<input type="hidden" name="average_reputation_rating_max" value="${average_reputation_rating_max}">
-			<input type="hidden" name="average_teaching_rating_min" value="${average_teaching_rating_min}">
-			<input type="hidden" name="average_teaching_rating_max" value="${average_teaching_rating_max}">
-			<input type="hidden" name="average_research_rating_min" value="${average_research_rating_min}">
-			<input type="hidden" name="average_research_rating_max" value="${average_research_rating_max}">
-			<input type="hidden" name="average_administrators_rating_min" value="${average_administrators_rating_min}">
-			<input type="hidden" name="average_administrators_rating_max" value="${average_administrators_rating_max}">
-			<input type="hidden" name="average_lecture_notes_rating_min" value="${average_lecture_notes_rating_min}">
-			<input type="hidden" name="average_lecture_notes_rating_max" value="${average_lecture_notes_rating_max}">
-			
-		</form> --%>
 		<div id="updated_result">
 	        <table border="1">
 		       <c:forEach items="${searchedCourses}" var="element"> 

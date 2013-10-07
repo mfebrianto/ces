@@ -264,7 +264,7 @@ public boolean setOverallRating(String courseName) throws UnsupportedEncodingExc
 	}
 }
 
-public int getOverAllRating(String courseName) throws URISyntaxException, HttpException, UnsupportedEncodingException{
+public double getOverAllRating(String courseName) throws URISyntaxException, HttpException, UnsupportedEncodingException{
 	client.oauth2Login( client.getUserCredentials());
 	String newRestUri = "/query/?q=" + URLEncoder.encode("SELECT courseName__c,rating__c  FROM course_average_rating__c WHERE courseName__c = '"+courseName+"' AND RateCategory__c = 'ALL'","UTF-8");
 	String response = client.restGet(newRestUri);
@@ -280,7 +280,7 @@ public int getOverAllRating(String courseName) throws URISyntaxException, HttpEx
 	}
 
 	JsonObject JsObj = listOfRecords.get(0).getAsJsonObject();
-	return JsObj.get("rating__c").getAsInt();
+	return JsObj.get("rating__c").getAsDouble();
 }
 public HashMap <String, Integer> getUserRating(String studentID,String courseName) throws URISyntaxException, HttpException, UnsupportedEncodingException{
 	String newRestUri = "/query/?q=" + URLEncoder.encode("SELECT studentID__c, courseName__c,courseRating__c,RateCategory__c  FROM StudentUniRating__c WHERE studentID__c = '"+studentID+"' and courseName__c = '" + courseName +"'","UTF-8");

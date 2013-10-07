@@ -118,6 +118,7 @@ public class CourseExtraction {
 	}
 	
 	public static List<JSONObject> getAllCourses() throws HttpException, URISyntaxException, ParseException {
+		listCourses = new ArrayList<JSONObject>();
 		client.oauth2Login( client.getUserCredentials());
 		Document doc;
 		try {

@@ -35,8 +35,9 @@ if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document)
       <div class="jumbotron">
         <h1>Hi University</h1>
         	<button id="logout" >Logout</button>
-        		 
-              
+        		<br/>
+        		<br/> 
+            <button class="btn btn-primary" id="coursesCrawler" >Course Crawler</button>  
         <p>Please check all available courses below</p>
         <p>
         
@@ -88,7 +89,28 @@ if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document)
 		  			  	});
     			
     			
-        		
+		    			$(document).ready(function() {
+			      			  $('#coursesCrawler').click(function(event) {
+			      				  event.preventDefault();
+			      				//alert("disconnect~~~");
+	    				    	//alert(window.location.href);
+	    				        // Revoke the server tokens
+	    				        $.ajax({
+	    				          type: 'GET',
+	    				          url: location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '')+"/ces-1.0-SNAPSHOT" + '/courseExtraction',
+	    				          async: false,
+	    				          success: function(result) {
+	    				        		alert(result);
+	    				          },
+	    				          error: function(e) {
+	    				            	alert(JSON.stringify(e));
+	    				          }
+	    				        });
+
+			      			  });
+			      			  
+			  			    	
+			  			  	});
 
 
         	</script>

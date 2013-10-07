@@ -55,7 +55,7 @@ public class CourseDetailController {
 	 
 		RatingDAO ratingDAO = new RatingDAO();
 		 
-		int overallRatingCourse = ratingDAO.getOverAllRating(courseName);
+		double overallRatingCourse = ratingDAO.getOverAllRating(courseName);
 		HashMap <String, Integer> userRatingsCourse = new HashMap <String, Integer>();
 		userRatingsCourse = ratingDAO.getUserRating(studentId, courseName);
 		

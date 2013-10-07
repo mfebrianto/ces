@@ -37,10 +37,21 @@ public class StudentSearchController {
 		//model.addAttribute("courses", courseDAO.getAllCourses());
 		
 		model.addAttribute("studentId", studentId);
-		model.addAttribute("list_categories", list_categories);
-		model.addAttribute("list_unis", list_unis);
-		model.addAttribute("uni_name", "ALL");
-		model.addAttribute("category", "ALL");
+		model.addAttribute("searchedText", "");
+		model.addAttribute("uni_name", "");
+		model.addAttribute("category", "");
+		model.addAttribute("average_rating_min", "0");
+		model.addAttribute("average_rating_max", "5");
+		model.addAttribute("average_reputation_rating_min", "0");
+		model.addAttribute("average_reputation_rating_max", "5");
+		model.addAttribute("average_teaching_rating_min", "0");
+		model.addAttribute("average_teaching_rating_max", "5");
+		model.addAttribute("average_research_rating_min", "0");
+		model.addAttribute("average_research_rating_max", "5");
+		model.addAttribute("average_administrators_rating_min", "0");
+		model.addAttribute("average_administrators_rating_max", "5");
+		model.addAttribute("average_lecture_notes_rating_min", "0");
+		model.addAttribute("average_lecture_notes_rating_max", "5");
 		return "studentSearch";
 	}
 	
@@ -145,25 +156,25 @@ public class StudentSearchController {
 		}
 		
 		model.addAttribute("searchedCourses", searchedCourses);
-//		model.addAttribute("searchedText", searchedText);
-//		model.addAttribute("uni_name", "ALL");
-//		model.addAttribute("category", "ALL");
-//		model.addAttribute("average_rating_min", average_rating_min);
-//		model.addAttribute("average_rating_max", average_rating_max);
-//		model.addAttribute("average_reputation_rating_min", average_reputation_rating_min);
-//		model.addAttribute("average_reputation_rating_max", average_reputation_rating_max);
-//		model.addAttribute("average_teaching_rating_min", average_teaching_rating_min);
-//		model.addAttribute("average_teaching_rating_max", average_teaching_rating_max);
-//		model.addAttribute("average_research_rating_min", average_research_rating_min);
-//		model.addAttribute("average_research_rating_max", average_research_rating_max);
-//		model.addAttribute("average_administrators_rating_min", average_administrators_rating_min);
-//		model.addAttribute("average_administrators_rating_max", average_administrators_rating_max);
-//		model.addAttribute("average_lecture_notes_rating_min", average_lecture_notes_rating_min);
-//		model.addAttribute("average_lecture_notes_rating_max", average_lecture_notes_rating_max);
+		model.addAttribute("searchedText", searchedText);
+		model.addAttribute("uni_name", uni_name);
+		model.addAttribute("category", category);
+		model.addAttribute("average_rating_min", average_rating_min);
+		model.addAttribute("average_rating_max", average_rating_max);
+		model.addAttribute("average_reputation_rating_min", average_reputation_rating_min);
+		model.addAttribute("average_reputation_rating_max", average_reputation_rating_max);
+		model.addAttribute("average_teaching_rating_min", average_teaching_rating_min);
+		model.addAttribute("average_teaching_rating_max", average_teaching_rating_max);
+		model.addAttribute("average_research_rating_min", average_research_rating_min);
+		model.addAttribute("average_research_rating_max", average_research_rating_max);
+		model.addAttribute("average_administrators_rating_min", average_administrators_rating_min);
+		model.addAttribute("average_administrators_rating_max", average_administrators_rating_max);
+		model.addAttribute("average_lecture_notes_rating_min", average_lecture_notes_rating_min);
+		model.addAttribute("average_lecture_notes_rating_max", average_lecture_notes_rating_max);
 //		model.addAttribute("list_categories", list_categories);
 //		model.addAttribute("list_unis", list_unis);
 		
-		return "studentSearch";
+		return "studentSearchUpdate";
 	}
 
 	public List<Course> refineSearchedCourse(String category, CourseAverageRatingDAO carDAO, 
