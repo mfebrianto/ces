@@ -124,11 +124,13 @@
 		}); */
   		
   		function submitForm() {
+			showLoadingImage();
   			$.ajax({        
 				type: "POST",        
 				url: $('#myForm').attr('action'),        
 				data: $('#myForm').serialize(),      
 				success: function(response) {           
+					hideLoadingImage();
 					$('#updated_result').html(response);
 				},        
 				error: function(e) {          
@@ -137,6 +139,14 @@
 			});
   			return false;
   		}
+		
+		function showLoadingImage() {
+		    $('#updated_result').html('<div id="loading"><p><img src="http://i.stack.imgur.com/FhHRx.gif" /> Please Wait ...</p></div>');
+		}
+
+		function hideLoadingImage() {
+		    $('#loading').remove();
+		}
 </script>
 
 
