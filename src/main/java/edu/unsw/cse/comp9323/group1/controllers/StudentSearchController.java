@@ -92,26 +92,44 @@ public class StudentSearchController {
 		}
 		
 		//If uni_name is not empty
-		List<Course> tmpList = new ArrayList<Course>();
 		if (uni_name.length() > 0) {
-			Iterator<Course> course_it = searchedCourses.iterator();
-			while (course_it.hasNext()) {
-				Course c = course_it.next();
-				if (c.getUni().toLowerCase().contains(uni_name.toLowerCase()))
-					tmpList.add(c);
+			List<String> uniList = new ArrayList<String>();
+			if (uni_name.contains(",")) {
+				uniList = Arrays.asList(uni_name.split(","));
+			}
+			else 
+				uniList.add(uni_name);
+			
+			List<Course> tmpList = new ArrayList<Course>();
+			for (String str: uniList) {
+				Iterator<Course> course_it = searchedCourses.iterator();
+				while (course_it.hasNext()) {
+					Course c = course_it.next();
+					if (c.getUni().toLowerCase().contains(str.toLowerCase().trim()))
+						tmpList.add(c);
+				}
 			}
 			searchedCourses = tmpList;
 		}
 		
 		
 		//If category is not empty
-		tmpList = new ArrayList<Course>();
 		if (category.length() > 0) {
-			Iterator<Course> course_it = searchedCourses.iterator();
-			while (course_it.hasNext()) {
-				Course c = course_it.next();
-				if (c.getCategories().toLowerCase().contains(category.toLowerCase()))
-					tmpList.add(c);
+			List<String> categoryList = new ArrayList<String>();
+			if (category.contains(",")) {
+				categoryList = Arrays.asList(category.split(","));
+			}
+			else 
+				categoryList.add(category);
+			
+			List<Course> tmpList = new ArrayList<Course>();
+			for (String str: categoryList) {
+				Iterator<Course> course_it = searchedCourses.iterator();
+				while (course_it.hasNext()) {
+					Course c = course_it.next();
+					if (c.getCategories().toLowerCase().contains(str.toLowerCase().trim()))
+						tmpList.add(c);
+				}
 			}
 			searchedCourses = tmpList;
 		}
