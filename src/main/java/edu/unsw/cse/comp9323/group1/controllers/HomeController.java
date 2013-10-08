@@ -147,7 +147,7 @@ public class HomeController {
 //		}
 		String tokenData = (String) session.getAttribute("token");
 		if (tokenData == null) {
-			return "user have not login!";
+			return "user has not login!";
 		}
 		try {
 	          // Build credential from stored token data.
@@ -173,7 +173,7 @@ public class HomeController {
 	          return name+" Successfully logout.";
 	        } catch (IOException e) {
 	          // For whatever reason, the given token was invalid.
-	          
+	          e.printStackTrace();
 	          return GSON.toJson("Failed to revoke token for given user.");
 	        }
 		

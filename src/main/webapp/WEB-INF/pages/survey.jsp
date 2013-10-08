@@ -69,6 +69,8 @@
 						<td><a class="btn btn-warning"
 							href="<c:url value="/uni/survey/delete?surveyId=${element.id}&courseId=${courseId}"/>">Delete
 								Survey</a></td>
+						<td><a class="btn btn-info"
+							href="<c:url value="/reporting?surveyId=${element.id}"/>" target="_blank">Survey Report</a></td>	
 					</tr>
 				</c:forEach>
 			</table>
