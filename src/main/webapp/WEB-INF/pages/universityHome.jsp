@@ -35,7 +35,6 @@ if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document)
       <div class="jumbotron">
         <h1>Hi University</h1>
         	<!-- <button id="logout" >Logout</button> -->
-        		<br/> 
             <button class="btn btn-primary" id="coursesCrawler" >Course Crawler</button>  
         <p>Please check all available courses below</p>
         <p>
