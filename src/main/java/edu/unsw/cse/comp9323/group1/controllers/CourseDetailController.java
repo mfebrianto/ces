@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.unsw.cse.comp9323.group1.DAOs.CourseDAO;
+import edu.unsw.cse.comp9323.group1.DAOs.EnrolmentDAO;
 import edu.unsw.cse.comp9323.group1.DAOs.RatingDAO;
 import edu.unsw.cse.comp9323.group1.DAOs.SurveyDAO;
 import edu.unsw.cse.comp9323.group1.models.Course;
+import edu.unsw.cse.comp9323.group1.models.Enrolment;
+import edu.unsw.cse.comp9323.group1.models.StudentModel;
 import edu.unsw.cse.comp9323.group1.models.Survey;
 
 @Controller
@@ -85,7 +88,35 @@ public class CourseDetailController {
 	       System.out.println("ENDDD");
 	       it.remove(); // avoids a ConcurrentModificationException
 		}
-		 
+		
+		/*
+    	 * getEnrollment
+    	 */
+    	try {
+	    	EnrolmentDAO enrollmentDAO = new EnrolmentDAO();
+			List<Enrolment> enrolmentList = enrollmentDAO.getEnrollmentBasedOnStudentId(studentId);
+			
+			if (enrolmentList.size() > 0){
+		    	List<Course> coursesList = crsDAO.getAllIDNameCoursesBasedOnMultipleCourseId(enrolmentList);
+		    	int check = 0;
+		    	for (Course c: coursesList) {
+		    		if (c.getName().equals(courseName))
+		    			check = 1;
+		    	}
+		    	model.addAttribute("check_enrollment", check);
+			}
+			
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HttpException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		model.addAttribute("OverallRating", overallRatingCourse);
 		model.addAttribute("allSurveys", returnSurveys);
 		model.addAttribute("course", course);

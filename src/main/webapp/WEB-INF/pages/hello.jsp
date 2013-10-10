@@ -44,17 +44,17 @@
 
     <div class="container">
       <div class="header">
-        <ul class="nav nav-pills pull-right">
+        <!-- <ul class="nav nav-pills pull-right">
           <li class="active"><a href="#">Home</a></li>
           <li><a href="#">About</a></li>
           <li><a href="#">Contact</a></li>
-        </ul>
-        <h3 class="text-muted">VInCi Course Evaluation</h3>
+        </ul> -->
+        <h3 class="text-muted">Course Evaluation</h3>
       </div>
 
       <div class="jumbotron">
         <h1>Course Evaluation</h1>
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <p class="lead">Group 1 COMP9323 - Mentor AMIN</p>
         <div>
 
 	       <!--  <a class="btn btn-lg btn-success" href="<c:url value="/uni"/>">University</a>-->
@@ -170,7 +170,7 @@ function onSignInCallback(authResult) {
         </div>
       </div>
 
-      <div class="row marketing">
+      <!-- <div class="row marketing">
         <div class="col-lg-6">
           <h4>Subheading</h4>
           <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
@@ -193,9 +193,9 @@ function onSignInCallback(authResult) {
           <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
         </div>
       </div>
-
+ -->
       <div class="footer">
-        <p>© Company 2013</p>
+        <p>© Group 1 Comp9323</p>
       </div>
 
     </div> <!-- /container -->

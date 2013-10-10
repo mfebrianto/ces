@@ -1,7 +1,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<html lang="en">
-<script id="tinyhippos-injected">if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document); }</script>
+  <html lang="en"><script id="tinyhippos-injected">
+if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document); }</script>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,19 +10,20 @@
     <link rel="shortcut icon" href="../../assets/ico/favicon.png">
 
     <title>Group1 Course Evaluation</title>
-
+    
     <!-- Bootstrap core CSS -->
-    <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet"> 
 
     <!-- Custom styles for this template -->
-    <link href="<c:url value="/resources/css/navbar.css"/>" rel="stylesheet">
+     <link href="navbar.css" rel="stylesheet">  
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="../../assets/js/html5shiv.js"></script>
       <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
-  </head>
+    
+       </head> 
 
   <body style="">
   
@@ -42,12 +43,12 @@
       
   
       <div class="jumbotron">
-        <h1>Welcome Student</h1>
+        <h2>Welcome Student</h2>
         <table border="1">
 	       <c:forEach items="${courses}" var="element"> 
 			  <tr>
-			  <td><c:out value="${element.name}"/></td>
-			    <td><c:out value="${element.getId()}"/></td>
+			  	<td><c:out value="${element.name}"/></td>
+			    <%-- <td><c:out value="${element.getId()}"/></td> --%>
 			    <td><a class="btn btn-primary" href="<c:url value="/courseDetail?courseName=${element.name}&studentId=${student.id}"/>">Check Detail And Do Evaluation »</a></td>
 			  </tr>
 			</c:forEach>

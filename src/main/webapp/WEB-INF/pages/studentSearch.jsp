@@ -163,7 +163,6 @@
       <!-- Main component for a primary marketing message or call to action -->
      <div class="jumbotron">
         <h1>Search</h1>
-        	<button id="logout" >Logout</button>
         <p>
         <form method="post" action="/ces-1.0-SNAPSHOT/studentSearch?studentId=${student.id}" 
         	id="myForm" onsubmit="return submitForm(); return false;">
@@ -331,7 +330,7 @@
 					</td>
 				</tr>
 			</table>
-			<input type="submit" value="Search" name="submit" id="submit_button"/>
+			<input class="btn btn-primary" type="submit" value="Search" name="submit" id="submit_button"/>
 		</form>
 		<div id="updated_result">
 	        <table border="1">

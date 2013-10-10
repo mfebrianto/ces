@@ -2,8 +2,10 @@
     pageEncoding="ISO-8859-1"%>
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<script id="tinyhippos-injected">if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document); }</script>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+  <html lang="en"><script id="tinyhippos-injected">
+if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document); }</script>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,13 +13,13 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.png">
 
-    <title>Group1 Course Detail Page</title>
-
+    <title>Group1 Course Evaluation</title>
+    
     <!-- Bootstrap core CSS -->
-    <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet"> 
 
     <!-- Custom styles for this template -->
-    <link href="navbar.css" rel="stylesheet">
+     <link href="navbar.css" rel="stylesheet">  
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -220,7 +222,7 @@
      
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h1>Welcome Student</h1>
+        <h2>Welcome Student</h2>
         <p>This example is a quick exercise to illustrate how the default, static navbar and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
         <p>Course ID   : ${course.getId()} <br></br>
            Course Name : ${course.getName()} <br></br>
@@ -251,9 +253,10 @@
         <p> Lecture Notes Rating : 
         <div id="LectureNotes"></div>
         <input type="hidden" id="LectureNotesRating">
-        
-        <div id="enrol"><a class="btn btn-lg btn-success" name="enrol">Enrol</a></div>
-        <div>
+        <c:if test="${check_enrollment < 1}">
+        	<div id="enrol" style="padding-bottom: 10px;"><a class="btn btn-lg btn-success" name="enrol">Enrol ${check_enrollment}</a></div>
+        </c:if>
+        <div style="padding-bottom: 10px;">
         	<table border="1">
 				<c:forEach items="${allSurveys}" var="element">
 					<tr>
