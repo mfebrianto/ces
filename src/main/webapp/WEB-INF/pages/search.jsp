@@ -34,7 +34,6 @@ if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document)
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
         <h1>Search</h1>
-        	<button id="logout" >Logout</button>
         <p>
         <form method="post" action="/ces-1.0-SNAPSHOT/search">
         	<table>
@@ -42,28 +41,6 @@ if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document)
 					<td>Course name</td>
 					<td><input type="text" name="searchedText"></td>
 				</tr>
-				<tr>
-					<td>Average rating</td>
-					<td>&nbsp Min<select name="average_rating_min">
-			  			<option value="0" selected>0</option>
-			  			<option value="1">1</option>
-					  	<option value="2">2</option>
-			  			<option value="3">3</option>
-			  			<option value="4">4</option>
-			  			<option value="5">5</option>
-						</select>
-						&nbsp Max
-						<select name="average_rating_max">
-			  			<option value="0">0</option>
-			  			<option value="1">1</option>
-					  	<option value="2">2</option>
-			  			<option value="3">3</option>
-			  			<option value="4">4</option>
-			  			<option value="5" selected>5</option>
-						</select>
-					</td>
-				</tr>
-				
 			</table>
 			<input type="submit" value="Search" name="submit" />
 		</form>
