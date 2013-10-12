@@ -196,6 +196,10 @@ public class FBLoginController {
     	    	client.oauth2Login( client.getUserCredentials());
     	    	String response = client.restPost("/sobjects/StudentAccount__c/", newStudentJSONObj.toString());
     	    	
+    	    	System.out.println(student.firstName);
+    	    	System.out.println(student.middleName);
+    	    	System.out.println(student.lastName);
+    	    	
     		
     	    }
     	    else if(total > 0){
@@ -229,14 +233,18 @@ public class FBLoginController {
         	    
         	    student.setId(jobjectFirstRecord.get("ID__c").toString().replaceAll("\"", ""));
         	  
-        	    student.setFirstName(jobjectFirstRecord.get("FIrstName__c").toString());
-        	    student.setMiddleName(jobjectFirstRecord.get("MiddleName__c").toString());
-    	    	student.setLastName(jobjectFirstRecord.get("LastName__c").toString());
-    	    	student.setGender(jobjectFirstRecord.get("Gender__c").toString());
+        	    student.setFirstName(jobjectFirstRecord.get("FIrstName__c").toString().replaceAll("\"", ""));
+        	    student.setMiddleName(jobjectFirstRecord.get("MiddleName__c").toString().replaceAll("\"", ""));
+    	    	student.setLastName(jobjectFirstRecord.get("LastName__c").toString().replaceAll("\"", ""));
+    	    	student.setGender(jobjectFirstRecord.get("Gender__c").toString().replaceAll("\"", ""));
     	    	//student.setInterests(user.getInterestedIn());
     	    	System.out.println("Data Load Success !!");
     	    	
     	    	session.setAttribute("student", student);
+    	    	
+    	    	System.out.println(student.firstName);
+    	    	System.out.println(student.middleName);
+    	    	System.out.println(student.lastName);
     	    	//model.addAttribute("student", student);
     	    	
     	    	

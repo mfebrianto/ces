@@ -108,6 +108,7 @@
             <li><a href="../navbar-fixed-top/">Fixed top</a></li> -->
             <li><a href="/ces-1.0-SNAPSHOT/student">Home</a></li>
             <li><a href="/ces-1.0-SNAPSHOT/studentSearch?studentId=${student.id}">Search</a></li>
+            <li><a href="/ces-1.0-SNAPSHOT/FBLogin/logout">Logout</a></li>
             <!-- <li><a href="/ces-1.0-SNAPSHOT/studentSearch">Search</a></li> -->
           </ul>
         </div><!--/.nav-collapse -->

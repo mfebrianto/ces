@@ -5,11 +5,11 @@ import java.util.List;
 public class StudentModel {
 	public String id;
 	//The user's first name.
-	public String FirstName;
+	public String firstName;
 	//The user's middle name.
-	public String MiddleName;
+	public String middleName;
 	//The user's last name.
-	public String LastName;
+	public String lastName;
 	//The user's gender.
 	public String gender;
 	//The genders the user is interested in.
@@ -25,24 +25,24 @@ public class StudentModel {
 	}
 	
 	public String getFirstName() {
-		return FirstName;
+		return firstName;
 	}
 	public void setFirstName(String firstName) {
-		FirstName = firstName;
+		this.firstName = firstName;
 	}
 	
 	public String getMiddleName() {
-		return MiddleName;
+		return middleName;
 	}
 	public void setMiddleName(String middleName) {
-		MiddleName = middleName;
+		this.middleName = middleName;
 	}
 	
 	public String getLastName() {
-		return LastName;
+		return lastName;
 	}
 	public void setLastName(String lastName) {
-		LastName = lastName;
+		this.lastName = lastName;
 	}
 	public String getGender() {
 		return gender;

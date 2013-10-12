@@ -36,6 +36,11 @@ if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document)
 	      <jsp:attribute name="value" >  
 	         <c:out value="${student.id}"/>  
 	      </jsp:attribute>  
+	  	</jsp:param>
+	  	<jsp:param name="studentFN" >  
+	      <jsp:attribute name="value" >  
+	         <c:out value="${student.firstName}"/>  
+	      </jsp:attribute>  
 	  	</jsp:param>  
      </jsp:include>
 
@@ -43,7 +48,7 @@ if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document)
       
   
       <div class="jumbotron">
-        <h2>Welcome Student</h2>
+        <h2>Welcome <c:out value="${student.firstName} ${student.middleName} ${student.lastName}"/> </h2>
         <table border="1">
 	       <c:forEach items="${courses}" var="element"> 
 			  <tr>
