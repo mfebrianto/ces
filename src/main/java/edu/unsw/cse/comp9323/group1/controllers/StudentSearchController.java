@@ -106,7 +106,8 @@ public class StudentSearchController {
 				while (course_it.hasNext()) {
 					Course c = course_it.next();
 					if (c.getUni().toLowerCase().contains(str.toLowerCase().trim()))
-						tmpList.add(c);
+						if (!tmpList.contains(c))
+							tmpList.add(c);
 				}
 			}
 			searchedCourses = tmpList;
@@ -128,7 +129,8 @@ public class StudentSearchController {
 				while (course_it.hasNext()) {
 					Course c = course_it.next();
 					if (c.getCategories().toLowerCase().contains(str.toLowerCase().trim()))
-						tmpList.add(c);
+						if (!tmpList.contains(c))
+							tmpList.add(c);
 				}
 			}
 			searchedCourses = tmpList;

@@ -29,7 +29,7 @@ public class CourseExtractionController {
 		RSSFeedParser rss = new RSSFeedParser("http://ocw.mit.edu/rss/new/mit-newcourses.xml");
 		result.addAll(rss.getRSSMITCourses());
 		
-		result.addAll(CourseExtraction.getAllCourses());
+//		result.addAll(CourseExtraction.getAllCourses());
 		
 		return result;
 //	    return "{\"response\": \"true\"}";

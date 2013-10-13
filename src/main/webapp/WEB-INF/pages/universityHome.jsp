@@ -98,7 +98,11 @@ if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document)
 	    				          url: location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '')+"/ces-1.0-SNAPSHOT" + '/courseExtraction',
 	    				          async: false,
 	    				          success: function(result) {
-	    				        		alert(result);
+	    				        	  var str = "";
+	    				        	  for (var i = 0; i < result.length; i++) {
+	    				        		    str += "Course name: '" result[i].name__c + "' is inserted to the database\n";
+	    				        		} 
+	    				        		alert(str);
 	    				          },
 	    				          error: function(e) {
 	    				            	alert(JSON.stringify(e));

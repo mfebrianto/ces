@@ -179,6 +179,7 @@ public class RSSFeedParser {
 		    newCourse.put("video_lecturer__c", "Not given");
 		    
 		    String courseName = message.getTitle();
+		    courseName = courseName.trim();
 		    courseName = courseName.replaceAll("\"", "");
 		    courseName = courseName.replaceAll("\'", "");
 		    courseName = courseName.replace(' ', '+');
@@ -186,7 +187,7 @@ public class RSSFeedParser {
 		    String response = client.restGet(client.getRestUri() + "/query/?q=SELECT+name__c+FROM+course_detail__c+WHERE+name__c+=+\'"+ courseName + "\'");
 		    if (response.contains("errorCode")) {
 		    	System.out.println(courseName + " has errors: " + response);
-		    	return result;
+		    	continue;
 		    }
 		    JsonParser jsonParser = new JsonParser();
 		    JsonElement jsonElement = jsonParser.parse(response);
@@ -202,6 +203,8 @@ public class RSSFeedParser {
 		    		System.out.println(courseName + " has errors: " + response);
 				}
 		    }
+//		    if (result.size() >= 1)
+//		    	break;
 	    }
 	    return result;
 	}
