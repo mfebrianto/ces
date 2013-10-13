@@ -59,7 +59,7 @@ public class CourseDetailController {
 		RatingDAO ratingDAO = new RatingDAO();
 		 
 		double overallRatingCourse = ratingDAO.getOverAllRating(courseName);
-		HashMap <String, Integer> userRatingsCourse = new HashMap <String, Integer>();
+		HashMap <String, Double> userRatingsCourse = new HashMap <String, Double>();
 		userRatingsCourse = ratingDAO.getUserRating(studentId, courseName);
 		
 		model.addAttribute("UniReputationRating", 0);
@@ -71,16 +71,16 @@ public class CourseDetailController {
 		while (it.hasNext()) {
 			Map.Entry pairs = (Map.Entry)it.next();
 			if(pairs.getKey().toString().equalsIgnoreCase("reputation")){
-				model.addAttribute("UniReputationRating", Integer.parseInt(pairs.getValue().toString()));
+				model.addAttribute("UniReputationRating", Double.parseDouble(pairs.getValue().toString()));
 				System.out.println(">>>>>>>> reputation sets");
 			}else if(pairs.getKey().toString().equalsIgnoreCase("teaching")){
-		   	 	model.addAttribute("UniTeachingRating", Integer.parseInt(pairs.getValue().toString()));
+		   	 	model.addAttribute("UniTeachingRating", Double.parseDouble(pairs.getValue().toString()));
 		   	}else if(pairs.getKey().toString().equalsIgnoreCase("research")){
-		   		model.addAttribute("UniResearchRating", Integer.parseInt(pairs.getValue().toString()));
+		   		model.addAttribute("UniResearchRating", Double.parseDouble(pairs.getValue().toString()));
 		   	}else if(pairs.getKey().toString().equalsIgnoreCase("admin")){
-		   		model.addAttribute("UniAdminRating", Integer.parseInt(pairs.getValue().toString()));
+		   		model.addAttribute("UniAdminRating", Double.parseDouble(pairs.getValue().toString()));
 		   	}else if(pairs.getKey().toString().equalsIgnoreCase("lecturenotes")){
-		   		model.addAttribute("LectureNotesRating", Integer.parseInt(pairs.getValue().toString()));
+		   		model.addAttribute("LectureNotesRating", Double.parseDouble(pairs.getValue().toString()));
 		   	}
 		       
 	       //System.out.println(pairs.getKey().toString() + " = " + pairs.getValue());

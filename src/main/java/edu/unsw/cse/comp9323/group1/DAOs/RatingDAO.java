@@ -282,7 +282,7 @@ public double getOverAllRating(String courseName) throws URISyntaxException, Htt
 	JsonObject JsObj = listOfRecords.get(0).getAsJsonObject();
 	return JsObj.get("rating__c").getAsDouble();
 }
-public HashMap <String, Integer> getUserRating(String studentID,String courseName) throws URISyntaxException, HttpException, UnsupportedEncodingException{
+public HashMap <String, Double> getUserRating(String studentID,String courseName) throws URISyntaxException, HttpException, UnsupportedEncodingException{
 	String newRestUri = "/query/?q=" + URLEncoder.encode("SELECT studentID__c, courseName__c,courseRating__c,RateCategory__c  FROM StudentUniRating__c WHERE studentID__c = '"+studentID+"' and courseName__c = '" + courseName +"'","UTF-8");
 	String response = client.restGet(newRestUri);
 	System.out.println(response);
@@ -292,7 +292,7 @@ public HashMap <String, Integer> getUserRating(String studentID,String courseNam
 	int total = jobject.get("totalSize").getAsInt();
 	JsonArray listOfRecords = jobject.getAsJsonArray("records");
    
-	HashMap <String, Integer> ratings = new HashMap <String, Integer>();
+	HashMap <String, Double> ratings = new HashMap <String, Double>();
 	System.out.println(">>>>>>>>>>>>>>>here");
 	Iterator<JsonElement> iteratorRecords = listOfRecords.iterator();
 	while(iteratorRecords.hasNext()){
@@ -300,15 +300,15 @@ public HashMap <String, Integer> getUserRating(String studentID,String courseNam
 		System.out.println(">>>>>>>> category:" + JsObj.get("RateCategory__c").getAsString());
 		
 		if(JsObj.get("RateCategory__c").getAsString().equalsIgnoreCase("Reputation")){
-			ratings.put("Reputation", JsObj.get("courseRating__c").getAsInt());
+			ratings.put("Reputation", JsObj.get("courseRating__c").getAsDouble());
 		}else if(JsObj.get("RateCategory__c").getAsString().equalsIgnoreCase("Teaching")){
-			ratings.put("Teaching", JsObj.get("courseRating__c").getAsInt());
+			ratings.put("Teaching", JsObj.get("courseRating__c").getAsDouble());
 		}else if(JsObj.get("RateCategory__c").getAsString().equalsIgnoreCase("Research")){
-			ratings.put("Research", JsObj.get("courseRating__c").getAsInt());
+			ratings.put("Research", JsObj.get("courseRating__c").getAsDouble());
 		}else if(JsObj.get("RateCategory__c").getAsString().equalsIgnoreCase("Admin")){
-			ratings.put("Admin", JsObj.get("courseRating__c").getAsInt());
+			ratings.put("Admin", JsObj.get("courseRating__c").getAsDouble());
 		}else if(JsObj.get("RateCategory__c").getAsString().equalsIgnoreCase("LectureNotes")){
-			ratings.put("LectureNotes", JsObj.get("courseRating__c").getAsInt());
+			ratings.put("LectureNotes", JsObj.get("courseRating__c").getAsDouble());
 		}
    }
    
