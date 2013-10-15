@@ -254,7 +254,7 @@ if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document)
         <div id="LectureNotes"></div>
         <input type="hidden" id="LectureNotesRating">
         <c:if test="${check_enrollment < 1}">
-        	<div id="enrol" style="padding-bottom: 10px;"><a class="btn btn-lg btn-success" name="enrol">Enrol ${check_enrollment}</a></div>
+        	<div id="enrol" style="padding-bottom: 10px;"><a class="btn btn-lg btn-success" name="enrol">Enrol</a></div>
         </c:if>
         <div style="padding-bottom: 10px;">
         	<table border="1">
