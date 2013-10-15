@@ -289,8 +289,14 @@ public class FBLoginController {
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String FBLogout(ModelMap model) {
+		
+		
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
 	    HttpSession session = attr.getRequest().getSession(true);
+//	    String accessToken = session.getAttribute("token").toString();
+//		FacebookClient facebookClient = new DefaultFacebookClient(accessToken);
+//		System.out.println(accessToken);
+//		User user = facebookClient.fetchObject("me", User.class);
 	    session.invalidate();
 	    
 		return "hello";
