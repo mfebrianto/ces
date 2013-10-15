@@ -100,7 +100,7 @@ if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document)
 	    				          success: function(result) {
 	    				        	  var str = "";
 	    				        	  for (var i = 0; i < result.length; i++) {
-	    				        		    str += "Course name: '" result[i].name__c + "' is inserted to the database\n";
+	    				        		    str += "Course name: \'" + result[i].name__c + "\' is inserted to the database\n";
 	    				        		} 
 	    				        		alert(str);
 	    				          },
