@@ -73,7 +73,7 @@ if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document)
     				          async: false,
     				          success: function(result) {
     				      
-    				        		alert(result);
+    				        		//alert(result);
     				        		 window.location.href = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '')+"/ces-1.0-SNAPSHOT";
     				          },
     				          error: function(e) {
