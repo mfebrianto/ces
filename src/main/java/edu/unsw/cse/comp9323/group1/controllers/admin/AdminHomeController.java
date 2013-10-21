@@ -5,14 +5,23 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
  
+/**
+ * This is the main class of admin page.
+ * 
+ * @author z3378491.group1.comp9323-2013s1
+ */
+
 @Controller
 @RequestMapping("/admin")
 public class AdminHomeController {
  
+	/**
+	 * @return admin page address
+	 */
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
  
-//		model.addAttribute("message", "Spring 3 MVC Hello World");
 		
 		return "adminHome";
  

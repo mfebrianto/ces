@@ -21,11 +21,25 @@ import com.google.gson.JsonParser;
 
 import edu.unsw.cse.comp9323.group1.DAOs.RestClient;
 
+/**
+* This class get all the available courses from http://www.mooc-list.com
+* @author z3402013.group1.comp9323-2013s1
+*/
 
 public class CourseExtraction {
 	protected static String linkString = "http://www.mooc-list.com";
 	protected static RestClient client = new RestClient();
 	protected static List<JSONObject> listCourses;
+	
+	/**
+	 * This method parses all the available courses in mooc-list.com
+	 * 
+	 * @param link
+	 * @throws IOException
+	 * @throws HttpException
+	 * @throws URISyntaxException
+	 * @throws ParseException
+	 */
 
 	@SuppressWarnings("unchecked")
 	public static void getCourseDetail(String link) throws IOException, HttpException, URISyntaxException, ParseException {
@@ -117,6 +131,14 @@ public class CourseExtraction {
 		}
 	}
 	
+	/**
+	 * This method will getAllCourses that have saved into database.com 
+	 *
+	 * @throws HttpException
+	 * @throws URISyntaxException
+	 * @throws ParseException
+	 */
+	
 	public static List<JSONObject> getAllCourses() throws HttpException, URISyntaxException, ParseException {
 		listCourses = new ArrayList<JSONObject>();
 		client.oauth2Login( client.getUserCredentials());
@@ -151,6 +173,14 @@ public class CourseExtraction {
 	}
  
 
+	/**
+	 * This method is the main method for this class
+	 * 
+	 * @throws URISyntaxException
+	 * @throws HttpException
+	 * @throws ParseException
+	 */
+	
 	public static void getMoocListCourse() throws URISyntaxException, HttpException, ParseException {
 	    //RestClient client = new RestClient();
 	    client.oauth2Login( client.getUserCredentials());

@@ -31,6 +31,12 @@ import edu.unsw.cse.comp9323.group1.forms.SurveyForm;
 import edu.unsw.cse.comp9323.group1.models.Question;
 import edu.unsw.cse.comp9323.group1.models.Survey;
 
+/**
+ * This is the main class of admin page.
+ * 
+ * @author z3378491.group1.comp9323-2013s1
+ */
+
 @Controller
 @RequestMapping("/uni/survey")
 public class SurveyController {
