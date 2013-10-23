@@ -24,12 +24,39 @@ import edu.unsw.cse.comp9323.group1.Tools.RestPatch;
 
 import edu.unsw.cse.comp9323.group1.models.CourseAverageRating;
 
+/**
+ * 
+ * This class will be automatically invoked when user entry the rating for courses
+ * 
+ * @author group1.comp9323-2013s1
+ *
+ */
+
 public class CourseAverageRatingDAO {
 	protected static RestClient client = new RestClient();
+	
+	/**
+	 * This method will get user session
+	 * 
+	 * @throws URISyntaxException
+	 * @throws HttpException
+	 */
 	
 	public CourseAverageRatingDAO() throws URISyntaxException, HttpException {
 		client.oauth2Login( client.getUserCredentials());
 	}
+	
+	/**
+	 * 
+	 * This method will connect to database.com,
+	 * then get all existing rating.
+	 * 
+	 * @return
+	 * @throws URISyntaxException
+	 * @throws HttpException
+	 * @throws UnsupportedEncodingException
+	 * @throws ParseException
+	 */
 	
 	public List<CourseAverageRating> getAllCourseAverageRating() throws URISyntaxException, HttpException, UnsupportedEncodingException, ParseException {
 		List<CourseAverageRating> result = new ArrayList<CourseAverageRating>();
@@ -57,6 +84,19 @@ public class CourseAverageRatingDAO {
 	    
 		return result;
 	}
+	
+	/**
+	 * 
+	 * This method will get existing rating based on course id
+	 * then calculate the average based on the new rating.
+	 * 
+	 * @param category
+	 * @return
+	 * @throws URISyntaxException
+	 * @throws HttpException
+	 * @throws UnsupportedEncodingException
+	 * @throws ParseException
+	 */
 	
 	public List<CourseAverageRating> getAllCourseAverageRatingByCategory(String category) throws URISyntaxException, HttpException, UnsupportedEncodingException, ParseException {
 		List<CourseAverageRating> result = new ArrayList<CourseAverageRating>();
@@ -86,6 +126,19 @@ public class CourseAverageRatingDAO {
 		return result;
 	}
 	
+	/**
+	 * 
+	 * This search function is using this method to get the course
+	 * with spesific rating based on the range.
+	 * 
+	 * @param min
+	 * @param max
+	 * @return
+	 * @throws URISyntaxException
+	 * @throws HttpException
+	 * @throws UnsupportedEncodingException
+	 * @throws ParseException
+	 */
 	public List<CourseAverageRating> getCoursesByRating(int min, int max) throws URISyntaxException, HttpException, UnsupportedEncodingException, ParseException {
 		List<CourseAverageRating> result = new ArrayList<CourseAverageRating>();
 		
@@ -115,6 +168,17 @@ public class CourseAverageRatingDAO {
 		return result;
 	}
 	
+	/**
+	 * 
+	 * This method will get the course rating based on course name
+	 * 
+	 * @param course_name
+	 * @return
+	 * @throws URISyntaxException
+	 * @throws HttpException
+	 * @throws UnsupportedEncodingException
+	 * @throws ParseException
+	 */
 	public double getCourseRatingByName(String course_name) throws URISyntaxException, HttpException, UnsupportedEncodingException, ParseException {
 //		client.oauth2Login( client.getUserCredentials());
 		String newRestUri = "/query/?q=" + URLEncoder.encode("SELECT rating__c " +
@@ -133,6 +197,16 @@ public class CourseAverageRatingDAO {
 		
 		return 0;
 	}
+	
+	/**
+	 * 
+	 * This is the main method of this class to test functional of this class
+	 * 
+	 * @throws UnsupportedEncodingException
+	 * @throws URISyntaxException
+	 * @throws HttpException
+	 * @throws ParseException
+	 */
 	
 	public void main() throws UnsupportedEncodingException, URISyntaxException, HttpException, ParseException {
 		CourseAverageRatingDAO carDao = new CourseAverageRatingDAO();
