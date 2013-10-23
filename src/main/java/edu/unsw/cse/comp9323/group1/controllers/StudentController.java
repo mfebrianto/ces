@@ -24,10 +24,25 @@ import edu.unsw.cse.comp9323.group1.DAOs.EnrolmentDAO;
 import edu.unsw.cse.comp9323.group1.models.Course;
 import edu.unsw.cse.comp9323.group1.models.Enrolment;
 import edu.unsw.cse.comp9323.group1.models.StudentModel;
- 
+
+/**
+ * 
+ * This class is session controller after successfully login using facebook.
+ * 
+ * @author z3399627.group1.comp9323-2013s1
+ *
+ */
+
 @Controller
 @RequestMapping("/student")
 public class StudentController {
+	
+	/**
+	 * This method will open student home page.
+	 * 
+	 * @param model
+	 * @return
+	 */
  
 	@RequestMapping(method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {

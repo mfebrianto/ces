@@ -13,10 +13,25 @@ import edu.unsw.cse.comp9323.group1.DAOs.CourseDAO;
 import edu.unsw.cse.comp9323.group1.models.Course;
 
 
+/**
+ * 
+ * This class controls all functions related to search function
+ * 
+ * @author z3402013.group1.comp9323-2013s1
+ *
+ */
+
 @Controller
 @RequestMapping("/search")
 public class SearchController {
 
+	/**
+	 * This method will get all courses from database.com 
+	 * 
+	 * @param model
+	 * @return
+	 */
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public String getAllCourses(ModelMap model) {
 		//CourseDAO courseDAO = new CourseDAO();
@@ -24,6 +39,16 @@ public class SearchController {
 		return "search";
  
 	}
+	
+	
+	/**
+	 * 
+	 * this method get courses from database.com based on inserted critera.
+	 * 
+	 * @param searchedText
+	 * @param model
+	 * @return
+	 */
 	
 	//Search courses based on uni name or course name
 	@RequestMapping(method = RequestMethod.POST)

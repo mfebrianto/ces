@@ -14,10 +14,29 @@ import edu.unsw.cse.comp9323.group1.forms.QuestionForm;
 import edu.unsw.cse.comp9323.group1.models.Question;
 import edu.unsw.cse.comp9323.group1.models.Rating;
 
+/**
+ * 
+ * This class is controller class control student rating for course
+ * 
+ * @author z3399627.group1.comp9323-2013s1
+ *
+ */
+
 @Controller
 @RequestMapping("/Rating")
 public class RatingController {
 
+	
+	/**
+	 * 
+	 * This controller will update rating that coming from the students.
+	 * 
+	 * @param rating
+	 * @param result
+	 * @return studentHome
+	 * @throws UnsupportedEncodingException
+	 */
+	
 	@RequestMapping(value = "/", method=RequestMethod.POST)
 	public String processForm(@ModelAttribute(value="rating") Rating rating,BindingResult result) throws UnsupportedEncodingException{
 		if(result.hasErrors()){

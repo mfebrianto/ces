@@ -22,6 +22,14 @@ import com.google.gson.JsonParser;
 import edu.unsw.cse.comp9323.group1.models.FeedMessage;
 import edu.unsw.cse.comp9323.group1.Tools.RestClient;
 
+/**
+ * 
+ * This class is controller class of RSS Reader
+ * 
+ * @author z3402013.group1.comp9323-2013s1
+ *
+ */
+
 public class RSSFeedParser {
 	static final String TITLE = "title";
 	static final String ITEM = "item";
@@ -36,6 +44,12 @@ public class RSSFeedParser {
 	static final String RIGHTS = "rights";
 
 	final URL url;
+	
+	/**
+	 * this method will return exception if the xml is malformed.
+	 * 
+	 * @param feedUrl
+	 */
 
 	public RSSFeedParser(String feedUrl) {
 		try {
@@ -44,6 +58,12 @@ public class RSSFeedParser {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	/**
+	 * this method will read all feed from rss and parse it before it can be saved to database.com
+	 * 
+	 * @return
+	 */
 
 	public List<FeedMessage> readFeed() {
 		List<FeedMessage> result = new ArrayList<FeedMessage>();
@@ -120,6 +140,14 @@ public class RSSFeedParser {
 		}
 		return result;
 	}
+	
+	/**
+	 * 
+	 * @param event
+	 * @param eventReader
+	 * @return
+	 * @throws XMLStreamException
+	 */
 
   private String getCharacterData(XMLEvent event, XMLEventReader eventReader)
       throws XMLStreamException {
@@ -130,6 +158,11 @@ public class RSSFeedParser {
     }
     return result;
   }
+  
+  /**
+   * 
+   * @return
+   */
 
   private InputStream read() {
     try {
@@ -142,7 +175,14 @@ public class RSSFeedParser {
   
   @SuppressWarnings("unchecked")
 
-//	public void getRSSMitCourse() throws URISyntaxException, HttpException {
+  /**
+   * 
+   * this method will get all courses detail from mit-newcourses rss feeder
+   * 
+   * @return
+   * @throws URISyntaxException
+   * @throws HttpException
+   */
 
 	public List<JSONObject> getRSSMITCourses() throws URISyntaxException, HttpException {
 

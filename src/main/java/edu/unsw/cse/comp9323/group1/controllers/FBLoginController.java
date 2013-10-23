@@ -48,12 +48,31 @@ import edu.unsw.cse.comp9323.group1.models.StudentEduHistoryModel;
 import edu.unsw.cse.comp9323.group1.models.StudentModel;
 import edu.unsw.cse.comp9323.group1.models.fqlUser;
 
+
+/**
+ * 
+ * This class is controller class control student authentication with facebook login
+ * 
+ * @author z3399627.group1.comp9323-2013s1
+ *
+ */
+
+
 @Controller
 @RequestMapping("/FBLogin")
 @SessionAttributes({"review", "externalReview"})
 public class FBLoginController {
 	//@RequestMapping(value = "/{accesstoken}", method = RequestMethod.GET)
 	//public String getStudentDetail(@PathVariable String accesstoken, ModelMap model) {
+	
+	/**
+	 * this method will 
+	 * 
+	 * @param accesstoken
+	 * @param redirectUrl
+	 * @return
+	 */
+	
 	@RequestMapping(value = "/checkToken", method = RequestMethod.POST)
 	@ResponseBody
 	public String getStudentDetail(@RequestBody String accesstoken, String redirectUrl) {
@@ -274,11 +293,27 @@ public class FBLoginController {
  
 	}
  
+	/**
+	 * 
+	 * This method will return login screen to facebook
+	 * 
+	 * @param model
+	 * @return FBLogin
+	 */
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getDefaultLoginPage(ModelMap model) {
 		return "FBLogin";
  
 	}
+	
+	/**
+	 * 
+	 * This method will return login screen to facebook
+	 * 
+	 * @param model
+	 * @return FBLoginTest
+	 */
 	
 	@RequestMapping(value = "/FBLoginTest", method = RequestMethod.GET)
 	public String FBtest(ModelMap model) {
@@ -286,6 +321,15 @@ public class FBLoginController {
 		return "FBLoginTest";
  
 	}
+	
+	/**
+	 * 
+	 * This method will set the facebook session to expired and end the session in
+	 * course evaluation system
+	 * 
+	 * @param model
+	 * @return
+	 */
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String FBLogout(ModelMap model) {

@@ -2,7 +2,7 @@ package edu.unsw.cse.comp9323.group1.controllers;
 
 /**
  * 
- * This class is controller class fir student enrollment
+ * This class is controller class for student enrollment
  * 
  * @author z3402013.group1.comp9323-2013s1
  *

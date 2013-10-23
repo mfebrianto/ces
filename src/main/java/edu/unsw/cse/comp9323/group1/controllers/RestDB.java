@@ -19,10 +19,22 @@ import org.apache.http.util.EntityUtils;
 
 import com.google.gson.Gson;
 
+/**
+ * 
+ * This class is controller class of survey detail.
+ * 
+ * @author z3402013.group1.comp9323-2013s1
+ *
+ */
 
 public class RestDB extends Object{
 	
 	static class OAuth2Response {
+		
+		/**
+		 * This is model for OAuth2Response
+		 */
+		
 	    public OAuth2Response() {
 	    }
 	    String id;
@@ -32,6 +44,12 @@ public class RestDB extends Object{
 	    String access_token;
 	  }
 	  
+	/**
+	 * 
+	 * This is login information to database.com
+	 *
+	 */
+	
 	  public class UserCredentials {
 	    String userName = "michaelfebrianto@gmail.com";
 	    String password = "C0urs3Evalu@t10n!MzSFewuyg8pDCV1FwvhjJIOr1";
@@ -40,6 +58,10 @@ public class RestDB extends Object{
 	  
 	  }
 	
+	  /**
+	   * this will get the gson
+	   */
+	  
 	  public RestDB(){
 		  gson = new Gson();
 	  }
@@ -53,6 +75,14 @@ public class RestDB extends Object{
 	  Header prettyPrintHeader = new BasicHeader("X-PrettyPrint", "1");
 	  Gson gson;
 	  OAuth2Response oauth2Response;
+	  
+	  /**
+	   * 
+	   * This method will communicate with database.com
+	   * 
+	   * @param inputStream
+	   * @return
+	   */
 	  
 	  private String getBody(InputStream inputStream) {
 		    String result = "";
@@ -72,6 +102,14 @@ public class RestDB extends Object{
 		    return result;
 		  }
 	  
+	  /**
+	   * 
+	   * This method will communicate with database.com for get information
+	   * 
+	   * @param uri
+	   * @return
+	   */
+	  
 	  public String restGet(String uri) {
 		    String result = "";
 		    try {
@@ -89,12 +127,28 @@ public class RestDB extends Object{
 		    return result;
 		  }
 	  
+	  /**
+	   * 
+	   * this method will get all university name that already inserted to database.com
+	   * 
+	   * @param university
+	   * @return
+	   */
 	  
 	  public String getUniLoginData(UniversityModel university) {
 		  String reponseBody = restGet(restUri + "/sobjects/UniversityAccounts__c/name/");		  
 		  return reponseBody;
 	  }
 	  
+	  
+	  /**
+	   * 
+	   * This method will update record in database.com
+	   * 
+	   * @param uri
+	   * @param requestBody
+	   * @return
+	   */
 	  
 	  public String restPost(String uri, String requestBody) {
 		    String result = null;
@@ -115,6 +169,14 @@ public class RestDB extends Object{
 		    }
 		    return result;
 	  }
+	  
+	  /**
+	   * 
+	   * This method will authenticate system to database.com
+	   * 
+	   * @param userCredentials
+	   * @return
+	   */
 	  
 	  public HttpResponse oauth2Login(UserCredentials userCredentials) {
 		    HttpResponse response = null;
@@ -167,6 +229,14 @@ public class RestDB extends Object{
 		    }
 		    return response;
 		  }
+	  
+	  /**
+	   * 
+	   * This method will save university data to database.com
+	   * 
+	   * @param university
+	   * @return
+	   */
 	  
 	  public String postUniLoginData(UniversityModel university) {
 		  String reponseBody = restPost(restUri + 

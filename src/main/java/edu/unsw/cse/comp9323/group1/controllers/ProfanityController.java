@@ -22,8 +22,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Handles requests for the application home page.
+ * 
+ * This class is controller class to communicate with profanity checker in wdyl.com
+ * 
+ * @author z3389874.group1.comp9323-2013s1
+ *
  */
+
 @Controller
 public class ProfanityController {
 	
@@ -31,6 +36,16 @@ public class ProfanityController {
 	
 	public static String endpoint = "http://www.wdyl.com/profanity";
 
+	/**
+	 * 
+	 * this method will send string request of response content to profanity checker
+	 * If the profanity checker return true then it means there is forbidden words in that application.
+	 * Otherwise it will return false and the response is clean from profanity.
+	 * 
+	 * @param data
+	 * @return
+	 * @throws IOException
+	 */
 	
 	@RequestMapping(value = "/containProfanity", method = RequestMethod.POST)
 	@ResponseBody

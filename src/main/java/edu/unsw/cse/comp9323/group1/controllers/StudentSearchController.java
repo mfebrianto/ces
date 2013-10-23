@@ -20,6 +20,13 @@ import edu.unsw.cse.comp9323.group1.DAOs.CourseDAO;
 import edu.unsw.cse.comp9323.group1.models.Course;
 import edu.unsw.cse.comp9323.group1.models.CourseAverageRating;
 
+/**
+ * 
+ * This class return detail for search page
+ * 
+ * @author z3402013.group1.comp9323-2013s1
+ *
+ */
 
 @Controller
 @RequestMapping("/studentSearch")
@@ -30,6 +37,14 @@ public class StudentSearchController {
 		"Energy", "Health", "Chemistry", "Art", "Economics", "Finance", "Music", "Mathematics", 
 		"Medicine", "Physics", "Education");
 	
+	/**
+	 * 
+	 * This method will add value to all search attributes on the search screen
+	 * 
+	 * @param studentId
+	 * @param model
+	 * @return
+	 */
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String getAllCourses(@RequestParam("studentId") String studentId, ModelMap model) {
@@ -54,6 +69,34 @@ public class StudentSearchController {
 		model.addAttribute("average_lecture_notes_rating_max", "5");
 		return "studentSearch";
 	}
+	
+	/**
+	 * 
+	 * This method recieve parameter from the screen and parse it before send it
+	 * to database.com
+	 * 
+	 * @param searchedText
+	 * @param model
+	 * @param uni_name
+	 * @param category
+	 * @param average_rating_min
+	 * @param average_rating_max
+	 * @param average_reputation_rating_min
+	 * @param average_reputation_rating_max
+	 * @param average_teaching_rating_min
+	 * @param average_teaching_rating_max
+	 * @param average_research_rating_min
+	 * @param average_research_rating_max
+	 * @param average_administrators_rating_min
+	 * @param average_administrators_rating_max
+	 * @param average_lecture_notes_rating_min
+	 * @param average_lecture_notes_rating_max
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 * @throws URISyntaxException
+	 * @throws HttpException
+	 * @throws ParseException
+	 */
 	
 	//Search courses based on uni name or course name
 	@RequestMapping(method = RequestMethod.POST)

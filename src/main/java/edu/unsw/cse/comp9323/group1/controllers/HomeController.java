@@ -27,7 +27,11 @@ import com.google.api.services.plus.Plus;
 import com.google.gson.Gson;
 
 /**
- * Handles requests for the application home page.
+ * 
+ * This class is controller class control student authentication with google login
+ * 
+ * @author z3389874.group1.comp9323-2013s1
+ *
  */
 
 @Controller
@@ -60,14 +64,16 @@ public class HomeController {
 	   */
 	  private static final Gson GSON = new Gson();
 
+	
+	  
 	  /**
 	   * Register all endpoints that we'll handle in our server.
-	   * @param args Command-line arguments.
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	  
+	   * Simply selects the home view to render by returning its name.  
+	   * 
+	   * @param locale
+	   * @param model
+	   * @return
+	   */
 
     
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
@@ -84,6 +90,17 @@ public class HomeController {
 		return "home";
 	}
 
+	/**
+	 * 
+	 * This method will start session with Google API to login as university
+	 * 
+	 * @param code
+	 * @param redirectUrl
+	 * @return
+	 * @throws IOException
+	 */
+	
+	
 	@RequestMapping(value = "/googleLogin", method = RequestMethod.POST)
 	@ResponseBody
 	public String googleLogin(@RequestBody String code, String redirectUrl) throws IOException{
@@ -136,6 +153,12 @@ public class HomeController {
 	          return name+" Successfully Login";
 		
 	}
+	
+	/**
+	 * This method will end google session and end session as university
+	 * 
+	 * @return
+	 */
 	
 	@RequestMapping(value = "/googleLogout", method = RequestMethod.POST)
 	@ResponseBody
