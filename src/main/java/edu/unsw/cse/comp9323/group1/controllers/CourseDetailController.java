@@ -24,9 +24,33 @@ import edu.unsw.cse.comp9323.group1.models.Enrolment;
 import edu.unsw.cse.comp9323.group1.models.StudentModel;
 import edu.unsw.cse.comp9323.group1.models.Survey;
 
+/**
+ * 
+ * This class is controller class of course detail.
+ * 
+ * @author group1.comp9323-2013s1
+ *
+ */
+
 @Controller
 @RequestMapping("/courseDetail")
 public class CourseDetailController {
+	
+	
+	/**
+	 * 
+	 * This method will render detail in course detail page.
+	 * The details are including: course name, rating, enrollment and the available survey.
+	 * 
+	 * @param courseName
+	 * @param studentId
+	 * @param model
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 * @throws URISyntaxException
+	 * @throws HttpException
+	 */
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public String getCourseDetail(@RequestParam("courseName") String courseName,@RequestParam("studentId") String studentId, ModelMap model) throws UnsupportedEncodingException, URISyntaxException, HttpException {
 		CourseDAO crsDAO = new CourseDAO();

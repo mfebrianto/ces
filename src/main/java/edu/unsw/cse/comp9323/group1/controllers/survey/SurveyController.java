@@ -43,6 +43,17 @@ public class SurveyController {
 
 	private String userPass = "michaelfebrianto@gmail.com:C0urs3Evalu@t10n!";
 
+	/**
+	 * This method will receive parameter from the web and call DAO.
+	 * DAO then will open the connection to database.com and surveygizmo.com
+	 * to query all available survey. After it gets all the courses the list 
+	 * then will be return to the web
+	 * 
+	 * @param courseId
+	 * @param model
+	 * @return
+	 */
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public String getAllAvailableSurvey(@RequestParam("courseId") String courseId,ModelMap model) {
 		
@@ -80,6 +91,17 @@ public class SurveyController {
  
 	}
 
+	/**
+	 * This method receives surveyId that coming from the web when user click delete button
+	 * It will open connection to surveygizmo.com to remove the survey then return 
+	 * to the course detail page
+	 * 
+	 * @param surveyId
+	 * @param courseId
+	 * @param model
+	 * @return
+	 */
+	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String deleteSurvey(@RequestParam("surveyId") int surveyId,
 			@RequestParam("courseId") String courseId, Model model) {

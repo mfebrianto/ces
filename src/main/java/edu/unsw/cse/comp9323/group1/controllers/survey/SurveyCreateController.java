@@ -12,9 +12,26 @@ import edu.unsw.cse.comp9323.group1.forms.QuestionForm;
 import edu.unsw.cse.comp9323.group1.forms.SurveyForm;
 import edu.unsw.cse.comp9323.group1.models.Survey;
 
+/**
+ * 
+ * This class is controller class of survey creation.
+ * 
+ * @author z3378491.group1.comp9323-2013s1
+ *
+ */
+
 @Controller
 @RequestMapping(value="/uni/survey/create")
 public class SurveyCreateController {
+	
+	/**
+	 * 
+	 * This method for get method when user call survey creation page.
+	 * It will return the page itself.
+	 * 
+	 * @param model
+	 * @return surveyCreate
+	 */
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String showForm(ModelMap model){
@@ -22,6 +39,14 @@ public class SurveyCreateController {
 		model.addAttribute("SURVEY", survey);
 		return "surveyCreate";
 	}
+	
+	/**
+	 * This method to save the survey to surveygizmo.com
+	 * 
+	 * @param surveyForm
+	 * @param result
+	 * @return courseDetailPage
+	 */
 
 	@RequestMapping(method=RequestMethod.POST)
 	public String processForm(@ModelAttribute(value="SURVEY") SurveyForm surveyForm,BindingResult result){

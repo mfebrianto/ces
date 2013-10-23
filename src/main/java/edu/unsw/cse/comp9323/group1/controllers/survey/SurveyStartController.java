@@ -21,9 +21,26 @@ import edu.unsw.cse.comp9323.group1.forms.QuestionListForm;
 import edu.unsw.cse.comp9323.group1.models.Question;
 import edu.unsw.cse.comp9323.group1.models.QuestionOption;
 
+/**
+ * 
+ * This class is controller class of survey detail.
+ * 
+ * @author z3378491.group1.comp9323-2013s1
+ *
+ */
+
 @Controller
 @RequestMapping("/survey/start")
 public class SurveyStartController {
+
+	/**
+	 * This method will get all the available question and questionType from surveygizmo.com.
+	 * It will return the list that will be shown when user would like to fill in the survey.
+	 * 
+	 * @param surveyId
+	 * @param model
+	 * @return surveyDetail
+	 */
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String getSurvey(@RequestParam("surveyId") int surveyId,
@@ -107,6 +124,17 @@ public class SurveyStartController {
 
 		return "surveyStart";
 	}
+	
+	/**
+	 * 
+	 * This method handle post HTTP request from user.
+	 * It will be invoke when user submit the survey they already filled.
+	 * It opens communication to surveygizmo.com to submit user response.
+	 * 
+	 * @param questionForm
+	 * @param result
+	 * @return courseDetail
+	 */
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String processForm(

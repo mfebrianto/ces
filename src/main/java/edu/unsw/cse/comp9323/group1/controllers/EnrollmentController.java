@@ -1,5 +1,13 @@
 package edu.unsw.cse.comp9323.group1.controllers;
 
+/**
+ * 
+ * This class is controller class fir student enrollment
+ * 
+ * @author z3402013.group1.comp9323-2013s1
+ *
+ */
+
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 
@@ -18,6 +26,18 @@ import edu.unsw.cse.comp9323.group1.models.Enrolment;
 @Controller
 @RequestMapping("/enrollment")
 public class EnrollmentController {
+	
+	/**
+	 * 
+	 * This method will send POST request to database.com to add record for student id and the course id.
+	 * 
+	 * @param courseId
+	 * @param studentId
+	 * @return courseDetail
+	 * @throws UnsupportedEncodingException
+	 * @throws URISyntaxException
+	 * @throws HttpException
+	 */
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String enrolACourse(@RequestParam("course_id") String courseId, @RequestParam("student_id") String studentId) throws UnsupportedEncodingException, URISyntaxException, HttpException {

@@ -13,11 +13,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.unsw.cse.comp9323.group1.controllers.crawler.CourseExtraction;
-import edu.unsw.cse.comp9323.group1.controllers.crawler.RSSFeedParser;
+//import edu.unsw.cse.comp9323.group1.controllers.crawler.RSSFeedParser;
+
+/**
+ * 
+ * This class is controller class of survey detail.
+ * 
+ * @author z3402013.group1.comp9323-2013s1
+ *
+ */
+
 @Controller
 @RequestMapping("/courseExtraction")
 public class CourseExtractionController {
 
+	/**
+	 * This method will parse all available courses that coming from RSS mit-newcourses.xml
+	 * 
+	 * @return
+	 * @throws URISyntaxException
+	 * @throws HttpException
+	 * @throws ParseException
+	 */
+	
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	
