@@ -19,12 +19,12 @@
   	    // but has not authenticated your app
   	   
   		alert("Application Not Yet Authorized");
-  		window.location.href="http://localhost:8080/ces-1.0-SNAPSHOT/";
+  		window.location.href="/ces/";
   	    
   	  } else {
   	    // the user isn't logged in to Facebook.
   		alert("User Has not Login");
-  		window.location.href="http://localhost:8080/ces-1.0-SNAPSHOT/";
+  		window.location.href="/ces-1.0-SNAPSHOT/";
   	  }
   
   });

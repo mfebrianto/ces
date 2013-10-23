@@ -162,11 +162,9 @@ function onSignInCallback(authResult) {
   helper.onSignInCallback(authResult);
 }
 </script>
-	        <a class="btn btn-lg btn-success" onclick="child_open()" href="https://graph.facebook.com/oauth/authorize?client_id=575842165811798&amp;redirect_uri=http://localhost:8080/ces-1.0-SNAPSHOT/FBLogin/FBLoginTest&amp;scope=email,user_education_history,publish_actions&amp;display=popup&amp;response_type=token" target="_facebook">Student</a>
+	        <a class="btn btn-lg btn-success" onclick="child_open()" href="https://graph.facebook.com/oauth/authorize?client_id=575842165811798&amp;redirect_uri=${pageContext.request.getScheme()}://${pageContext.request.getServerName()}:${pageContext.request.getServerPort()}${pageContext.request.getContextPath()}/FBLogin/FBLoginTest&amp;scope=email,user_education_history,publish_actions&amp;display=popup&amp;response_type=token" target="_facebook">Student</a>
 
-<!--         <a class="btn btn-lg btn-success" href="<c:url value="/uni"/>">University</a>
-	        <a class="btn btn-lg btn-success" onclick="var gw=window.open('','_facebook','width=400,height=300,scrollbars=yes');gw.focus();" href="https://graph.facebook.com/oauth/authorize?client_id=575842165811798&amp;redirect_uri=http://localhost:8080/ces-1.0-SNAPSHOT/FBLogin/FBLoginTest&amp;scope=email,user_education_history,publish_actions,user_interests&amp;display=popup&amp;response_type=token" target="_facebook">Student</a>
->>>>>>> 44e8b3233dc3de9279dd2b049483409fd93fa7d0 -->	
+	
         </div>
       </div>
 

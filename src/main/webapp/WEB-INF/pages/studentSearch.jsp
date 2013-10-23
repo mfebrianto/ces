@@ -43,9 +43,7 @@
   	    var accessToken = response.authResponse.accessToken;
   	    console.log("Your Access Token : " + accessToken);
   	    
-  	    //window.location.href = "http://localhost:8080/ces-1.0-SNAPSHOT/FBLogin/"+accessToken;
-  	    //window.opener.location.href="http://localhost:8080/ces-1.0-SNAPSHOT/FBLogin/"+accessToken;
-  	    //self.close();
+  	    
   	  } else if (response.status === 'not_authorized') {
   	    // the user is logged in to Facebook, 
   	    // but has not authenticated your app

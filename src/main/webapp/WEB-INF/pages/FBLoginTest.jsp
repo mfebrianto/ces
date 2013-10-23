@@ -27,25 +27,24 @@
   	    var accessToken = response.authResponse.accessToken;
   	    console.log("Your Access Token : " + accessToken);
   	    
-  	    //window.location.href = accessToken;
-  	    //window.opener.location.href="http://localhost:8080/ces-1.0-SNAPSHOT/FBLogin/"+accessToken;
+  	    
   	  	$.ajax({
           type: 'POST',
-          url: 'http://localhost:8080/ces-1.0-SNAPSHOT/FBLogin/checkToken',
+          url: '/ces-1.0-SNAPSHOT/FBLogin/checkToken',
           contentType: 'application/octet-stream; charset=utf-8',
           success: function(result) {
             console.log(result);
             if(result == 'success'){
-            	window.opener.location.href="http://localhost:8080/ces-1.0-SNAPSHOT/student";
+            	window.opener.location.href="/ces-1.0-SNAPSHOT/student";
             	self.close();
             }else if(result == 'uni'){
             	alert('You need to logout from uni account first and login using student account')
-            	window.opener.location.href="http://localhost:8080/ces-1.0-SNAPSHOT/";
+            	window.opener.location.href="/ces-1.0-SNAPSHOT/";
             	self.close();
             }else{
             
             	alert(result);
-            	window.opener.location.href="http://localhost:8080/ces-1.0-SNAPSHOT/student";
+            	window.opener.location.href="/ces-1.0-SNAPSHOT/student";
             	self.close();
             }
             //helper.people();
@@ -60,6 +59,7 @@
   	  } else if (response.status === 'not_authorized') {
   	    // the user is logged in to Facebook, 
   	    // but has not authenticated your app
+  	    window.opener.location.href="/ces-1.0-SNAPSHOT/";
   	    self.close();
   		window.opener.alert("Application Not Yet Authorized");
   	    
