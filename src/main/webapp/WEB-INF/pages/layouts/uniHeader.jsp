@@ -36,7 +36,7 @@
             <li><a href="../navbar-fixed-top/">Fixed top</a></li> -->
             <li><a href="/ces-1.0-SNAPSHOT/uni">Home</a></li>
             <li><a href="/ces-1.0-SNAPSHOT/search">Search</a></li>
-            <li><a href="#" id="logout">Log out</a></li>
+            <li><a href="/ces-1.0-SNAPSHOT/FBLogin/logout">Logout</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
