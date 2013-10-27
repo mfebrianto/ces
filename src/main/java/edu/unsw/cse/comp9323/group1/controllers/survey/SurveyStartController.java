@@ -44,7 +44,7 @@ public class SurveyStartController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String getSurvey(@RequestParam("surveyId") int surveyId,
-			@RequestParam("studentId") int studentId,
+			@RequestParam("studentId") String studentId,
 			@RequestParam("courseName") String courseName, Model model) {
 
 		List<Question> allQuestions = new ArrayList<Question>();

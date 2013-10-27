@@ -6,7 +6,7 @@ public class QuestionListForm {
 	
 	private List<QuestionForm> questionForm;
 	private String courseName;
-	private int studentId;
+	private String studentId;
 	private int surveyId;
 
 	public List<QuestionForm> getQuestionForm() {
@@ -25,11 +25,11 @@ public class QuestionListForm {
 		this.courseName = courseName;
 	}
 
-	public int getStudentId() {
+	public String getStudentId() {
 		return studentId;
 	}
 
-	public void setStudentId(int studentId) {
+	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
 
