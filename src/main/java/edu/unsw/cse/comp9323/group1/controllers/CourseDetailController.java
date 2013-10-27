@@ -145,7 +145,10 @@ public class CourseDetailController {
 		model.addAttribute("allSurveys", returnSurveys);
 		model.addAttribute("course", course);
 		model.addAttribute("studentId", studentId);
+		model.addAttribute("url", "courseName=" + course.getName() + "&studentId=" + studentId);
 		return "courseDetail";
+		
+		
 	}
 
 }

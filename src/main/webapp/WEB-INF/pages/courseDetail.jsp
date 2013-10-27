@@ -274,7 +274,7 @@ if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document)
   			 onclick="
   				 FB.ui({
     				  method: 'feed',
-    				  link: '${pageContext.request.getScheme()}://${pageContext.request.getServerName()}:${pageContext.request.getServerPort()}${pageContext.request.getContextPath()}/courseDetail/${course.getId()}',
+    				  link: '${pageContext.request.getScheme()}://${pageContext.request.getServerName()}:${pageContext.request.getServerPort()}${pageContext.request.getContextPath()}/courseDetail?${url}',
     				  picture: 'http://www.unsw.edu.au/sites/default/files/UNSW.png',
     				  name: 'UNSW Open Courses',
     				  caption: '${course.getName()}',
@@ -284,7 +284,7 @@ if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document)
   				<img src="<c:url value="/resources/imgs/icon_fb.jpg"/>" border="0">
   				
 		</a>
-		<a href="https://twitter.com/share" class="twitter-share-button" data-url="${pageContext.request.getScheme()}://${pageContext.request.getServerName()}:${pageContext.request.getServerPort()}${pageContext.request.getContextPath()}/student" data-text="Hey, check out this cool Course Evaluation Website : ${pageContext.request.getScheme()}://${pageContext.request.getServerName()}:${pageContext.request.getServerPort()}${pageContext.request.getContextPath()}/courseDetail/${course.getId()}" data-count="none" data-via="Faridaji" data-lang="en">Tweet</a>
+		<a href="https://twitter.com/share" class="twitter-share-button" data-url="${pageContext.request.getScheme()}://${pageContext.request.getServerName()}:${pageContext.request.getServerPort()}${pageContext.request.getContextPath()}/courseDetail?${url}" data-text="Hey, check out this cool Course Evaluation Website : ${pageContext.request.getScheme()}://${pageContext.request.getServerName()}:${pageContext.request.getServerPort()}${pageContext.request.getContextPath()}/courseDetail?${url}" data-count="none" data-via="Faridaji" data-lang="en">Tweet</a>
 		
 		
 		<g:plus action="share"></g:plus>
@@ -296,8 +296,7 @@ if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document)
       				'facebook-share-dialog', 
       				'width=626,height=436'); 
     				return false; -->
-		
-		<div class="fb-comments" data-href="${pageContext.request.getScheme()}://${pageContext.request.getServerName()}:${pageContext.request.getServerPort()}${pageContext.request.getContextPath()}/courseDetail/${course.getId()}" data-width="470"></div>
+		<div class="fb-comments" data-href="${pageContext.request.getScheme()}://yoyo-sit.stg-tellafriend.com.au:${pageContext.request.getServerPort()}${pageContext.request.getContextPath()}/courseDetail?${url}" data-width="470"></div>
         
         </p>
       </div>		
